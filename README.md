@@ -1,2 +1,4 @@
 # clrs
-Java implementation of the algorithms from "Introduction to Algorithms" (3e) - Cormen, Leiserson, Rivest, &amp; Stein
+Java implementation of the algorithms from "Introduction to Algorithms" (3e) - Cormen, Leiserson, Rivest, & Stein
+
+Experimental attempt at implementationo using JavaSE-17
