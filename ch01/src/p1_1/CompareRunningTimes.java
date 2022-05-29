@@ -19,49 +19,49 @@ public class CompareRunningTimes {
 		// lg(n) time
 		System.out.print("lg(n)\t\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / ((Math.log(1E-6) / Math.log(2))));
+			System.out.format("%e\t\t", Math.floor(Math.pow(2, time * 1E6)));
 		System.out.print('\n');
 		
 		// sqrt(n) time
 		System.out.print("sqrt(n)\t\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / Math.sqrt(1E-6));
+			System.out.format("%e\t\t", Math.floor(Math.pow(time * 1E6, 2)));
 		System.out.print('\n');
 		
 		// linear time
 		System.out.print("n\t\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / 1E-6);
+			System.out.format("%e\t\t", Math.floor(time * 1E6));
 		System.out.print('\n');
 		
 		// n(lg(n)) time
 		System.out.print("n(lg(n))\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / (1E-6 * (Math.log(1E-6) / Math.log(2))));
+			System.out.format("%e\t\t", Math.floor((Math.log(time * 1E6) / Math.log(2)) / (time * 1E6)));
 		System.out.print('\n');
 		
 		// quadratic time
 		System.out.print("n^2\t\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / Math.pow(1E-6, 2));
+			System.out.format("%e\t\t", Math.floor(Math.pow(time * 1E6, 0.5)));
 		System.out.print('\n');
 		
 		// cubic time
 		System.out.print("n^3\t\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / Math.pow(1E-6, 3));
+			System.out.format("%e\t\t", Math.floor(Math.pow(time * 1E6, 1.0/3.0)));
 		System.out.print('\n');
 		
 		// 2^n time
 		System.out.print("2^n\t\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / Math.pow(2, 1E-6));
+			System.out.format("%e\t\t", Math.floor(((Math.log(time * 1E6) / Math.log(2)))));
 		System.out.print('\n');
 		
 		// n! time
 		System.out.print("n!\t\t");
 		for (double time : runtimes)
-			System.out.format("%.5e\t\t", time / factorial(1E-6));
+			System.out.format("%e\t\t", Math.floor(factorial(time * 1E6)));
 		System.out.print('\n');
 	}
 	
