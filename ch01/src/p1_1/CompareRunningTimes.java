@@ -1,6 +1,6 @@
-package p1_1;
+// Problem p1-1 from p.14 of CLRS 3e
 
-import java.lang.Math.*;
+package p1_1;
 
 public class CompareRunningTimes {
 	static double runtimes[] = {1.0, 6.0E1, 3.6E3, 8.64E4, 2.592E6, 3.1536E7, 3.1536E9};
