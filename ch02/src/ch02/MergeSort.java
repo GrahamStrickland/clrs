@@ -12,9 +12,9 @@ public class MergeSort {
 		L = new int[n1 + 1];
 		R = new int[n2 + 1];
 		
-		for (int i = 1; i < n1; i++)
+		for (int i = 0; i < n1; i++)
 			L[i] = A[p+i-1];
-		for (int j = 1; j < n2; j++)
+		for (int j = 0; j < n2; j++)
 			R[j] = A[q+j];
 		
 		L[n1] = Integer.MAX_VALUE;
@@ -33,7 +33,7 @@ public class MergeSort {
 		}
 	}
 	
-	// Merge-Sort procedure to recursively merge sub-arrays.
+	// Merge-Sort procedure to recursively merge subarrays.
 	public static void mergeSort(int[] A, int p, int r) {
 		if (p < r) {
 			int q = (p + r) / 2;
