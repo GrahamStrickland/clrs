@@ -51,7 +51,7 @@ public class MergeSort {
 			System.out.print(' ');
 		}
 		
-		mergeSort(A, 0, A.length);
+		mergeSort(A, 0, A.length-1);
 		
 		System.out.println("\n\nArray after Merge-Sort: ");
 		for (int i : A) {
