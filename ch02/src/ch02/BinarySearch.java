@@ -7,14 +7,14 @@ public class BinarySearch {
 	public static int binarySearch(int[] A, int nu) {
 		int low = 1, high = A.length - 1;
 		
-		while (low < high) {
-			int mid = (high + low) / 2;
-			if (nu == A[mid])
-				return mid;
-			else if (nu < A[mid])
-				high = mid - 1;
-			else
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			if (A[mid] < nu)
 				low = mid + 1;
+			else if (A[mid] == nu)
+				return mid;
+			else
+				high = mid - 1;
 		}
 		return -1;
 	}
