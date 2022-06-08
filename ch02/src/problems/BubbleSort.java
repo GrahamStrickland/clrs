@@ -1,6 +1,6 @@
 // Bubble-Sort algorithm from p.2-2 on pg. 40 of CLRS 3e
 
-package ch02;
+package problems;
 
 public class BubbleSort {
 	

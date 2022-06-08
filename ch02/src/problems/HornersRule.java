@@ -1,4 +1,4 @@
-package ch02;
+package problems;
 
 import java.io.BufferedReader;
 import java.io.IOException;

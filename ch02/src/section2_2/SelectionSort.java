@@ -1,6 +1,6 @@
 // Selection-Sort algorithm from ex2.2-2 p.29 of CLRS 3e
 
-package ch02;
+package section2_2;
 
 public class SelectionSort {
 	public static void selectionSort(int[] A) {

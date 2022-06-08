@@ -1,6 +1,6 @@
 // Linear-Search algorithm from ex2.1-3 p.22 of CLRS 3e
 
-package ch02;
+package section2_1;
 
 public class LinearSearch {
 	public static int linearSearch(int[] A, int nu) {

@@ -1,40 +1,34 @@
-// Merge-Sort algorithm without sentinel values from ex. 2.3-2 p.37 of CLRS 3e
-package ch02;
+// Merge-Sort algorithm from p.31-34 of CLRS 3e
 
-public class MergeSortNoSentinel {
+package section2_3;
+
+public class MergeSort {
 	
 	// Merge procedure to merge two sorted arrays.
 	public static void merge(int[] A, int p, int q, int r) {
 		int n1 = q - p + 1, n2 = r - q;
 		
 		int[] L, R;
-		L = new int[n1];
-		R = new int[n2];
+		L = new int[n1+1];
+		R = new int[n2+1];
 		
 		for (int i = 0; i < n1; i++)
 			L[i] = A[p+i];
 		for (int j = 0; j < n2; j++)
 			R[j] = A[q+j+1];
 		
+		L[n1] = Integer.MAX_VALUE;
+		R[n2] = Integer.MAX_VALUE;
+		
 		int i = 0, j = 0;
 		
 		for (int k = p; k <= r; k++) {
-			if (i < n1 && j < n2) {
-				if (L[i] <= R[j]) {
-					A[k] = L[i];
-					i++;
-				} else {
-					A[k] = R[j];
-					j++;
-				}
+			if (L[i] <= R[j]) {
+				A[k] = L[i];
+				i++;
 			} else {
-				if (i < n1) {
-					A[k] = L[i];
-					i++;
-				} else if (j < n2) {
-					A[k] = R[j];
-					j++;
-				}
+				A[k] = R[j];
+				j++;
 			}
 		}
 	}

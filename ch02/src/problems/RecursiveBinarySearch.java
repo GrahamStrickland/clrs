@@ -1,22 +1,19 @@
-// Binary-Search algorithm from ex. 2.3-5 from p.39 of CLRS 3e
+// Recursive-Binary-Search algorithm from ex. 2.3-5 from p.39 of CLRS 3e
 
-package ch02;
+package problems;
 
-public class BinarySearch {
-	
-	public static int binarySearch(int[] A, int nu) {
-		int low = 1, high = A.length - 1;
+public class RecursiveBinarySearch {
+	public static int binarySearch(int[] A, int nu, int low, int high) {
+		if (low > high)
+			return -1;
+		int mid = low + (high - low) / 2;
+		if (nu == A[mid])
+			return mid;
+		else if (nu > A[mid])
+			return binarySearch(A, nu, mid+1, high);
+		else
+			return binarySearch(A, nu, low, mid-1);
 		
-		while (low <= high) {
-			int mid = low + (high - low) / 2;
-			if (nu == A[mid])
-				return mid;
-			else if (nu > A[mid])
-				low = mid + 1;
-			else
-				high = mid - 1;
-		}
-		return -1;
 	}
 	
 	public static void testBinarySearch(int[] A, int nu) {
@@ -29,7 +26,7 @@ public class BinarySearch {
 		}
 		System.out.format("\nnu = %d\n", nu);
 		
-		System.out.format("Array does"+(binarySearch(A, nu)==-1?" not ":" ")+"contain %d.\n\n", nu);
+		System.out.format("Array does"+(binarySearch(A, nu, 0, A.length-1)==-1?" not ":" ")+"contain %d.\n\n", nu);
 	}
 	
 	public static void main(String[] args) {

@@ -1,14 +1,14 @@
-// Insertion-Sort algorithm from p. 18 of CLRS 3e
+// Insertion-Sort algorithm in non-increasing order from ex2.1-2 on p.22 of CLRS 3e
 
-package ch02;
+package section2_1;
 
-public class InsertionSort {
+public class InsertionSortReverse {
 	public static void insertionSort(int[] A) {
 		for (int j = 1; j < A.length; j++) {
 			int key = A[j];
 			// Insert A[j] into the sorted sequence A[1..j-1].
 			int i = j - 1;
-			while (i >= 0 && A[i] > key) {
+			while (i >= 0 && A[i] < key) {
 				A[i+1] = A[i];
 				i = i - 1;
 			}
