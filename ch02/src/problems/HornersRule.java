@@ -1,3 +1,4 @@
+// Horners-Rule algorithm from p.2-3 on pg. 41 of CLRS 3e
 package problems;
 
 import java.io.BufferedReader;
