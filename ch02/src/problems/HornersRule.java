@@ -2,6 +2,7 @@
 package problems;
 
 import java.io.BufferedReader;
+import java.util.Locale;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -55,9 +56,9 @@ public class HornersRule {
 			System.err.println("Invalid Format!");
 		}
 		
-		System.out.format("For f(x) = %f", coeffs[0]);
+		System.out.format(Locale.ENGLISH, "For f(x) = %f", coeffs[0]);
 		for (int i = 1; i < coeffs.length; i++)
-			System.out.format((coeffs[i] > 0.0 ? " + " : " ") + "%fx^%d", coeffs[i], i);
-		System.out.format(",\nResult f(%f) = %f", x, hornersRule(coeffs, x));
+			System.out.format(Locale.ENGLISH, (coeffs[i] > 0.0 ? " + " : " ") + "%fx^%d", coeffs[i], i);
+		System.out.format(Locale.ENGLISH, ",\nResult f(%f) = %f", x, hornersRule(coeffs, x));
 	}
 }

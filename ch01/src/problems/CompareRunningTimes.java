@@ -2,6 +2,8 @@
 
 package problems;
 
+import java.util.Locale;
+
 public class CompareRunningTimes {
 	static double runtimes[] = {1.0, 6.0E1, 3.6E3, 8.64E4, 2.592E6, 3.1536E7, 3.1536E9};
 	
@@ -19,49 +21,49 @@ public class CompareRunningTimes {
 		// lg(n) time
 		System.out.print("lg(n)\t\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor(Math.pow(2, time * 1E6)));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor(Math.pow(2, time * 1E6)));
 		System.out.print('\n');
 		
 		// sqrt(n) time
 		System.out.print("sqrt(n)\t\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor(Math.pow(time * 1E6, 2)));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor(Math.pow(time * 1E6, 2)));
 		System.out.print('\n');
 		
 		// linear time
 		System.out.print("n\t\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor(time * 1E6));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor(time * 1E6));
 		System.out.print('\n');
 		
 		// n(lg(n)) time
 		System.out.print("n(lg(n))\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor((Math.log(time * 1E6) / Math.log(2)) / (time * 1E6)));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor((Math.log(time * 1E6) / Math.log(2)) / (time * 1E6)));
 		System.out.print('\n');
 		
 		// quadratic time
 		System.out.print("n^2\t\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor(Math.pow(time * 1E6, 0.5)));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor(Math.pow(time * 1E6, 0.5)));
 		System.out.print('\n');
 		
 		// cubic time
 		System.out.print("n^3\t\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor(Math.pow(time * 1E6, 1.0/3.0)));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor(Math.pow(time * 1E6, 1.0/3.0)));
 		System.out.print('\n');
 		
 		// 2^n time
 		System.out.print("2^n\t\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor(((Math.log(time * 1E6) / Math.log(2)))));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor(((Math.log(time * 1E6) / Math.log(2)))));
 		System.out.print('\n');
 		
 		// n! time
 		System.out.print("n!\t\t");
 		for (double time : runtimes)
-			System.out.format("%e\t\t", Math.floor(factorial(time * 1E6)));
+			System.out.format(Locale.ENGLISH, "%e\t\t", Math.floor(factorial(time * 1E6)));
 		System.out.print('\n');
 	}
 	
