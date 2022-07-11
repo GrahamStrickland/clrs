@@ -25,7 +25,7 @@ public class BubbleSort {
 		}
 		
 		bubbleSort(A);
-		
+			
 		System.out.println("\n\nArray after Bubble-Sort: ");
 		for (int i : A) {
 			System.out.print(i);
