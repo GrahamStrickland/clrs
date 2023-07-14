@@ -1,12 +1,11 @@
 // Problem p1-1 from p.14 of CLRS 3e
 
-#include <iostream>
 #include <cmath>
-
+#include <iostream>
 
 double factorial(double n);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     double runtimes[] = {1.0, 6.0E1, 3.6E3, 8.64E4, 2.592E6, 3.1536E7, 3.1536E9};
 
     std::cout << "Comparison of running times for the largest problem size n "
