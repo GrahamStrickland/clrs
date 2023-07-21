@@ -39,7 +39,6 @@ int linearSearch(int A[], int len, int nu) {
 
 void testLinearSearch(int A[], int len, int nu) {
     std::cout << "Array values: ";
-    
     for (int i = 0; i < len; i++)
         std::cout << A[i] << ' ';
     std::cout << "\nnu = " << nu << "\n";
