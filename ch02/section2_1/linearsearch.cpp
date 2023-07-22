@@ -2,8 +2,8 @@
 
 #include <iostream> 
 
-int linearSearch(int A[], int len, int nu);
 void testLinearSearch(int A[], int len, int nu);
+int linearSearch(int A[], int len, int nu);
 
 int main(int argc, char *argv[]) {
     int A[] = {31, 41, 59, 26, 41, 58};
@@ -24,6 +24,17 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
 }
 
+void testLinearSearch(int A[], int len, int nu) {
+    std::cout << "Array values: ";
+    for (int i = 0; i < len; i++)
+        std::cout << A[i] << ' ';
+    std::cout << "\nnu = " << nu << "\n";
+    
+    std::cout << "Array does" 
+              << (linearSearch(A, len, nu) == -1 ? " not " : " ") 
+              << "contain " << nu << ".\n\n";
+}
+
 int linearSearch(int A[], int len, int nu) {
     int j = 0;
     
@@ -35,15 +46,4 @@ int linearSearch(int A[], int len, int nu) {
     }
 
     return -1;
-}
-
-void testLinearSearch(int A[], int len, int nu) {
-    std::cout << "Array values: ";
-    for (int i = 0; i < len; i++)
-        std::cout << A[i] << ' ';
-    std::cout << "\nnu = " << nu << "\n";
-    
-    std::cout << "Array does" 
-              << (linearSearch(A, len, nu) == -1 ? " not " : " ") 
-              << "contain " << nu << ".\n\n";
 }

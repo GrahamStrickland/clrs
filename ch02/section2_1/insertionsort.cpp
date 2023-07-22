@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-void insertionSort(int A[], int len);
 void testInsertionSort(int A[], int len);
+void insertionSort(int A[], int len);
 	
 int main(int argc, char* argv[]) {
     int A[] = {5, 2, 4, 6, 1, 3};
@@ -19,6 +19,19 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
 }
 
+void testInsertionSort(int A[], int len) {
+    std::cout << "Array before Insertion-Sort: ";
+    for (int i = 0; i < len; i++)
+        std::cout << A[i] << ' ';
+    
+    insertionSort(A, len);
+    
+    std::cout << "\n\nArray after Insertion-Sort: ";
+    for (int i = 0; i < len; i++)
+        std::cout << A[i] << ' ';
+    std::cout << "\n\n";
+}
+
 void insertionSort(int A[], int len) {
     for (int j = 1; j < len; j++) {
         int key = A[j];
@@ -31,17 +44,4 @@ void insertionSort(int A[], int len) {
         }
         A[i+1] = key;
     }
-}
-
-void testInsertionSort(int A[], int len) {
-    std::cout << "Array before Insertion-Sort: ";
-    for (int i = 0; i < len; i++)
-        std::cout << A[i] << ' ';
-    
-    insertionSort(A, len);
-    
-    std::cout << "\n\nArray after Insertion-Sort: ";
-    for (int i = 0; i < len; i++)
-        std::cout << A[i] << ' ';
-    std::cout << "\n\n";
 }

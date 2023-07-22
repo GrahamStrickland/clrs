@@ -16,7 +16,8 @@ int main(int argc, char *argv[]) {
     testBinarySearch(A, len, nu);
     
     int B[] = {1, 4, 5, 7, 19, 28, 45, 92};
-    nu = 1;
+    len = 8;
+    nu = 92;
     testBinarySearch(B, len, nu);
     
     nu = 101;
@@ -37,7 +38,7 @@ void testBinarySearch(int A[], int len, int nu) {
 }
 
 int binarySearch(int A[], int len, int nu) {
-    int low = 0, high = len;
+    int low = 0, high = len - 1;
     
     while (low <= high) {
         int mid = low + (high - low) / 2;
