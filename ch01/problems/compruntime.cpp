@@ -1,6 +1,7 @@
 // Problem p1-1 from p.14 of CLRS 3e
 
 #include <cmath>
+#include <iomanip>
 #include <iostream>
 
 double factorial(double n);
@@ -11,61 +12,62 @@ int main(int argc, char* argv[]) {
     std::cout << "Comparison of running times for the largest problem size n "
               << "of a problem that can be solved in time t, assuming that "
               << "the algorithm to solve the problem takes f(n) microseconds:\n\n"
-              << "------------------------------------------------------------"
-              << "------------------------------------------------------------"
-              << "----------------------------------------------------\nf(n)\t\t"
-              << "1 second\t\t1 minute\t\t1 hour\t\t\t1 day\t\t\t1 month\t\t\t"
-              << "1 year\t\t\t1 century\n-------------------------------------"
-              << "------------------------------------------------------------"
-              << "------------------------------------------------------------"
-              << "---------------\n";
+              << "---------------------------------------------------------------"
+              << "-----------------------------------------------------\n"
+              << "f(n)\t" << std::setw(12) << "1 second\t" << std::setw(12) 
+              << "1 minute\t" << std::setw(12) << "1 hour\t" << std::setw(12) 
+              << "1 day\t" << std::setw(12) << "1 month\t" << std::setw(12)
+              << "1 year\t" << std::setw(12) << "1 century\n"
+              << "---------------------------------------------------------------"
+              << "-----------------------------------------------------\n";
 
-    std::cout << "lg(n)\t\t";
+    std::cout << "lg(n)";
     for (double time : runtimes)
-        std::cout << time << "\t\t" << std::floor(std::pow(2, time * 1E6));
+        std::cout << "\t" << std::setw(12) << std::floor(std::pow(2, time * 1E6));
     std::cout << "\n";
     
-    std::cout << "sqrt(n)\t\t";
+    std::cout << "sqrt(n)";
     for (double time : runtimes)
-        std::cout << time << "\t\t" << std::floor(std::pow(time * 1E6, 2));
+        std::cout << "\t" << std::setw(12) << std::floor(std::pow(time * 1E6, 2));
     std::cout << "\n";
     
-    std::cout << "n\t\t";
+    std::cout << "n";
     for (double time : runtimes)
-        std::cout << time << "\t\t" << std::floor(time * 1E6);
+        std::cout << "\t" << std::setw(12) << std::floor(time * 1E6);
     std::cout << "\n";
     
-    std::cout << "n(lg(n))\t";
+    std::cout << "nlg(n)";
     for (double time : runtimes)
-        std::cout << time << "\t\t" 
+        std::cout << "\t" << std::setw(12) 
                   << std::floor(
                         (std::log(time * 1E6) / std::log(2)) / (time * 1E6)
         );
     std::cout << "\n";
     
-    std::cout << "n^2\t\t";
+    std::cout << "n^2";
     for (double time : runtimes)
-        std::cout << time << "\t\t" << std::floor(std::pow(time * 1E6, 0.5));
+        std::cout << "\t" << std::setw(12) 
+                  << std::floor(std::pow(time * 1E6, 0.5));
     std::cout << "\n";
     
-    std::cout << "n^3\t\t";
+    std::cout << "n^3";
     for (double time : runtimes)
-        std::cout << time << "\t\t" << std::floor(std::pow(time * 1E6, 1.0/3.0));
+        std::cout << "\t" << std::setw(12) 
+                  << std::floor(std::pow(time * 1E6, 1.0/3.0));
     std::cout << "\n";
     
-    std::cout << "2^n\t\t";
+    std::cout << "2^n";
     for (double time : runtimes)
-        std::cout << time << "\t\t" << std::floor(
+        std::cout << "\t" << std::setw(12) << std::floor(
                         ((std::log(time * 1E6) / std::log(2)))
         );
     std::cout << "\n";
     
-    std::cout << "n!\t\t";
+    std::cout << "n!";
     for (double time : runtimes)
-        std::cout << time << "\t\t" << std::floor(factorial(time * 1E6));
+        std::cout << "\t" << std::setw(12) << std::floor(factorial(time * 1E6));
 
-    std::cout << "\n---------------------------------------------------------"
-              << "-----------------------------------------------------------"
+    std::cout << "\n-----------------------------------------------------------"
               << "---------------------------------------------------------\n";
 
     return EXIT_SUCCESS;
