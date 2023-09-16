@@ -85,9 +85,14 @@ int* findMaximumSubarray(int A[], int low, int high) {
     maximumSubarray[1] = high;
     maximumSubarray[2] = A[low];
 
-    if (high == low)
+    if (high == low) {
+        delete [] leftSubarray;
+        delete [] rightSubarray;
+        delete [] crossSubarray;
+
         return maximumSubarray; // Base case: only one element
-    else {
+    } else {
+        delete [] maximumSubarray;
         int mid = (low + high) / 2;
 
         leftSubarray = findMaximumSubarray(A, low, mid);
