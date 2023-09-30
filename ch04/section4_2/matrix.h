@@ -1,14 +1,15 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-template <class T>
+template <typename T>
 class Matrix {
 public:
-    Matrix<class T>(int row, int col);
+    Matrix<T>(int row, int col);
+    ~Matrix<T>();
 
 private:
-    int row;
-    int col;
-    T* data;
+    int m_Rows;
+    int m_Cols;
+    T **m_Data;
 };
 #endif // MATRIX_H
