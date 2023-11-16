@@ -29,6 +29,11 @@ Matrix<T>::Matrix(const Matrix<T> &src) {
 }
 
 template <typename T>
+Matrix<T> Matrix<T>::operator =(T **src) {
+    // Implement assignment operator overload
+}
+
+template <typename T>
 Matrix<T>& Matrix<T>::operator =(const Matrix<T> &src) {
     if (this != &src && m_Rows == src.m_Rows && m_Cols == src.m_Cols)
         for (int row = 0; row < src.m_Rows; row++)
@@ -36,6 +41,21 @@ Matrix<T>& Matrix<T>::operator =(const Matrix<T> &src) {
                 m_Data[row][col] = src.m_Data[row][col];
 
     return *this;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::operator +(const Matrix<T> &src) const {
+    if (m_Rows == src.m_Rows && m_Cols == src.m_Cols) { 
+        Matrix<T> result(m_Rows, m_Cols);
+
+        for (int row = 0; row < m_Rows; row++)
+            for (int col = 0; col < m_Cols; col++)
+                result.m_Data[row][col] += src.m_Data[row][col];
+
+        return result;
+    } else {
+        throw new MatrixException("Invalid dimensions for operands passed to + operator"); 
+    }
 }
 
 template <typename T>
@@ -49,3 +69,4 @@ Matrix<T>::~Matrix() {
 template class Matrix<int>;
 template class Matrix<double>;
 template class Matrix<bool>;
+
