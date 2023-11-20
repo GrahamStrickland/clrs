@@ -29,8 +29,41 @@ Matrix<T>::Matrix(const Matrix<T> &src) {
 }
 
 template <typename T>
-Matrix<T> Matrix<T>::operator =(T **src) {
-    // Implement assignment operator overload
+Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>>& list) {
+    try {
+        m_Rows = static_cast<int>(list.size());
+        m_Cols = static_cast<int>(list[0].size());
+        m_Data = new T*[m_Rows];
+
+        for (int row = 0; row < m_Rows; row++)
+            m_Data[row] = new T[m_Cols];
+            for (int col = 0; col < m_Cols; col++)
+                m_Data[row][col] = src[row][col];
+    } catch (std::runtime_error e) {
+        throw new MatrixException(std::string("Invalid operand passed to constructor: ") 
+                + std::string(e.what()));
+    }
+}
+
+template <typename T>
+Matrix<T>::~Matrix() {
+    for (int row = 0; row < m_Rows; row++)
+        delete [] m_Data[row];
+    delete [] m_Data;
+}
+
+template <typename T>
+Matrix<T>& Matrix<T>::operator =(const std::initializer_list<std::initializer_list<T>>& list) {
+    try {
+        for (int row = 0; row < m_Rows; row++)
+            for (int col = 0; col < m_Cols; col++)
+                m_Data[row][col] = src[row][col];
+    } catch (std::runtime_error e) {
+        throw new MatrixException(std::string("Invalid operand passed to = operator: ") 
+                + std::string(e.what()));
+    }
+
+    return *this;
 }
 
 template <typename T>
@@ -56,13 +89,6 @@ Matrix<T> Matrix<T>::operator +(const Matrix<T> &src) const {
     } else {
         throw new MatrixException("Invalid dimensions for operands passed to + operator"); 
     }
-}
-
-template <typename T>
-Matrix<T>::~Matrix() {
-    for (int row = 0; row < m_Rows; row++)
-        delete [] m_Data[row];
-    delete [] m_Data;
 }
 
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
