@@ -15,8 +15,16 @@
 
 # VSCode files
 .DS_Store
+.vs
 *.code-workspace
 *.vscode
+
+# Visual Studio files
+CppProperties.json
+*.vcxproj
+*.vcxproj.*
+*.sln
+\x64
 
 # Eclipse files
 .classpath
@@ -25,6 +33,9 @@
 # CMake files
 cmake-build-debug/
 **/build
+
+# Natvis files
+*.natvis
 
 # Object files and debugging files
 *.o
@@ -38,3 +49,4 @@ $HOME
 
 # Apple files
 *.icloud
+
