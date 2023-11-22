@@ -29,16 +29,29 @@ Matrix<T>::Matrix(const Matrix<T> &src) {
 }
 
 template <typename T>
-Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>>& list) {
+Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &src) {
     try {
-        m_Rows = static_cast<int>(list.size());
-        m_Cols = static_cast<int>(list[0].size());
+        m_Rows = static_cast<int>(src.size());
+        m_Cols = 0;
         m_Data = new T*[m_Rows];
 
-        for (int row = 0; row < m_Rows; row++)
-            m_Data[row] = new T[m_Cols];
-            for (int col = 0; col < m_Cols; col++)
-                m_Data[row][col] = src[row][col];
+        int i = 0;
+
+        for (const auto& row : src) {
+            int j = 0;
+            if (i == 0)
+                m_Cols = static_cast<int>(row.size());
+            else if (m_Cols != static_cast<int>(row.size()))
+                throw new MatrixException("Invalid dimensions for operands passed to constructor");
+
+            m_Data[i] = new T[m_Cols];
+
+            for (const auto& element : row) {
+                m_Data[i][j] = element;
+                ++j;
+            }
+            ++i;
+        }
     } catch (std::runtime_error e) {
         throw new MatrixException(std::string("Invalid operand passed to constructor: ") 
                 + std::string(e.what()));
@@ -53,11 +66,19 @@ Matrix<T>::~Matrix() {
 }
 
 template <typename T>
-Matrix<T>& Matrix<T>::operator =(const std::initializer_list<std::initializer_list<T>>& list) {
+Matrix<T>& Matrix<T>::operator =(const std::initializer_list<std::initializer_list<T>> &src) {
     try {
-        for (int row = 0; row < m_Rows; row++)
-            for (int col = 0; col < m_Cols; col++)
-                m_Data[row][col] = src[row][col];
+        int i = 0;
+
+        for (const auto& row : src) {
+            int j = 0;
+
+            for (const auto& element : row) {
+                m_Data[i][j] = element;
+                ++j;
+            }
+            ++i;
+        }
     } catch (std::runtime_error e) {
         throw new MatrixException(std::string("Invalid operand passed to = operator: ") 
                 + std::string(e.what()));

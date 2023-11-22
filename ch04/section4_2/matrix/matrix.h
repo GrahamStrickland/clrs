@@ -1,7 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include <exception>
+#include <stdexcept>
 #include <string>
 
 template <typename T>
