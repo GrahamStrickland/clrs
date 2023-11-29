@@ -25,6 +25,10 @@ Matrix<T>::Matrix(const Matrix<T> &src) {
             for (int col = 0; col < src.m_Cols; col++)
                 m_Data[row][col] = src.m_Data[row][col];
         }
+    } else {
+        m_Rows = 0;
+        m_Cols = 0;
+        m_Data = nullptr;
     }
 }
 
@@ -37,20 +41,24 @@ Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &src) {
 
         int i = 0;
 
-        for (const auto& row : src) {
-            int j = 0;
-            if (i == 0)
-                m_Cols = static_cast<int>(row.size());
-            else if (m_Cols != static_cast<int>(row.size()))
-                throw new MatrixException("Invalid dimensions for operands passed to constructor");
+        for (const auto &row : src) {
+            if (i < m_Rows - 1) {
+                int j = 0;
+                if (i == 0)
+                    m_Cols = static_cast<int>(row.size());
+                else if (m_Cols != static_cast<int>(row.size()))
+                    throw new MatrixException("Invalid dimensions for operands passed to constructor");
 
-            m_Data[i] = new T[m_Cols];
+                m_Data[i] = new T[m_Cols];
 
-            for (const auto& element : row) {
-                m_Data[i][j] = element;
-                ++j;
+                for (const auto& element : row) {
+                    if (j < m_Cols - 1) {
+                        m_Data[i][j] = element;
+                        ++j;
+                    }
+                }
+                ++i;
             }
-            ++i;
         }
     } catch (std::runtime_error e) {
         throw new MatrixException(std::string("Invalid operand passed to constructor: ") 
@@ -70,10 +78,10 @@ Matrix<T>& Matrix<T>::operator =(const std::initializer_list<std::initializer_li
     try {
         int i = 0;
 
-        for (const auto& row : src) {
+        for (const auto &row : src) {
             int j = 0;
 
-            for (const auto& element : row) {
+            for (const auto &element : row) {
                 m_Data[i][j] = element;
                 ++j;
             }
