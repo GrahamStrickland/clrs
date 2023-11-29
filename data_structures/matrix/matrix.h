@@ -1,6 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <istream>
+#include <ostream>
 #include <stdexcept>
 #include <string>
 
@@ -15,6 +17,9 @@ public:
     Matrix<T>& operator =(const std::initializer_list<std::initializer_list<T>>& list);
     Matrix<T>& operator =(const Matrix<T> &src);
     Matrix<T> operator +(const Matrix<T> &src) const;
+
+    friend std::istream& operator >>(std::istream &ins, Matrix<T> &src);
+    friend std::ostream& operator <<(std::ostream &outs, const Matrix<T> &src);
 
 private:
     int m_Rows;
