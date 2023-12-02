@@ -32,4 +32,3 @@ struct MatrixException : public std::runtime_error {
             : std::runtime_error(message) { }
 };
 #endif // MATRIX_H
-

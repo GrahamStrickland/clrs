@@ -156,4 +156,3 @@ template class Matrix<std::complex<int>>;
 template class Matrix<std::complex<long>>;
 template class Matrix<std::complex<float>>;
 template class Matrix<std::complex<double>>;
-

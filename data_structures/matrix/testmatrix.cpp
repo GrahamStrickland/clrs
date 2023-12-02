@@ -37,4 +37,3 @@ void testAssignment(Matrix<T>& A, Matrix<T>& B) {
 
 	std::cout << "A + B = " << C << std::endl;
 }
-
