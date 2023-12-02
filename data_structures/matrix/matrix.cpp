@@ -138,7 +138,7 @@ std::ostream& operator <<(std::ostream &outs, const Matrix<T> &src) {
     for (int row = 0; row < src.m_Rows; row++) {
         outs << '[';
         for (int col = 0; col < src.m_Cols; col++) {
-            outs << (col == 0 ? '[' : ', ') << src.m_Data[row][col];
+            outs << (col == 0 ? "[" : ", ") << src.m_Data[row][col];
         }
         outs << "]\n";
     }
