@@ -79,7 +79,8 @@ Matrix<T>::~Matrix() {
 }
 
 template <typename T>
-Matrix<T>& Matrix<T>::operator =(const std::initializer_list<std::initializer_list<T>> &src) {
+Matrix<T>& Matrix<T>::operator =(
+    const std::initializer_list<std::initializer_list<T>> &src) {
     try {
         int i = 0;
 

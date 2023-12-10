@@ -14,7 +14,8 @@ public:
     Matrix<T>(const std::initializer_list<std::initializer_list<T>>& list);
     ~Matrix<T>();
 
-    Matrix<T>& operator =(const std::initializer_list<std::initializer_list<T>>& list);
+    Matrix<T>& operator =(
+            const std::initializer_list<std::initializer_list<T>>& list);
     Matrix<T>& operator =(const Matrix<T> &src);
     Matrix<T> operator +(const Matrix<T> &src) const;
 
