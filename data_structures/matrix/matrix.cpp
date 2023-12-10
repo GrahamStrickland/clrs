@@ -49,7 +49,9 @@ Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &src) {
                 if (i == 0)
                     m_Cols = static_cast<int>(row.size());
                 else if (m_Cols != static_cast<int>(row.size()))
-                    throw new MatrixException("Invalid dimensions for operands passed to constructor");
+                    throw new MatrixException(
+                        "Invalid dimensions for operands passed to constructor"
+                    );
 
                 m_Data[i] = new T[m_Cols];
 
@@ -63,8 +65,9 @@ Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &src) {
             }
         }
     } catch (std::runtime_error e) {
-        throw new MatrixException(std::string("Invalid operand passed to constructor: ") 
-                + std::string(e.what()));
+        throw new MatrixException(std::string(
+            "Invalid operand passed to constructor: "
+        ) + std::string(e.what()));
     }
 }
 
@@ -90,8 +93,9 @@ Matrix<T>& Matrix<T>::operator =(const std::initializer_list<std::initializer_li
             ++i;
         }
     } catch (std::runtime_error e) {
-        throw new MatrixException(std::string("Invalid operand passed to = operator: ") 
-                + std::string(e.what()));
+        throw new MatrixException(std::string(
+            "Invalid operand passed to = operator: "
+        ) + std::string(e.what()));
     }
 
     return *this;
@@ -118,7 +122,9 @@ Matrix<T> Matrix<T>::operator +(const Matrix<T> &src) const {
 
         return result;
     } else {
-        throw new MatrixException("Invalid dimensions for operands passed to + operator"); 
+        throw new MatrixException(
+            "Invalid dimensions for operands passed to + operator"
+        ); 
     }
 }
 
