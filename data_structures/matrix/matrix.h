@@ -19,8 +19,28 @@ public:
     Matrix<T>& operator =(const Matrix<T> &src);
     Matrix<T> operator +(const Matrix<T> &src) const;
 
-    friend std::istream& operator >>(std::istream &ins, Matrix<T> &src);
-    friend std::ostream& operator <<(std::ostream &outs, const Matrix<T> &src);
+    friend std::istream& operator >>(std::istream &ins, Matrix<T> &src) {
+        for (int row = 0; row < src.m_Rows; row++) {
+            for (int col = 0; col < src.m_Cols; col++) {
+                ins >> src.m_Data[row][col];
+            }
+        }
+
+        return ins;
+    }
+
+    friend std::ostream& operator <<(std::ostream &outs, const Matrix<T> &src) {
+        outs << "\n[";
+        for (int row = 0; row < src.m_Rows; row++) {
+            for (int col = 0; col < src.m_Cols; col++) {
+                outs << (col == 0 ? "[" : ", ") << src.m_Data[row][col];
+            }
+            outs << "]" << (row == src.m_Rows - 1 ? "" : ",\n");
+        }
+        outs << "]\n";
+
+        return outs;
+    }
 
 private:
     int m_Rows;

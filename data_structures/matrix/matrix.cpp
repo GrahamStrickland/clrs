@@ -54,7 +54,6 @@ Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &src) {
                     );
 
                 m_Data[i] = new T[m_Cols];
-
                 for (const auto& element : row) {
                     if (j < m_Cols - 1) {
                         m_Data[i][j] = element;
@@ -127,31 +126,6 @@ Matrix<T> Matrix<T>::operator +(const Matrix<T> &src) const {
             "Invalid dimensions for operands passed to + operator"
         ); 
     }
-}
-
-template <typename T>
-std::istream& operator >>(std::istream &ins, Matrix<T> &src) {
-    for (int row = 0; row < src.m_Rows; row++) {
-        for (int col = 0; col < src.m_Cols; col++) {
-            ins >> src.m_Data[row][col];
-        }
-    }
-
-	return ins; 
-}
-
-template <typename T>
-std::ostream& operator <<(std::ostream &outs, const Matrix<T> &src) {
-    for (int row = 0; row < src.m_Rows; row++) {
-        outs << '[';
-        for (int col = 0; col < src.m_Cols; col++) {
-            outs << (col == 0 ? "[" : ", ") << src.m_Data[row][col];
-        }
-        outs << "]\n";
-    }
-    outs << "]\n";
-
-    return outs;
 }
 
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
