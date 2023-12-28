@@ -22,7 +22,7 @@ public:
     friend std::istream& operator >>(std::istream &ins, Matrix<T> &src) {
         for (int row = 0; row < src.m_Rows; row++) {
             for (int col = 0; col < src.m_Cols; col++) {
-                ins >> src.m_Data[row][col];
+                src.m_Data[row][col] >> ins;
             }
         }
 
@@ -53,3 +53,4 @@ struct MatrixException : public std::runtime_error {
             : std::runtime_error(message) { }
 };
 #endif // MATRIX_H
+
