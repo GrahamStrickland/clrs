@@ -3,60 +3,60 @@
 #include <complex>
 
 template <typename T>
-Matrix<T>::Matrix(int rows, int cols) {
-    m_Rows = rows;
-    m_Cols = cols;
-    m_Data = new T*[rows];
+matrix<T>::matrix(int rows, int cols) {
+    m_rows = rows;
+    m_cols = cols;
+    m_data = new T*[rows];
 
     for (int row = 0; row < rows; row++) {
-        m_Data[row] = new T[cols];
+        m_data[row] = new T[cols];
         for (int col = 0; col < cols; col++)
-            m_Data[row][col] = 0;
+            m_data[row][col] = 0;
     }
 }
 
 template <typename T>
-Matrix<T>::Matrix(const Matrix<T> &src) {
+matrix<T>::matrix(const matrix<T> &src) {
     if (this != &src) {
-        m_Rows = src.m_Rows;
-        m_Cols = src.m_Cols;
-        m_Data = new T*[src.m_Rows];
+        m_rows = src.m_rows;
+        m_cols = src.m_cols;
+        m_data = new T*[src.m_rows];
 
-        for (int row = 0; row < src.m_Rows; row++) {
-            m_Data[row] = new T[src.m_Cols];
-            for (int col = 0; col < src.m_Cols; col++)
-                m_Data[row][col] = src.m_Data[row][col];
+        for (int row = 0; row < src.m_rows; row++) {
+            m_data[row] = new T[src.m_cols];
+            for (int col = 0; col < src.m_cols; col++)
+                m_data[row][col] = src.m_data[row][col];
         }
     } else {
-        m_Rows = 0;
-        m_Cols = 0;
-        m_Data = nullptr;
+        m_rows = 0;
+        m_cols = 0;
+        m_data = nullptr;
     }
 }
 
 template <typename T>
-Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &src) {
+matrix<T>::matrix(const std::initializer_list<std::initializer_list<T>> &src) {
     try {
-        m_Rows = static_cast<int>(src.size());
-        m_Cols = 0;
-        m_Data = new T*[m_Rows];
+        m_rows = static_cast<int>(src.size());
+        m_cols = 0;
+        m_data = new T*[m_rows];
 
         int i = 0;
 
         for (const auto &row : src) {
-            if (i < m_Rows - 1) {
+            if (i < m_rows - 1) {
                 int j = 0;
                 if (i == 0)
-                    m_Cols = static_cast<int>(row.size());
-                else if (m_Cols != static_cast<int>(row.size()))
-                    throw new MatrixException(
+                    m_cols = static_cast<int>(row.size());
+                else if (m_cols != static_cast<int>(row.size()))
+                    throw new matrix_exception(
                         "Invalid dimensions for operands passed to constructor"
                     );
 
-                m_Data[i] = new T[m_Cols];
+                m_data[i] = new T[m_cols];
                 for (const auto& element : row) {
-                    if (j < m_Cols - 1) {
-                        m_Data[i][j] = element;
+                    if (j < m_cols - 1) {
+                        m_data[i][j] = element;
                         ++j;
                     }
                 }
@@ -64,21 +64,21 @@ Matrix<T>::Matrix(const std::initializer_list<std::initializer_list<T>> &src) {
             }
         }
     } catch (std::runtime_error e) {
-        throw new MatrixException(std::string(
+        throw new matrix_exception(std::string(
             "Invalid operand passed to constructor: "
         ) + std::string(e.what()));
     }
 }
 
 template <typename T>
-Matrix<T>::~Matrix() {
-    for (int row = 0; row < m_Rows; row++)
-        delete [] m_Data[row];
-    delete [] m_Data;
+matrix<T>::~matrix() {
+    for (int row = 0; row < m_rows; row++)
+        delete [] m_data[row];
+    delete [] m_data;
 }
 
 template <typename T>
-Matrix<T>& Matrix<T>::operator =(
+matrix<T>& matrix<T>::operator =(
     const std::initializer_list<std::initializer_list<T>> &src) {
     try {
         int i = 0;
@@ -87,13 +87,13 @@ Matrix<T>& Matrix<T>::operator =(
             int j = 0;
 
             for (const auto &element : row) {
-                m_Data[i][j] = element;
+                m_data[i][j] = element;
                 ++j;
             }
             ++i;
         }
     } catch (std::runtime_error e) {
-        throw new MatrixException(std::string(
+        throw new matrix_exception(std::string(
             "Invalid operand passed to = operator: "
         ) + std::string(e.what()));
     }
@@ -102,39 +102,39 @@ Matrix<T>& Matrix<T>::operator =(
 }
 
 template <typename T>
-Matrix<T>& Matrix<T>::operator =(const Matrix<T> &src) {
-    if (this != &src && m_Rows == src.m_Rows && m_Cols == src.m_Cols)
-        for (int row = 0; row < src.m_Rows; row++)
-            for (int col = 0; col < src.m_Cols; col++)
-                m_Data[row][col] = src.m_Data[row][col];
+matrix<T>& matrix<T>::operator =(const matrix<T> &src) {
+    if (this != &src && m_rows == src.m_rows && m_cols == src.m_cols)
+        for (int row = 0; row < src.m_rows; row++)
+            for (int col = 0; col < src.m_cols; col++)
+                m_data[row][col] = src.m_data[row][col];
 
     return *this;
 }
 
 template <typename T>
-Matrix<T> Matrix<T>::operator +(const Matrix<T> &src) const {
-    if (m_Rows == src.m_Rows && m_Cols == src.m_Cols) { 
-        Matrix<T> result(m_Rows, m_Cols);
+matrix<T> matrix<T>::operator +(const matrix<T> &src) const {
+    if (m_rows == src.m_rows && m_cols == src.m_cols) { 
+        matrix<T> result(m_rows, m_cols);
 
-        for (int row = 0; row < m_Rows; row++)
-            for (int col = 0; col < m_Cols; col++)
-                result.m_Data[row][col] += src.m_Data[row][col];
+        for (int row = 0; row < m_rows; row++)
+            for (int col = 0; col < m_cols; col++)
+                result.m_data[row][col] += src.m_data[row][col];
 
         return result;
     } else {
-        throw new MatrixException(
+        throw new matrix_exception(
             "Invalid dimensions for operands passed to + operator"
         ); 
     }
 }
 
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
-template class Matrix<int>;
-template class Matrix<long>;
-template class Matrix<float>;
-template class Matrix<double>;
-template class Matrix<std::complex<int>>;
-template class Matrix<std::complex<long>>;
-template class Matrix<std::complex<float>>;
-template class Matrix<std::complex<double>>;
+template class matrix<int>;
+template class matrix<long>;
+template class matrix<float>;
+template class matrix<double>;
+template class matrix<std::complex<int>>;
+template class matrix<std::complex<long>>;
+template class matrix<std::complex<float>>;
+template class matrix<std::complex<double>>;
 
