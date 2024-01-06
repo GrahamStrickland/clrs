@@ -78,6 +78,19 @@ matrix<T>::~matrix() {
 }
 
 template <typename T>
+bool matrix<T>::operator ==(const matrix<T> &src) {
+    if (m_cols != src.m_cols || m_rows != src.m_rows)
+        return false;
+
+    for (int row = 0; row < m_rows; row++)
+        for (int col = 0; col < m_cols; col++)
+            if (m_data[row][col] != src.m_data[row][col])
+                return false;
+
+    return true;
+}
+
+template <typename T>
 matrix<T>& matrix<T>::operator =(
     const std::initializer_list<std::initializer_list<T>> &src) {
     try {

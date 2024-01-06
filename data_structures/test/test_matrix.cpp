@@ -6,41 +6,15 @@
 
 #include <iostream>
 
-BOOST_AUTO_TEST_CASE(testInit) {
-    Matrix<int> A(3, 3); 
+BOOST_AUTO_TEST_CASE(test_assignment_opp) {
+    matrix<int> A(3, 3); 
+    matrix<int> B(3, 3); 
+    
+    A = { { 1, 2, 3} , { 4, 5, 6}, { 7, 8, 9 } };
+    B = { { 1, 0, -1} , { 0, -1, -2}, { -1, -2, -3 } };
 
-    BOOST_TEST(A);
-}
+    A = B;
 
-BOOST_AUTO_TEST_CASE(testAssignment) {
-    Matrix<int> A(3, 3); 
-    A = { { 1, 4 }, { 4, -2} };
-
-    BOOST_TEST(A);
-
-    Matrix<int> B(3, 3);
-    B = A;
-
-    BOOST_TEST(B ==B == AA);
-}
-
-BOOST_AUTO_TEST_CASE(testOutput) {
-    Matrix<int> A(3, 3); 
-    A = { { 1, 4 }, { 4, -2} };
-
-	std::cout << "A = " << A << std::endl;
-
-    BOOST_TEST(A);
-}
-
-BOOST_AUTO_TEST_CASE(testAssignment) {
-    Matrix<int> A(3, 3); 
-    Matrix<int> B(3, 3); 
-    A = { { 1, 4 }, { 4, -2} };
-    B = { { 0, -1 }, { 2, 15} };
-
-    Matrix<int> C = A + B;
-
-    BOOST_TEST(C);
+    BOOST_TEST(A == B);
 }
 
