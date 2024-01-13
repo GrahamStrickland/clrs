@@ -16,6 +16,6 @@ BOOST_AUTO_TEST_CASE(test_constructors) {
 
     A = B;
 
-    BOOST_TEST(true);
+    BOOST_TEST(A == B);
 }
 
