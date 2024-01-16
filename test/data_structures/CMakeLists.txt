@@ -10,7 +10,7 @@ set(HEADER FILES
 
 set(SOURCES 
     ../../src/data_structures/matrix.cpp
-    test_matrix.cpp
+    matrix_test.cpp
 )
 
 add_executable(matrix_test ${SOURCES})
