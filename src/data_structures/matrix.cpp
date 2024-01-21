@@ -104,7 +104,9 @@ matrix<T>& matrix<T>::operator =(
                 ++j;
             }
             ++i;
+            m_cols = j;
         }
+        m_rows = i;
     } catch (std::runtime_error e) {
         throw new matrix_exception(std::string(
             "Invalid operand passed to = operator: "
@@ -131,7 +133,7 @@ matrix<T> matrix<T>::operator +(const matrix<T> &src) const {
 
         for (int row = 0; row < m_rows; row++)
             for (int col = 0; col < m_cols; col++)
-                result.m_data[row][col] += src.m_data[row][col];
+                result.m_data[row][col] = m_data[row][col] + src.m_data[row][col];
 
         return result;
     } else {
