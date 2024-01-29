@@ -19,6 +19,7 @@ public:
             const std::initializer_list<std::initializer_list<T>>& list);
     matrix<T>& operator =(const matrix<T> &src);
     matrix<T> operator +(const matrix<T> &src) const;
+    matrix<T> operator -(const matrix<T> &src) const;
 
     friend std::ostream& operator <<(std::ostream &outs, const matrix<T> &src) {
         outs << "\n[";

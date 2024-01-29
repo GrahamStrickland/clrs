@@ -143,6 +143,23 @@ matrix<T> matrix<T>::operator +(const matrix<T> &src) const {
     }
 }
 
+template <typename T>
+matrix<T> matrix<T>::operator -(const matrix<T> &src) const {
+    if (m_rows == src.m_rows && m_cols == src.m_cols) { 
+        matrix<T> result(m_rows, m_cols);
+
+        for (int row = 0; row < m_rows; row++)
+            for (int col = 0; col < m_cols; col++)
+                result.m_data[row][col] = m_data[row][col] - src.m_data[row][col];
+
+        return result;
+    } else {
+        throw new matrix_exception(
+            "Invalid dimensions for operands passed to - operator"
+        ); 
+    }
+}
+
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
 template class matrix<int>;
 template class matrix<long>;
