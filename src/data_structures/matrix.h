@@ -44,4 +44,3 @@ struct matrix_exception : public std::runtime_error {
             : std::runtime_error(message) { }
 };
 #endif // MATRIX_H
-

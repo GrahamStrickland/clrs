@@ -152,4 +152,3 @@ template class matrix<std::complex<int>>;
 template class matrix<std::complex<long>>;
 template class matrix<std::complex<float>>;
 template class matrix<std::complex<double>>;
-

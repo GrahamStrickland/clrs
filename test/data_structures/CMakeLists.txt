@@ -21,4 +21,3 @@ add_executable(matrix_test ${SOURCES})
 target_include_directories(matrix_test PRIVATE ${BOOST_INCLUDE_DIRS})
 
 add_test(NAME test_constructors COMMAND matrix_test)
-

@@ -28,10 +28,10 @@ public:
 
     void test_add_op() {
         matrix<int> A(3, 3), B(3, 3);
-
         A = { { 1, 2, 3 } , { 4, 5, 6 }, { 7, 8, 9 } };
+        B = { { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } };
 
-        BOOST_ASSERT(A + A == matrix<int>({ { 2, 4, 6 }, { 8, 10, 12 }, { 14, 16, 18 } }));
+        BOOST_ASSERT((A + A) == B);
     }
 };
 
@@ -47,4 +47,3 @@ boost::unit_test::test_suite* init_unit_test_suite(int /*argc*/, char* /*argv*/[
 
     return EXIT_SUCCESS;
 }
-
