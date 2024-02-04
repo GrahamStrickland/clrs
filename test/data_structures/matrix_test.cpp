@@ -43,6 +43,15 @@ public:
 
         BOOST_ASSERT(A - B == C);
     }
+
+    void test_mul_op() {
+        matrix<int> A(3, 3), B(3, 3), C(3, 3);
+        A = { { 1, 2, 3 } , { 4, 5, 6 }, { 7, 8, 9 } };
+        B = { { 1, -1, 1 }, { -1, 1, -1 }, { 1, -1, 1 } };
+        C = { { 2, -2, 2 }, { 5, -5, 5 }, { 8, -8, 8 } };
+
+        BOOST_ASSERT(A * B == C);
+    }
 };
 
 boost::unit_test::test_suite* init_unit_test_suite(int /*argc*/, char* /*argv*/[]) {
@@ -56,6 +65,8 @@ boost::unit_test::test_suite* init_unit_test_suite(int /*argc*/, char* /*argv*/[
         .add(BOOST_TEST_CASE(boost::bind(&matrix_test::test_add_op, tester)));
     boost::unit_test::framework::master_test_suite()
         .add(BOOST_TEST_CASE(boost::bind(&matrix_test::test_sub_op, tester)));
+    boost::unit_test::framework::master_test_suite()
+        .add(BOOST_TEST_CASE(boost::bind(&matrix_test::test_mul_op, tester)));
 
     return EXIT_SUCCESS;
 }

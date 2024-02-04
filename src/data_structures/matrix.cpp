@@ -160,6 +160,28 @@ matrix<T> matrix<T>::operator -(const matrix<T> &src) const {
     }
 }
 
+template <typename T>
+matrix<T> matrix<T>::operator *(const matrix<T> &src) const {
+    if (m_cols == src.m_rows) { 
+        matrix<T> result(m_cols, src.m_rows);
+
+        for (int row = 0; row < result.m_rows; row++) {
+            for (int col = 0; col < result.m_cols; col++) {
+                result.m_data[row][col] = 0;
+
+                for (int i = 0; i < m_rows; i++)
+                    result.m_data[row][col] += m_data[row][i] * src.m_data[i][col];
+            }
+        }
+
+        return result;
+    } else {
+        throw new matrix_exception(
+            "Invalid dimensions for operands passed to * operator"
+        ); 
+    }
+}
+
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
 template class matrix<int>;
 template class matrix<long>;
