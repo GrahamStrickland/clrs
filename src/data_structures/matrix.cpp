@@ -169,8 +169,8 @@ matrix<T> matrix<T>::operator *(const matrix<T> &src) const {
             for (int col = 0; col < result.m_cols; col++) {
                 result.m_data[row][col] = 0;
 
-                for (int i = 0; i < m_rows; i++)
-                    result.m_data[row][col] += m_data[row][i] * src.m_data[i][col];
+                for (int i = 0; i < m_cols; i++)
+                    result.m_data[row][col] += m_data[i][col] * src.m_data[row][i];
             }
         }
 
