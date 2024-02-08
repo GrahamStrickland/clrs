@@ -65,6 +65,11 @@ public:
         A = { { 1, 2, 3 } , { 4, 5, 6 }, { 7, 8, 9 } };
 
         BOOST_ASSERT(A.tr() == 15);
+
+        matrix<double> B(2, 3);
+        B = { { .25, .75, 1.25 } , { .5, 1., 1.5 } };
+
+        BOOST_CHECK_THROW(B.tr(), matrix_exception);
     }
 };
 
