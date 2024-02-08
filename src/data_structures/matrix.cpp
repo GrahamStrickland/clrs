@@ -163,14 +163,14 @@ matrix<T> matrix<T>::operator -(const matrix<T> &src) const {
 template <typename T>
 matrix<T> matrix<T>::operator *(const matrix<T> &src) const {
     if (m_cols == src.m_rows) { 
-        matrix<T> result(m_cols, src.m_rows);
+        matrix<T> result(m_rows, src.m_cols);
 
         for (int row = 0; row < result.m_rows; row++) {
             for (int col = 0; col < result.m_cols; col++) {
                 result.m_data[row][col] = 0;
 
                 for (int i = 0; i < m_cols; i++)
-                    result.m_data[row][col] += m_data[i][col] * src.m_data[row][i];
+                    result.m_data[row][col] += m_data[row][i] * src.m_data[i][col];
             }
         }
 
