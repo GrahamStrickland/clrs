@@ -182,6 +182,22 @@ matrix<T> matrix<T>::operator *(const matrix<T> &src) const {
     }
 }
 
+template <typename T>
+T matrix<T>::tr() {
+    T tr = static_cast<T>(0);
+
+    if (m_rows == m_cols) {
+        for (int i = 0; i < m_rows; i++)
+            tr += m_data[i][i];
+
+        return tr;
+    } else {
+        throw new matrix_exception(
+            "Invalid dimensions, only valid for square matrices"
+        ); 
+    } 
+}
+
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
 template class matrix<int>;
 template class matrix<long>;

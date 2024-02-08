@@ -59,6 +59,13 @@ public:
 
         BOOST_ASSERT(D * E == F);
     }
+
+    void test_tr() {
+        matrix<int> A(3, 3);
+        A = { { 1, 2, 3 } , { 4, 5, 6 }, { 7, 8, 9 } };
+
+        BOOST_ASSERT(A.tr() == 15);
+    }
 };
 
 boost::unit_test::test_suite* init_unit_test_suite(int /*argc*/, char* /*argv*/[]) {
@@ -74,6 +81,8 @@ boost::unit_test::test_suite* init_unit_test_suite(int /*argc*/, char* /*argv*/[
         .add(BOOST_TEST_CASE(boost::bind(&matrix_test::test_sub_op, tester)));
     boost::unit_test::framework::master_test_suite()
         .add(BOOST_TEST_CASE(boost::bind(&matrix_test::test_mul_op, tester)));
+    boost::unit_test::framework::master_test_suite()
+        .add(BOOST_TEST_CASE(boost::bind(&matrix_test::test_tr, tester)));
 
     return EXIT_SUCCESS;
 }

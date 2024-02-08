@@ -22,6 +22,8 @@ public:
     matrix<T> operator -(const matrix<T> &src) const;
     matrix<T> operator *(const matrix<T> &src) const;
 
+    T tr();
+
     friend std::ostream& operator <<(std::ostream &outs, const matrix<T> &src) {
         outs << "\n[";
         for (int row = 0; row < src.m_rows; row++) {
