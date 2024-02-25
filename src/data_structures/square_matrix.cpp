@@ -3,9 +3,7 @@
 #include <complex>
 
 template <typename T>
-square_matrix<T>::square_matrix(int n) : matrix<T>(n, n) {
-    // Deliberately blank
-}
+square_matrix<T>::square_matrix(int n) : matrix<T>(n, n) { }
 
 template <typename T>
 square_matrix<T>::square_matrix(const square_matrix<T> &src) : matrix<T>(src) {
@@ -28,6 +26,23 @@ square_matrix<T>::square_matrix(const std::initializer_list<std::initializer_lis
                 "Invalid dimensions, number of columns must equal number of rows"
             ); 
     }
+}
+
+template <typename T>
+square_matrix<T>::~square_matrix() { }
+
+
+template <typename T>
+square_matrix<T>& square_matrix<T>::operator =( 
+    const std::initializer_list<std::initializer_list<T>> &src) { 
+    *this = src;
+    return *this;
+}
+
+template <typename T>
+square_matrix<T>& square_matrix<T>::operator =(const square_matrix<T> &src) { 
+    *this = src;
+    return *this;
 }
 
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation

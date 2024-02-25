@@ -9,7 +9,11 @@ public:
     square_matrix<T>(int n);
     square_matrix<T>(const square_matrix<T> &src);
     square_matrix<T>(const std::initializer_list<std::initializer_list<T>> &src); 
+    ~square_matrix<T>();
 
+    square_matrix<T>& operator =(
+            const std::initializer_list<std::initializer_list<T>>& list);
+    square_matrix<T>& operator =(const square_matrix<T> &src);
 private:
     int m_rows;
     int m_cols;
