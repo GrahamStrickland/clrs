@@ -6,7 +6,7 @@
 template <typename T>
 class square_matrix: public matrix<T> {
 public:
-    square_matrix<T>(int n);
+    square_matrix<T>(uint8_t n);
     square_matrix<T>(const square_matrix<T> &src);
     square_matrix<T>(const std::initializer_list<std::initializer_list<T>> &src); 
     ~square_matrix<T>();

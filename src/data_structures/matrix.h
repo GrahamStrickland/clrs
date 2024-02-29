@@ -9,7 +9,7 @@
 template <typename T>
 class matrix {
 public:
-    matrix<T>(int row, int col);
+    matrix<T>(uint8_t row, uint8_t col);
     matrix<T>(const matrix<T> &src);
     matrix<T>(const std::initializer_list<std::initializer_list<T>> &src);
     ~matrix<T>();
@@ -22,12 +22,13 @@ public:
     matrix<T> operator -(const matrix<T> &src) const;
     matrix<T> operator *(const matrix<T> &src) const;
 
+    T* operator [](uint8_t index);
     T tr();
 
     friend std::ostream& operator <<(std::ostream &outs, const matrix<T> &src) {
         outs << "\n[";
-        for (int row = 0; row < src.m_rows; row++) {
-            for (int col = 0; col < src.m_cols; col++) {
+        for (uint8_t row = 0; row < src.m_rows; row++) {
+            for (uint8_t col = 0; col < src.m_cols; col++) {
                 outs << (col == 0 ? "[" : ", ") << src.m_data[row][col];
             }
             outs << "]" << (row == src.m_rows - 1 ? "" : ",\n");
@@ -38,8 +39,8 @@ public:
     }
 
 protected:
-    int m_rows;
-    int m_cols;
+    uint8_t m_rows;
+    uint8_t m_cols;
     T **m_data;
 };
 

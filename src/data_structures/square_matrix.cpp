@@ -3,7 +3,7 @@
 #include <complex>
 
 template <typename T>
-square_matrix<T>::square_matrix(int n) : matrix<T>(n, n) { }
+square_matrix<T>::square_matrix(uint8_t n) : matrix<T>(n, n) { }
 
 template <typename T>
 square_matrix<T>::square_matrix(const square_matrix<T> &src) : matrix<T>(src) { }
@@ -31,14 +31,14 @@ square_matrix<T>& square_matrix<T>::operator =(const square_matrix<T> &src) {
 
 template <typename T>
 square_matrix<T> square_matrix<T>::operator *(const square_matrix<T> &src) const {
-    int n = matrix<T>::m_rows;
+    uint8_t n = matrix<T>::m_rows;
     square_matrix<T> result(n);
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    for (uint8_t i = 0; i < n; i++) {
+        for (uint8_t j = 0; j < n; j++) {
             result.m_data[i][j] = 0;
 
-            for (int k = 0; k < n; k++)
+            for (uint8_t k = 0; k < n; k++)
                 result.m_data[i][j] = result.m_data[i][j] + matrix<T>::m_data[i][k] * src.m_data[k][j];
         }
     }
