@@ -6,27 +6,11 @@ template <typename T>
 square_matrix<T>::square_matrix(int n) : matrix<T>(n, n) { }
 
 template <typename T>
-square_matrix<T>::square_matrix(const square_matrix<T> &src) : matrix<T>(src) {
-    if (src.m_rows != src.m_cols)
-        throw new matrix_exception(
-            "Invalid dimensions, number of columns must equal number of rows"
-        ); 
-}
+square_matrix<T>::square_matrix(const square_matrix<T> &src) : matrix<T>(src) { }
 
 template <typename T>
 square_matrix<T>::square_matrix(const std::initializer_list<std::initializer_list<T>> &src) 
-        : matrix<T>(src) {
-    m_rows = static_cast<int>(src.size());
-
-    for (const auto &row : src) {
-        m_cols = static_cast<int>(row.size());
-        
-        if (m_rows != m_cols)
-            throw new matrix_exception(
-                "Invalid dimensions, number of columns must equal number of rows"
-            ); 
-    }
-}
+        : matrix<T>(src) { }
 
 template <typename T>
 square_matrix<T>::~square_matrix() { }
@@ -35,13 +19,13 @@ square_matrix<T>::~square_matrix() { }
 template <typename T>
 square_matrix<T>& square_matrix<T>::operator =( 
     const std::initializer_list<std::initializer_list<T>> &src) { 
-    *this = src;
+    matrix<T>::operator=(src);
     return *this;
 }
 
 template <typename T>
 square_matrix<T>& square_matrix<T>::operator =(const square_matrix<T> &src) { 
-    *this = src;
+    matrix<T>::operator=(src);
     return *this;
 }
 

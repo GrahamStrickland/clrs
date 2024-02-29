@@ -11,12 +11,12 @@ class matrix {
 public:
     matrix<T>(int row, int col);
     matrix<T>(const matrix<T> &src);
-    matrix<T>(const std::initializer_list<std::initializer_list<T>>& list);
+    matrix<T>(const std::initializer_list<std::initializer_list<T>> &src);
     ~matrix<T>();
 
     bool operator ==(const matrix<T> &src);
     matrix<T>& operator =(
-            const std::initializer_list<std::initializer_list<T>>& list);
+            const std::initializer_list<std::initializer_list<T>> &src);
     matrix<T>& operator =(const matrix<T> &src);
     matrix<T> operator +(const matrix<T> &src) const;
     matrix<T> operator -(const matrix<T> &src) const;
