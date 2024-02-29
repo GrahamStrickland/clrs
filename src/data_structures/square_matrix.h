@@ -14,8 +14,6 @@ public:
     square_matrix<T>& operator =(
             const std::initializer_list<std::initializer_list<T>> &src);
     square_matrix<T>& operator =(const square_matrix<T> &src);
-private:
-    int m_rows;
-    int m_cols;
+    square_matrix<T> operator *(const square_matrix<T> &src) const;
 };
 #endif // SQUARE_MATRIX_H

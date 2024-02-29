@@ -37,7 +37,7 @@ public:
         return outs;
     }
 
-private:
+protected:
     int m_rows;
     int m_cols;
     T **m_data;

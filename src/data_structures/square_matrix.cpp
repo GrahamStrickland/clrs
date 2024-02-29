@@ -29,6 +29,23 @@ square_matrix<T>& square_matrix<T>::operator =(const square_matrix<T> &src) {
     return *this;
 }
 
+template <typename T>
+square_matrix<T> square_matrix<T>::operator *(const square_matrix<T> &src) const {
+    int n = matrix<T>::m_rows;
+    square_matrix<T> result(n);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            result.m_data[i][j] = 0;
+
+            for (int k = 0; k < n; k++)
+                result.m_data[i][j] = result.m_data[i][j] + matrix<T>::m_data[i][k] * src.m_data[k][j];
+        }
+    }
+
+    return result;
+}
+
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
 template class square_matrix<int>;
 template class square_matrix<long>;
