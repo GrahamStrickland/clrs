@@ -117,6 +117,14 @@ public:
         C = { { 2, -2, 2 }, { 5, -5, 5 }, { 8, -8, 8 } };
 
         BOOST_ASSERT(A * B == C);
+
+        square_matrix<int> D(2), E(2), F(2);
+
+        A = { { 1, 3 }, { 7, 5 } };
+        B = { { 6, 8 }, { 4, 2 } };
+        C = { { 14, 14}, { 62, 66 } };
+
+        BOOST_ASSERT(D * E == F);
     }
 
     void test_tr() {
