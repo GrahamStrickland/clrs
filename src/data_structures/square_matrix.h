@@ -21,5 +21,6 @@ private:
     square_matrix<T> square_matrix_multiply(const square_matrix<T> &src) const;
     square_matrix<T> square_matrix_multiply_recursive(const square_matrix<T> &src)
         const;
+    void assign(uint8_t m, uint8_t n, const square_matrix<T> &src);
 };
 #endif // SQUARE_MATRIX_H

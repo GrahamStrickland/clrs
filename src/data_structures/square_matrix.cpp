@@ -90,14 +90,14 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
     if (n == 1) {
         result.m_data[0][0] = matrix<T>::m_data[0][0] * src.m_data[0][0];
     } else {
-        result(0, 0) = square_matrix_multiply_recursive((*this)(0, 0), src(0, 0)) + 
-            square_matrix_multiply_recursive((*this)(0, 1), src(1, 0));
-        result(0, 1) = square_matrix_multiply_recursive((*this)(0, 0), src(0, 1)) + 
-            square_matrix_multiply_recursive((*this)(0, 1), src(1, 1));
-        result(1, 0) = square_matrix_multiply_recursive((*this)(1, 0), src(0, 0)) + 
-            square_matrix_multiply_recursive((*this)(1, 1), src(1, 0));
-        result(1, 1) = square_matrix_multiply_recursive((*this)(1, 0), src(0, 1)) + 
-            square_matrix_multiply_recursive((*this)(1, 1), src(1, 1));
+        result.assign(0, 0, (*this)(0, 0).square_matrix_multiply_recursive(src(0, 0)) + 
+            (*this)(0, 1).square_matrix_multiply_recursive(src(1, 0)));
+        result.assign(0, 1, (*this)(0, 0).square_matrix_multiply_recursive(src(0, 1)) + 
+            (*this)(0, 1).square_matrix_multiply_recursive(src(1, 1)));
+        result.assign(1, 0, (*this)(1, 0).square_matrix_multiply_recursive(src(0, 0)) + 
+            (*this)(1, 1).square_matrix_multiply_recursive(src(1, 0)));
+        result.assign(1, 1, (*this)(1, 0).square_matrix_multiply_recursive(src(0, 1)) + 
+            (*this)(1, 1).square_matrix_multiply_recursive(src(1, 1)));
     }
 
     return result;
