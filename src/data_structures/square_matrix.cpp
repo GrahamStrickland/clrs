@@ -90,17 +90,34 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
     if (n == 1) {
         result.m_data[0][0] = matrix<T>::m_data[0][0] * src.m_data[0][0];
     } else {
-        result.assign(0, 0, (*this)(0, 0).square_matrix_multiply_recursive(src(0, 0)) + 
-            (*this)(0, 1).square_matrix_multiply_recursive(src(1, 0)));
-        result.assign(0, 1, (*this)(0, 0).square_matrix_multiply_recursive(src(0, 1)) + 
-            (*this)(0, 1).square_matrix_multiply_recursive(src(1, 1)));
-        result.assign(1, 0, (*this)(1, 0).square_matrix_multiply_recursive(src(0, 0)) + 
-            (*this)(1, 1).square_matrix_multiply_recursive(src(1, 0)));
-        result.assign(1, 1, (*this)(1, 0).square_matrix_multiply_recursive(src(0, 1)) + 
-            (*this)(1, 1).square_matrix_multiply_recursive(src(1, 1)));
+        square_matrix<T> a11 = (*this)(0, 0);
+        square_matrix<T> a12 = (*this)(0, 1);
+        square_matrix<T> a21 = (*this)(1, 0);
+        square_matrix<T> a22 = (*this)(1, 1);
+
+        square_matrix<T> b11 = src(0, 0);
+        square_matrix<T> b12 = src(0, 1);
+        square_matrix<T> b21 = src(1, 0);
+        square_matrix<T> b22 = src(1, 1);
+
+        result.assign(0, 0, (a11.square_matrix_multiply_recursive(b11)) + 
+            (a12.square_matrix_multiply_recursive(b21)));
+        result.assign(0, 1, (a11.square_matrix_multiply_recursive(b12)) + 
+            (a12.square_matrix_multiply_recursive(b22)));
+        result.assign(1, 0, (a21.square_matrix_multiply_recursive(b11)) + 
+            (a22.square_matrix_multiply_recursive(b21)));
+        result.assign(1, 1, (a21.square_matrix_multiply_recursive(b12)) + 
+            (a22.square_matrix_multiply_recursive(b22)));
     }
 
     return result;
+}
+
+template <typename T>
+void square_matrix<T>::assign(uint8_t m, uint8_t n, const square_matrix<T> &src) {
+    for (uint8_t i = m; i < m + matrix<T>::m_rows / 2; i++)
+        for (uint8_t i = n; i < n + matrix<T>::m_cols / 2; i++)
+            matrix<T>::m_data[i][j] = src.m_data[m%i][n%j];
 }
 
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
