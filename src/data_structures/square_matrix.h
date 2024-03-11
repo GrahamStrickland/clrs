@@ -14,6 +14,8 @@ public:
     square_matrix<T>& operator =(
             const std::initializer_list<std::initializer_list<T>> &src);
     square_matrix<T>& operator =(const square_matrix<T> &src);
+    square_matrix<T> operator +(const square_matrix<T> &src) const;
+    square_matrix<T> operator -(const square_matrix<T> &src) const;
     square_matrix<T> operator *(const square_matrix<T> &src) const;
     square_matrix<T> operator ()(uint8_t m, uint8_t n) const;
 
