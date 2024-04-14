@@ -7,6 +7,9 @@ template <typename T>
 square_matrix<T>::square_matrix(uint8_t n) : matrix<T>(n, n) { }
 
 template <typename T>
+square_matrix<T>::square_matrix(const matrix<T> &src) : matrix<T>(src) { }
+
+template <typename T>
 square_matrix<T>::square_matrix(const square_matrix<T> &src) : matrix<T>(src) { }
 
 template <typename T>
@@ -15,7 +18,6 @@ square_matrix<T>::square_matrix(const std::initializer_list<std::initializer_lis
 
 template <typename T>
 square_matrix<T>::~square_matrix() { }
-
 
 template <typename T>
 square_matrix<T>& square_matrix<T>::operator =( 
@@ -32,12 +34,18 @@ square_matrix<T>& square_matrix<T>::operator =(const square_matrix<T> &src) {
 
 template <typename T>
 square_matrix<T> square_matrix<T>::operator +(const square_matrix<T> &src) const {
-    return (*this) + src;
+    uint8_t n = matrix<T>::m_rows;
+    matrix<T> result(n, n);
+    result = matrix<T>::operator +(src);
+    return square_matrix<T>(result);
 }
 
 template <typename T>
 square_matrix<T> square_matrix<T>::operator -(const square_matrix<T> &src) const {
-    return (*this) - src;
+    uint8_t n = matrix<T>::m_rows;
+    matrix<T> result(n, n); 
+    result = matrix<T>::operator -(src);
+    return square_matrix<T>(result);
 }
 
 template <typename T>
