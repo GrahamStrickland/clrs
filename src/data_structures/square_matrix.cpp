@@ -105,9 +105,7 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
     uint8_t n = matrix<T>::m_rows;
     square_matrix<T> result(n);
 
-    if (n == 1) {
-        result.m_data[0][0] = matrix<T>::m_data[0][0] * src.m_data[0][0];
-    } else {
+    if (n > 1) {
         square_matrix<T> a11 = (*this)(0, 0);
         square_matrix<T> a12 = (*this)(0, 1);
         square_matrix<T> a21 = (*this)(1, 0);
@@ -126,6 +124,8 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
             (a22.square_matrix_multiply_recursive(b21)));
         result.assign(1, 1, (a21.square_matrix_multiply_recursive(b12)) + 
             (a22.square_matrix_multiply_recursive(b22)));
+    } else if (n == 1) {
+        result.m_data[0][0] = matrix<T>::m_data[0][0] * src.m_data[0][0];
     }
 
     return result;
@@ -133,9 +133,15 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
 
 template <typename T>
 void square_matrix<T>::assign(uint8_t m, uint8_t n, const square_matrix<T> &src) {
-    for (uint8_t i = m; i < m + matrix<T>::m_rows / 2; i++)
-        for (uint8_t j = n; j < n + matrix<T>::m_cols / 2; j++)
-            matrix<T>::m_data[i][j] = src.m_data[m%i][n%j];
+    for (uint8_t i = m; i < m + matrix<T>::m_rows / 2; i++) {
+        for (uint8_t j = n; j < n + matrix<T>::m_cols / 2; j++) {
+            if (i != 0 && j != 0) {
+                matrix<T>::m_data[i][j] = src.m_data[m%i][n%j];
+            } else {
+                matrix<T>::m_data[i][j] = src.m_data[m][n];
+            }
+        }
+    }
 }
 
 // See https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl for explanation
@@ -147,3 +153,4 @@ template class square_matrix<std::complex<int>>;
 template class square_matrix<std::complex<long>>;
 template class square_matrix<std::complex<float>>;
 template class square_matrix<std::complex<double>>;
+
