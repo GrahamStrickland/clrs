@@ -27,3 +27,4 @@ private:
     void assign(uint8_t m, uint8_t n, const square_matrix<T> &src);
 };
 #endif // SQUARE_MATRIX_H
+       

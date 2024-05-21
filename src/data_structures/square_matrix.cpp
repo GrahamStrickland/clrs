@@ -59,14 +59,12 @@ square_matrix<T> square_matrix<T>::operator *(const square_matrix<T> &src) const
 template <typename T>
 square_matrix<T> square_matrix<T>::operator ()(uint8_t m, uint8_t n) const {
     if (std::floor(std::log2(matrix<T>::m_rows)) == std::log2(matrix<T>::m_rows)) {
+        uint8_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols, p = 0;
         square_matrix<T> result(matrix<T>::m_rows / 2);
-        uint8_t p = 0;
 
-        for (uint8_t i = m * matrix<T>::m_rows / 2; 
-                i < (m + 1) * matrix<T>::m_rows / 2; i++) {
+        for (uint8_t i = m * new_cols; i < (m+1) * new_rows; i++) {
                 uint8_t q = 0;
-            for (uint8_t j = n * matrix<T>::m_rows / 2; 
-                    j < (n + 1) * matrix<T>::m_rows / 2; j++) {
+            for (uint8_t j = n * new_cols; j < (n+1) * new_cols; j++) {
                 result.m_data[p][q] = matrix<T>::m_data[i][j];
                 q++;
             }
@@ -133,12 +131,14 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
 
 template <typename T>
 void square_matrix<T>::assign(uint8_t m, uint8_t n, const square_matrix<T> &src) {
-    for (uint8_t i = m; i < m + matrix<T>::m_rows / 2; i++) {
-        for (uint8_t j = n; j < n + matrix<T>::m_cols / 2; j++) {
+    uint8_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2;
+
+    for (uint8_t i = m * new_rows; i < (m+1) * new_rows; i++) {
+        for (uint8_t j = n * new_cols; j < (n+1) * new_cols; j++) {
             if (i != 0 && j != 0) {
-                matrix<T>::m_data[i][j] = src.m_data[m%i][n%j];
+                matrix<T>::m_data[i][j] = src.m_data[(m*new_rows) % i][(n*new_cols) % j];
             } else {
-                matrix<T>::m_data[i][j] = src.m_data[m][n];
+                matrix<T>::m_data[i][j] = src.m_data[0][0];
             }
         }
     }
