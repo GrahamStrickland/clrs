@@ -1,6 +1,6 @@
-#include "matrix.h"
-
 #include <complex>
+
+#include "matrix.h"
 
 template <typename T>
 matrix<T>::matrix(uint8_t rows, uint8_t cols) {

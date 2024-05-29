@@ -1,7 +1,7 @@
-#include "square_matrix.h"
-
 #include <complex>
 #include <cmath>
+
+#include "square_matrix.h"
 
 template <typename T>
 square_matrix<T>::square_matrix(uint8_t n) : matrix<T>(n, n) { }
@@ -59,8 +59,8 @@ square_matrix<T> square_matrix<T>::operator *(const square_matrix<T> &src) const
 template <typename T>
 square_matrix<T> square_matrix<T>::operator ()(uint8_t m, uint8_t n) const {
     if (std::floor(std::log2(matrix<T>::m_rows)) == std::log2(matrix<T>::m_rows)) {
-        uint8_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols, p = 0;
-        square_matrix<T> result(matrix<T>::m_rows / 2);
+        uint8_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2, p = 0;
+        square_matrix<T> result(new_rows);
 
         for (uint8_t i = m * new_cols; i < (m+1) * new_rows; i++) {
                 uint8_t q = 0;
@@ -153,4 +153,3 @@ template class square_matrix<std::complex<int>>;
 template class square_matrix<std::complex<long>>;
 template class square_matrix<std::complex<float>>;
 template class square_matrix<std::complex<double>>;
-

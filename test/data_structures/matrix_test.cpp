@@ -120,9 +120,9 @@ public:
 
         square_matrix<int> D(2), E(2), F(2);
 
-        D = { { 1, 7 }, { 3, 5 } };
-        E = { { 6, 4 }, { 8, 2 } };
-        F = { { 18, 62 }, { 14, 66 } };
+        D = { { 1, 3 }, { 7, 5 } };
+        E = { { 6, 8 }, { 4, 2 } };
+        F = { { 18, 14 }, { 62, 66 } };
 
         BOOST_ASSERT(D * E == F);
     }
@@ -168,4 +168,3 @@ boost::unit_test::test_suite* init_unit_test_suite(int /*argc*/, char* /*argv*/[
 
     return EXIT_SUCCESS;
 }
-
