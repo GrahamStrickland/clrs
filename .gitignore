@@ -51,3 +51,5 @@ $HOME
 # Apple files
 *.icloud
 
+# clang-tidy files
+.cache/
