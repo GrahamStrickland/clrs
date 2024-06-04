@@ -78,7 +78,7 @@ matrix<T>::~matrix() {
 }
 
 template <typename T>
-bool matrix<T>::operator ==(const matrix<T> &src) {
+bool matrix<T>::operator ==(const matrix<T> &src) const {
     if (m_cols != src.m_cols || m_rows != src.m_rows)
         return false;
 

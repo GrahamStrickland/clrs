@@ -14,7 +14,7 @@ public:
     matrix<T>(const std::initializer_list<std::initializer_list<T>> &src);
     ~matrix<T>();
 
-    bool operator ==(const matrix<T> &src);
+    bool operator ==(const matrix<T> &src) const;
     matrix<T>& operator =(
             const std::initializer_list<std::initializer_list<T>> &src);
     matrix<T>& operator =(const matrix<T> &src);
