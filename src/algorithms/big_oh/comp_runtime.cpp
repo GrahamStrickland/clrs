@@ -1,13 +1,19 @@
 // Problem p1-1 from p.14 of CLRS 3e
 
 #include <cmath>
+#include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <vector>
 
-double factorial(double n);
+double factorial(long long n);
 
 int main(int argc, char* argv[]) {
-    double runtimes[] = {1.0, 6.0E1, 3.6E3, 8.64E4, 2.592E6, 3.1536E7, 3.1536E9};
+    using namespace std::chrono;
+
+    std::vector<std::chrono::duration<long long>> runtimes = {1s, 1min, 1h, 
+        std::chrono::days(1), std::chrono::weeks(1), 
+        std::chrono::years(1), std::chrono::years(100)};
 
     std::cout << "Comparison of running times for the largest problem size n "
               << "of a problem that can be solved in time t, assuming that "
@@ -22,22 +28,36 @@ int main(int argc, char* argv[]) {
               << "-----------------------------------------------------\n";
 
     std::cout << "lg(n)";
-    for (double time : runtimes)
-        std::cout << "\t" << std::setw(12) << std::floor(std::pow(2, time * 1E6));
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor(std::pow(
+            2.0, 
+            std::chrono::duration<double>(
+                    std::chrono::microseconds(time)
+            ).count())
+        );
+        std::cout << "\t" << std::setw(12) << smallest_n; 
     std::cout << "\n";
     
     std::cout << "sqrt(n)";
-    for (double time : runtimes)
-        std::cout << "\t" << std::setw(12) << std::floor(std::pow(time * 1E6, 2));
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor(std::pow(
+            std::chrono::duration<double>(
+                std::chrono::microseconds(time)
+            ).count(), 
+            2.0
+        ));
+        std::cout << "\t" << std::setw(12) << smallest_n; 
+    }
     std::cout << "\n";
     
     std::cout << "n";
-    for (double time : runtimes)
-        std::cout << "\t" << std::setw(12) << std::floor(time * 1E6);
+    for (std::chrono::duration<long long> time : runtimes)
+        std::cout << "\t" << std::setw(12) 
+                  << std::floor(time * 1E6);
     std::cout << "\n";
     
     std::cout << "nlg(n)";
-    for (double time : runtimes)
+    for (std::chrono::duration<long long> time : runtimes)
         std::cout << "\t" << std::setw(12) 
                   << std::floor(
                         (std::log(time * 1E6) / std::log(2)) / (time * 1E6)
@@ -45,26 +65,26 @@ int main(int argc, char* argv[]) {
     std::cout << "\n";
     
     std::cout << "n^2";
-    for (double time : runtimes)
+    for (std::chrono::duration<long long> time : runtimes)
         std::cout << "\t" << std::setw(12) 
                   << std::floor(std::pow(time * 1E6, 0.5));
     std::cout << "\n";
     
     std::cout << "n^3";
-    for (double time : runtimes)
+    for (std::chrono::duration<long long> time : runtimes)
         std::cout << "\t" << std::setw(12) 
                   << std::floor(std::pow(time * 1E6, 1.0/3.0));
     std::cout << "\n";
     
     std::cout << "2^n";
-    for (double time : runtimes)
+    for (std::chrono::duration<long long> time : runtimes)
         std::cout << "\t" << std::setw(12) << std::floor(
                         ((std::log(time * 1E6) / std::log(2)))
         );
     std::cout << "\n";
     
     std::cout << "n!";
-    for (double time : runtimes)
+    for (std::chrono::duration<long long> time : runtimes)
         std::cout << "\t" << std::setw(12) << std::floor(factorial(time * 1E6));
 
     std::cout << "\n-----------------------------------------------------------"
@@ -73,7 +93,7 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
 }
 
-double factorial(double n) {
+double factorial(long long n) {
     int fact = (int)n, multiplier = (int)n;
     while (multiplier > 0) {
         fact = fact * multiplier;
