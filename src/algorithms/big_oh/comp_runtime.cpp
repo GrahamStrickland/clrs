@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-double factorial(long long n);
+double factorial(double n);
 
 int main(int argc, char* argv[]) {
     using namespace std::chrono;
@@ -36,6 +36,7 @@ int main(int argc, char* argv[]) {
             ).count())
         );
         std::cout << "\t" << std::setw(12) << smallest_n; 
+    }
     std::cout << "\n";
     
     std::cout << "sqrt(n)";
@@ -51,41 +52,67 @@ int main(int argc, char* argv[]) {
     std::cout << "\n";
     
     std::cout << "n";
-    for (std::chrono::duration<long long> time : runtimes)
-        std::cout << "\t" << std::setw(12) 
-                  << std::floor(time * 1E6);
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor(
+            std::chrono::duration<double>(
+                std::chrono::microseconds(time)
+            ).count()
+        );
+        std::cout << "\t" << std::setw(12) << smallest_n; 
+    }
     std::cout << "\n";
     
     std::cout << "nlg(n)";
-    for (std::chrono::duration<long long> time : runtimes)
-        std::cout << "\t" << std::setw(12) 
-                  << std::floor(
-                        (std::log(time * 1E6) / std::log(2)) / (time * 1E6)
-        );
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor((std::log(
+            std::chrono::duration<double>(std::chrono::microseconds(time)).count() 
+            / (std::log(2.0)
+                / std::chrono::duration<double>(std::chrono::microseconds(time)).count()
+            )
+        )));
+        std::cout << "\t" << std::setw(12) << smallest_n; 
+    }
     std::cout << "\n";
     
     std::cout << "n^2";
-    for (std::chrono::duration<long long> time : runtimes)
-        std::cout << "\t" << std::setw(12) 
-                  << std::floor(std::pow(time * 1E6, 0.5));
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor(std::pow(
+            std::chrono::duration<double>(std::chrono::microseconds(time)).count(), 
+            0.5
+        ));
+        std::cout << "\t" << std::setw(12) << smallest_n; 
+    }
     std::cout << "\n";
     
     std::cout << "n^3";
-    for (std::chrono::duration<long long> time : runtimes)
-        std::cout << "\t" << std::setw(12) 
-                  << std::floor(std::pow(time * 1E6, 1.0/3.0));
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor(std::pow(
+            std::chrono::duration<double>(std::chrono::microseconds(time)).count(),
+            (1.0 / 3.0)
+        ));
+        std::cout << "\t" << std::setw(12) << smallest_n; 
+    }
     std::cout << "\n";
     
     std::cout << "2^n";
-    for (std::chrono::duration<long long> time : runtimes)
-        std::cout << "\t" << std::setw(12) << std::floor(
-                        ((std::log(time * 1E6) / std::log(2)))
-        );
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor(((
+            std::log(
+                std::chrono::duration<double>(std::chrono::microseconds(time)).count()
+            ) 
+            / std::log(2.0)
+        )));
+        std::cout << "\t" << std::setw(12) << smallest_n;
+    }
     std::cout << "\n";
     
     std::cout << "n!";
-    for (std::chrono::duration<long long> time : runtimes)
-        std::cout << "\t" << std::setw(12) << std::floor(factorial(time * 1E6));
+    for (std::chrono::duration<long long> time : runtimes) {
+        double smallest_n = std::floor(factorial(
+            std::chrono::duration<double>(std::chrono::microseconds(time)).count()
+        ));
+        std::cout << "\t" << std::setw(12) << smallest_n; 
+    }
 
     std::cout << "\n-----------------------------------------------------------"
               << "---------------------------------------------------------\n";
@@ -93,8 +120,9 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
 }
 
-double factorial(long long n) {
-    int fact = (int)n, multiplier = (int)n;
+double factorial(double n) {
+    int fact = static_cast<int>(n), multiplier = static_cast<int>(n);
+
     while (multiplier > 0) {
         fact = fact * multiplier;
         multiplier--;
