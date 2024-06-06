@@ -8,8 +8,7 @@
 
 #include <boost/math/special_functions/lambert_w.hpp>
 
-double inverse_factorial(double n);
-double inverse_nlogn(double n);
+double factorial(double n);
 
 int main(int argc, char* argv[]) {
     using namespace std::chrono;
@@ -34,9 +33,7 @@ int main(int argc, char* argv[]) {
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor(std::pow(
             2.0, 
-            std::chrono::duration<double>(
-                    std::chrono::microseconds(time)
-            ).count())
+            std::chrono::duration<double>(time).count()) * 1E6
         );
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
@@ -45,9 +42,7 @@ int main(int argc, char* argv[]) {
     std::cout << "sqrt(n)";
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor(std::pow(
-            std::chrono::duration<double>(
-                std::chrono::microseconds(time)
-            ).count(), 
+            std::chrono::duration<double>(time).count() * 1E6, 
             2.0
         ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
@@ -57,10 +52,7 @@ int main(int argc, char* argv[]) {
     std::cout << "n";
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor(
-            1.0 
-            / std::chrono::duration<double>(
-                    std::chrono::microseconds(time)
-                ).count()
+            std::chrono::duration<double>(time).count() * 1E6
         );
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
@@ -68,11 +60,11 @@ int main(int argc, char* argv[]) {
     
     std::cout << "nlg(n)";
     for (std::chrono::duration<long long> time : runtimes) {
-        double smallest_n = std::floor((std::log(
-            inverse_nlogn(
-                std::chrono::duration<double>(std::chrono::microseconds(time)).count()
-            ) 
-        )));
+        double smallest_n = std::floor(std::log(
+            boost::math::lambert_w0(
+                std::chrono::duration<double>(time).count() * 1E6
+            )
+        ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
     std::cout << "\n";
@@ -80,7 +72,7 @@ int main(int argc, char* argv[]) {
     std::cout << "n^2";
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor(std::pow(
-            std::chrono::duration<double>(std::chrono::microseconds(time)).count(), 
+            std::chrono::duration<double>(time).count() * 1E6, 
             0.5
         ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
@@ -90,7 +82,7 @@ int main(int argc, char* argv[]) {
     std::cout << "n^3";
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor(std::pow(
-            std::chrono::duration<double>(std::chrono::microseconds(time)).count(),
+            std::chrono::duration<double>(time).count() * 1E6,
             (1.0 / 3.0)
         ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
@@ -101,7 +93,7 @@ int main(int argc, char* argv[]) {
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor(((
             std::log(
-                std::chrono::duration<double>(std::chrono::microseconds(time)).count()
+                std::chrono::duration<double>(time).count() * 1E6
             ) 
             / std::log(2.0)
         )));
@@ -111,8 +103,8 @@ int main(int argc, char* argv[]) {
     
     std::cout << "n!";
     for (std::chrono::duration<long long> time : runtimes) {
-        double smallest_n = std::floor(inverse_factorial(
-            std::chrono::duration<double>(std::chrono::microseconds(time)).count()
+        double smallest_n = std::floor(factorial(
+            std::chrono::duration<double>(time).count() * 1E6
         ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
@@ -123,7 +115,7 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
 }
 
-double inverse_factorial(double n) {
+double factorial(double n) {
     int fact = static_cast<int>(n), multiplier = static_cast<int>(n);
 
     while (multiplier > 0) {
@@ -132,8 +124,4 @@ double inverse_factorial(double n) {
     }
     
     return fact;
-}
-
-double inverse_nlogn(double n) {
-    return std::exp(boost::math::lambert_w0(n * std::log2(10.0)));
 }
