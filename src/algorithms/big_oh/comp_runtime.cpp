@@ -6,7 +6,10 @@
 #include <iostream>
 #include <vector>
 
-double factorial(double n);
+#include <boost/math/special_functions/lambert_w.hpp>
+
+double inverse_factorial(double n);
+double inverse_nlogn(double n);
 
 int main(int argc, char* argv[]) {
     using namespace std::chrono;
@@ -54,9 +57,10 @@ int main(int argc, char* argv[]) {
     std::cout << "n";
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor(
-            std::chrono::duration<double>(
-                std::chrono::microseconds(time)
-            ).count()
+            1.0 
+            / std::chrono::duration<double>(
+                    std::chrono::microseconds(time)
+                ).count()
         );
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
@@ -65,10 +69,9 @@ int main(int argc, char* argv[]) {
     std::cout << "nlg(n)";
     for (std::chrono::duration<long long> time : runtimes) {
         double smallest_n = std::floor((std::log(
-            std::chrono::duration<double>(std::chrono::microseconds(time)).count() 
-            / (std::log(2.0)
-                / std::chrono::duration<double>(std::chrono::microseconds(time)).count()
-            )
+            inverse_nlogn(
+                std::chrono::duration<double>(std::chrono::microseconds(time)).count()
+            ) 
         )));
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
@@ -108,7 +111,7 @@ int main(int argc, char* argv[]) {
     
     std::cout << "n!";
     for (std::chrono::duration<long long> time : runtimes) {
-        double smallest_n = std::floor(factorial(
+        double smallest_n = std::floor(inverse_factorial(
             std::chrono::duration<double>(std::chrono::microseconds(time)).count()
         ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
@@ -120,7 +123,7 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
 }
 
-double factorial(double n) {
+double inverse_factorial(double n) {
     int fact = static_cast<int>(n), multiplier = static_cast<int>(n);
 
     while (multiplier > 0) {
@@ -129,4 +132,8 @@ double factorial(double n) {
     }
     
     return fact;
+}
+
+double inverse_nlogn(double n) {
+    return std::exp(boost::math::lambert_w0(n * std::log2(10.0)));
 }
