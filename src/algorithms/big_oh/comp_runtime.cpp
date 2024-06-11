@@ -6,9 +6,8 @@
 #include <iostream>
 #include <vector>
 
-#include <boost/math/special_functions/lambert_w.hpp>
-
-double factorial(double n);
+double inverse_nlogn(double x);
+double inverse_factorial(double x);
 
 int main(int argc, char* argv[]) {
     using namespace std::chrono;
@@ -18,8 +17,8 @@ int main(int argc, char* argv[]) {
         std::chrono::years(1), std::chrono::years(100)};
 
     std::cout << "Comparison of running times for the largest problem size n "
-              << "of a problem that can be solved in time t, assuming that "
-              << "the algorithm to solve the problem takes f(n) microseconds:\n\n"
+              << "of a problem that can be solved in time t, assuming that\n"
+              << "the algorithm to solve the problem takes f(n) microseconds:\n"
               << "---------------------------------------------------------------"
               << "-----------------------------------------------------\n"
               << "f(n)\t" << std::setw(12) << "1 second\t" << std::setw(12) 
@@ -60,10 +59,8 @@ int main(int argc, char* argv[]) {
     
     std::cout << "nlg(n)";
     for (std::chrono::duration<long long> time : runtimes) {
-        double smallest_n = std::floor(std::log(
-            boost::math::lambert_w0(
-                std::chrono::duration<double>(time).count() * 1E6
-            )
+        double smallest_n = std::floor(inverse_nlogn(
+            std::chrono::duration<double>(time).count() * 1E6
         ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
@@ -103,7 +100,7 @@ int main(int argc, char* argv[]) {
     
     std::cout << "n!";
     for (std::chrono::duration<long long> time : runtimes) {
-        double smallest_n = std::floor(factorial(
+        double smallest_n = std::floor(inverse_factorial(
             std::chrono::duration<double>(time).count() * 1E6
         ));
         std::cout << "\t" << std::setw(12) << smallest_n; 
@@ -115,13 +112,24 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
 }
 
-double factorial(double n) {
-    int fact = static_cast<int>(n), multiplier = static_cast<int>(n);
+double inverse_nlogn(double x) {
+    uint8_t max_iters = 10;
+    double a_0 = x / std::log2(x), a_1 = 0.0;
 
-    while (multiplier > 0) {
-        fact = fact * multiplier;
-        multiplier--;
+    for (uint8_t i = 0; i < max_iters; ++i) {
+        a_1 = a_0 - (
+            (a_0 * std::log2(a_0) - x) 
+            / ((1.0 / std::log(2.0)) + std::log2(a_0))
+        ); 
+        if (abs((a_1 * std::log2(a_1)) - (a_0 * std::log2(a_0))) < 1)
+            return a_1;
+        else
+            a_0 = a_1;
     }
-    
-    return fact;
+
+    return a_1;
+}
+
+double inverse_factorial(double x) {
+    return x;
 }
