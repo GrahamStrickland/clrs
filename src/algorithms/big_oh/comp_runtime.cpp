@@ -100,9 +100,9 @@ int main(int argc, char* argv[]) {
     
     std::cout << "n!";
     for (std::chrono::duration<long long> time : runtimes) {
-        double smallest_n = std::floor(inverse_factorial(
+        double smallest_n = inverse_factorial(
             std::chrono::duration<double>(time).count() * 1E6
-        ));
+        );
         std::cout << "\t" << std::setw(12) << smallest_n; 
     }
 
@@ -131,5 +131,13 @@ double inverse_nlogn(double x) {
 }
 
 double inverse_factorial(double x) {
-    return x;
+    double i = 0, fact = 1;
+
+    while (fact < x) {
+        if (i > 0)
+            fact *= i;
+        i++;
+    }
+
+    return i - 1;
 }
