@@ -7,21 +7,30 @@ class search_test {
 public:
   void test_binary_search() {
     int32_t A[] = {26, 31, 41, 41, 58, 59};
-    uint8_t len = 6;
     int32_t nu = 31;
+    uint8_t len = 6;
+    uint8_t obs = -1;
+    uint8_t exp = 1;
 
-    BOOST_ASSERT(binary_search(A, len, nu) == 1);
+    obs = binary_search(A, len, nu);
+    BOOST_ASSERT(obs == exp);
 
     nu = 32;
-    BOOST_ASSERT(binary_search(A, len, nu) == -1);
+    exp = -1;
+    obs = binary_search(A, len, nu);
+    BOOST_ASSERT(obs == exp);
 
     int B[] = {1, 4, 5, 7, 19, 28, 45, 92};
     len = 8;
     nu = 92;
-    BOOST_ASSERT(binary_search(A, len, nu) == 7);
+    exp = 7;
+    obs = binary_search(A, len, nu);
+    BOOST_ASSERT(obs == exp);
 
     nu = 101;
-    BOOST_ASSERT(binary_search(A, len, nu) == -1);
+    exp = -1;
+    obs = binary_search(A, len, nu);
+    BOOST_ASSERT(obs == exp);
   }
 };
 
@@ -34,3 +43,4 @@ boost::unit_test::test_suite *init_unit_test_suite(int /*argc*/,
 
   return EXIT_SUCCESS;
 }
+

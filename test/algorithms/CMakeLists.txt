@@ -3,9 +3,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++20")
 project(test_algorithms)
 
 set(HEADER FILES
-    ../../src/algorithms/binary_search.h
+    ../../src/algorithms/search/binary_search.h
 )
 set(SOURCES 
+    ../../src/algorithms/search/binary_search.cpp
     search_test.cpp 
 )
 
@@ -17,3 +18,4 @@ if (Boost_FOUND)
     target_include_directories(test_algorithms PRIVATE ${BOOST_INCLUDE_DIRS})
     add_test(NAME search_test COMMAND search_test)
 endif()
+
