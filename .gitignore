@@ -33,6 +33,9 @@ CppProperties.json
 # CMake files
 cmake-build-debug/
 **/build
+**/CMakeFiles
+*.cmake
+CMakeCache.txt
 
 # Natvis files
 *.natvis
