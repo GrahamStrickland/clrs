@@ -4,9 +4,11 @@ project(test_algorithms)
 
 set(HEADER FILES
     ../../src/algorithms/search/binary_search.h
+    ../../src/algorithms/search/linear_search.h
 )
 set(SOURCES 
     ../../src/algorithms/search/binary_search.cpp
+    ../../src/algorithms/search/linear_search.cpp
     search_test.cpp 
 )
 
