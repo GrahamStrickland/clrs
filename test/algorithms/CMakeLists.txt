@@ -13,8 +13,9 @@ set(SOURCES
     ../../src/algorithms/search/linear_search.cpp
     ../../src/algorithms/search/recursive_binary_search.cpp
     ../../src/algorithms/sorting/bubble_sort.cpp
-    search_test.cpp 
-    sorting_test.cpp
+    test_algorithms.cpp
+    test_search.cpp 
+    test_sorting.cpp
 )
 
 find_package(Boost 1.85.0)
@@ -23,7 +24,7 @@ if (Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     add_executable(test_algorithms ${SOURCES})
     target_include_directories(test_algorithms PRIVATE ${BOOST_INCLUDE_DIRS})
-    add_test(NAME search_test COMMAND search_test)
-    add_test(NAME sorting_test COMMAND sorting_test)
+    add_test(NAME test_search COMMAND test_search)
+    add_test(NAME test_sorting COMMAND test_sorting)
 endif()
 
