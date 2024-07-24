@@ -1,3 +1,3 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE test_algorithms 
+#define BOOST_TEST_MODULE test_algorithms
 
+#include <boost/test/included/unit_test.hpp>

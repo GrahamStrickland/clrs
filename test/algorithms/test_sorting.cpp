@@ -2,9 +2,9 @@
 
 #include "../../src/algorithms/sorting/bubble_sort.h"
 
-BOOST_AUTO_TEST_SUITE( test_search )
+BOOST_AUTO_TEST_SUITE(test_sorting)
 
-BOOST_AUTO_TEST_CASE( test_bubble_sort ) {
+BOOST_AUTO_TEST_CASE(test_bubble_sort) {
   int32_t A[] = {5, 2, 4, 6, 1, 3};
   int32_t exp_array[] = {1, 2, 3, 4, 5, 6};
   int32_t obs, exp;
@@ -55,4 +55,3 @@ BOOST_AUTO_TEST_CASE( test_bubble_sort ) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-
