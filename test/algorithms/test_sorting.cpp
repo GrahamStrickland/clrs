@@ -1,4 +1,6 @@
-#include "test_algorithms.h"
+#include <boost/test/included/unit_test.hpp>
+
+#include "../../src/algorithms/sorting/bubble_sort.h"
 
 BOOST_AUTO_TEST_SUITE(test_sorting)
 

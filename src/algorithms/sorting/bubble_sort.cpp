@@ -11,4 +11,3 @@ void bubble_sort(int32_t A[], uint8_t len) {
     }
   }
 }
-
