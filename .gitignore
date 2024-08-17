@@ -7,12 +7,6 @@
 # Unignore all dirs
 !*/
 
-# IntelliJ files
-*.iml
-*.project
-/venv
-.idea
-
 # VSCode files
 .DS_Store
 .vs
@@ -25,10 +19,6 @@ CppProperties.json
 *.vcxproj.*
 *.sln
 \x64
-
-# Eclipse files
-.classpath
-.settings
 
 # CMake files
 cmake-build-debug/
@@ -51,9 +41,6 @@ compile_commands.json
 tags
 *.swp
 $HOME
-
-# Apple files
-*.icloud
 
 # clang-tidy files
 .cache/
