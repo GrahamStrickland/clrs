@@ -1,6 +1,6 @@
 use chrono::Duration;
 
-use clrs::format_number;
+use clrs::fmt_f64;
 use clrs::inverse_factorial;
 use clrs::inverse_nlogn;
 
@@ -19,15 +19,9 @@ fn main() {
 
     println!("Comparison of running times for the largest problem size n of a problem that can be solved in time t:");
     println!("Assuming that the algorithm to solve the problem takes f(n) microseconds:\n");
-    println!("{:-<120}", "");
-    print!("{:<8}", "f(n)");
-
-    for _ in &runtimes {
-        print!("{}", format!("{:>12}", ""));
-    }
-    println!();
-
-    println!("{:-<120}", "");
+    println!("{:-<140}", "");
+    println!("f(n)\t\t1s\t\t1m\t\t1h\t\t1d\t\t1w\t\t1m\t\t1y\t\t1c");
+    println!("{:-<140}", "");
 
     for header in headers.iter() {
         print!("{:<8}", header);
@@ -47,7 +41,7 @@ fn main() {
                 _ => 0.0,
             };
 
-            print!("{}", format_number(smallest_n));
+            print!("{}", fmt_f64(smallest_n, 12, 3, 2));
         }
         println!();
     }
