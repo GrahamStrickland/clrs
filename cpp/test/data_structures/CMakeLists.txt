@@ -12,7 +12,7 @@ set(SOURCES
     matrix_test.cpp
 )
 
-find_package(Boost 1.85.0)
+find_package(Boost 1.87.0)
 if (Boost_FOUND)
     enable_testing()
     include_directories(${Boost_INCLUDE_DIRS})

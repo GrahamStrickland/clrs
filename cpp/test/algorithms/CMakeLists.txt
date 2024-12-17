@@ -18,7 +18,7 @@ set(SOURCES
     test_sorting.cpp
 )
 
-find_package(Boost 1.85.0 REQUIRED COMPONENTS unit_test_framework)
+find_package(Boost 1.87.0 REQUIRED COMPONENTS unit_test_framework)
 if (Boost_FOUND)
     enable_testing()
     include_directories(${Boost_INCLUDE_DIRS})
