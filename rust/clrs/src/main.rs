@@ -5,7 +5,6 @@ use clrs::inverse_factorial;
 use clrs::inverse_nlogn;
 
 fn main() {
-    // Define the runtimes
     let runtimes = [
         Duration::seconds(1),
         Duration::minutes(1),

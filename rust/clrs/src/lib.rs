@@ -1,3 +1,5 @@
+use chrono::{Duration, TimeDelta};
+
 use std::f64::consts::LN_2;
 
 pub fn format_number(num: f64) -> String {
@@ -39,48 +41,55 @@ pub fn inverse_factorial(x: f64) -> f64 {
 mod tests {
     use super::*;
 
+    const RUNTIMES: [TimeDelta; 7] = [
+        Duration::seconds(1),
+        Duration::minutes(1),
+        Duration::hours(1),
+        Duration::days(1),
+        Duration::days(30),
+        Duration::days(365),
+        Duration::days(36500),
+    ];
+
     #[test]
     fn test_inverse_nlogn() {
-        let x = 1e6;
-        let result = inverse_nlogn(x);
-        let expected = 2e5;
-        let tolerance = 1e3;
+        let exps = vec![
+            62746.0,
+            2.80142e+06,
+            1.33378e+08,
+            2.75515e+09,
+            1.77631e+10,
+            7.98145e+11,
+            6.86552e+13,
+        ];
+        let tol = 1e3;
 
-        assert!(
-            (result - expected).abs() < tolerance,
-            "inverse_nlogn failed: result = {}, expected = {}",
-            result,
-            expected
-        );
+        for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
+            let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;
+            let res = inverse_nlogn(time_in_microseconds);
+            assert!(
+                (res - exp).abs() < tol,
+                "inverse_nlogn failed: result = {}, expected = {}",
+                res,
+                exp
+            );
+        }
     }
 
     #[test]
     fn test_inverse_factorial() {
-        let x = 120.0;
-        let result = inverse_factorial(x);
-        let expected = 5.0;
+        let exps = vec![10.0, 12.0, 13.0, 14.0, 15.0, 17.0, 18.0];
+        let tol = 1e3;
 
-        assert_eq!(
-            result, expected,
-            "inverse_factorial failed: result = {}, expected = {}",
-            result, expected
-        );
-
-        let x_large = 6.0 * 5.0 * 4.0 * 3.0 * 2.0 * 1.0;
-        let result_large = inverse_factorial(x_large);
-        let expected_large = 6.0;
-
-        assert_eq!(
-            result_large, expected_large,
-            "inverse_factorial failed for large value: result = {}, expected = {}",
-            result_large, expected_large
-        );
-    }
-
-    #[test]
-    fn test_inverse_factorial_edge_cases() {
-        assert_eq!(inverse_factorial(1.0), 1.0, "Failed at input 1");
-        assert_eq!(inverse_factorial(2.0), 2.0, "Failed at input 2");
-        assert_eq!(inverse_factorial(6.0), 3.0, "Failed at input 6");
+        for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
+            let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;
+            let res = inverse_factorial(time_in_microseconds);
+            assert!(
+                (res - exp).abs() < tol,
+                "inverse_nlogn failed: result = {}, expected = {}",
+                res,
+                exp
+            );
+        }
     }
 }
