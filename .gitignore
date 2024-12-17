@@ -44,3 +44,6 @@ $HOME
 
 # clang-tidy files
 .cache/
+
+# Rust files
+**/target/*
