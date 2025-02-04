@@ -45,5 +45,6 @@ $HOME
 # clang-tidy files
 .cache/
 
-# Rust files
-**/target/*
+# LaTeX files
+*.aux
+*.log
