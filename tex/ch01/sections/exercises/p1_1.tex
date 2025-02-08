@@ -1,30 +1,32 @@
 From the program \path{src/algorithms/big\_oh/comp\_runtime.cpp}, we have the following
 output:\par
-\noindent \begin{tabular}{ c | c | c | c | c | c | c | c |}
-    & 1 second & 1 minute & 1 hour & 1 day & 1 month & 1 year & 1 century \\
+\tiny\begin{tabular}{ l | r | r | r | r | r | r | r |}
+    \qquad & \multicolumn{1}{c}{1 second} & \multicolumn{1}{c}{1 minute} 
+          & \multicolumn{1}{c}{1 hour} & \multicolumn{1}{c}{1 day} & \multicolumn{1}{c}{1 month} 
+          & \multicolumn{1}{c}{1 year} & \multicolumn{1}{c}{1 century} \\
     \hline
-    $\text{lg}\,n$  & \verb|2e+06|  & \verb|1.15292e+24| & \verb|inf|
-    & \verb|inf|         & \verb|inf|         & \verb|inf|         & \verb|inf| \\
+    $\text{lg}\,n$  & \texttt{2e+06}  & \texttt{1.15292e+24} & \texttt{inf}
+    & \texttt{inf}         & \texttt{inf}         & \texttt{inf}         & \texttt{inf} \\
     \hline
-    $\sqrt{n}$      & \verb|1e+12|  & \verb|3.6e+15|     & \verb|1.296e+19|
-    & \verb|7.46496e+21| & \verb|3.65783e+23| & \verb|9.95841e+26| & \verb|9.95841e+30| \\
+    $\sqrt{n}$      & \texttt{1e+12}  & \texttt{3.6e+15}     & \texttt{1.296e+19}
+    & \texttt{7.46496e+21} & \texttt{3.65783e+23} & \texttt{9.95841e+26} & \texttt{9.95841e+30} \\
     \hline
-    $n$             & \verb|1e+06|  & \verb|6e+07|       & \verb|3.6e+09|
-    & \verb|8.64e+10|    & \verb|6.048e+11|   & \verb|3.1557e+13|  & \verb|3.1557e+15| \\
+    $n$             & \texttt{1e+06}  & \texttt{6e+07}       & \texttt{3.6e+09}
+    & \texttt{8.64e+10}    & \texttt{6.048e+11}   & \texttt{3.1557e+13}  & \texttt{3.1557e+15} \\
     \hline
-    $n\text{lg}\,n$ & \verb|62746|  & \verb|2.80142e+06| & \verb|1.33378e+08|
-    & \verb|2.75515e+09| & \verb|1.77631e+10| & \verb|7.98145e+11| & \verb|6.86552e+13| \\
+    $n\text{lg}\,n$ & \texttt{62746}  & \texttt{2.80142e+06} & \texttt{1.33378e+08}
+    & \texttt{2.75515e+09} & \texttt{1.77631e+10} & \texttt{7.98145e+11} & \texttt{6.86552e+13} \\
     \hline
-    $n^2$           & \verb|1000|   & \verb|7745|        & \verb|60000|
-    & \verb|293938|      & \verb|777688|      & \verb|5.61756e+06| & \verb|5.61756e+07| \\
+    $n^2$           & \texttt{1000}   & \texttt{7745}        & \texttt{60000}
+    & \texttt{293938}      & \texttt{777688}      & \texttt{5.61756e+06} & \texttt{5.61756e+07} \\
     \hline
-    $n^3$           & \verb|99|     & \verb|391|         & \verb|1532|
-    & \verb|4420|        & \verb|8456|        & \verb|31600|       & \verb|146678| \\
+    $n^3$           & \texttt{99}     & \texttt{391}         & \texttt{1532}
+    & \texttt{4420}        & \texttt{8456}        & \texttt{31600}       & \texttt{146678} \\
     \hline
-    $2^n$           & \verb|19|     & \verb|25|          & \verb|31|
-    & \verb|36|          & \verb|39|          & \verb|44|          & \verb|51| \\
+    $2^n$           & \texttt{19}     & \texttt{25}          & \texttt{31}
+    & \texttt{36}          & \texttt{39}          & \texttt{44}          & \texttt{51} \\
     \hline
-    $n!$            & \verb|10|     & \verb|12|          & \verb|13|
-    & \verb|14|          & \verb|15|          & \verb|17|          & \verb|18|
+    $n!$            & \texttt{10}     & \texttt{12}          & \texttt{13}
+    & \texttt{14}          & \texttt{15}          & \texttt{17}          & \texttt{18} \\
     \hline
 \end{tabular}
