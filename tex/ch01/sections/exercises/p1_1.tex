@@ -1,0 +1,30 @@
+From the program \path{src/algorithms/big\_oh/comp\_runtime.cpp}, we have the following
+output:\par
+\noindent \begin{tabular}{ c | c | c | c | c | c | c | c |}
+    & 1 second & 1 minute & 1 hour & 1 day & 1 month & 1 year & 1 century \\
+    \hline
+    $\text{lg}\,n$  & \verb|2e+06|  & \verb|1.15292e+24| & \verb|inf|
+    & \verb|inf|         & \verb|inf|         & \verb|inf|         & \verb|inf| \\
+    \hline
+    $\sqrt{n}$      & \verb|1e+12|  & \verb|3.6e+15|     & \verb|1.296e+19|
+    & \verb|7.46496e+21| & \verb|3.65783e+23| & \verb|9.95841e+26| & \verb|9.95841e+30| \\
+    \hline
+    $n$             & \verb|1e+06|  & \verb|6e+07|       & \verb|3.6e+09|
+    & \verb|8.64e+10|    & \verb|6.048e+11|   & \verb|3.1557e+13|  & \verb|3.1557e+15| \\
+    \hline
+    $n\text{lg}\,n$ & \verb|62746|  & \verb|2.80142e+06| & \verb|1.33378e+08|
+    & \verb|2.75515e+09| & \verb|1.77631e+10| & \verb|7.98145e+11| & \verb|6.86552e+13| \\
+    \hline
+    $n^2$           & \verb|1000|   & \verb|7745|        & \verb|60000|
+    & \verb|293938|      & \verb|777688|      & \verb|5.61756e+06| & \verb|5.61756e+07| \\
+    \hline
+    $n^3$           & \verb|99|     & \verb|391|         & \verb|1532|
+    & \verb|4420|        & \verb|8456|        & \verb|31600|       & \verb|146678| \\
+    \hline
+    $2^n$           & \verb|19|     & \verb|25|          & \verb|31|
+    & \verb|36|          & \verb|39|          & \verb|44|          & \verb|51| \\
+    \hline
+    $n!$            & \verb|10|     & \verb|12|          & \verb|13|
+    & \verb|14|          & \verb|15|          & \verb|17|          & \verb|18|
+    \hline
+\end{tabular}
