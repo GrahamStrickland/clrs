@@ -30,3 +30,46 @@ output:\par
     & \texttt{14}          & \texttt{15}          & \texttt{17}          & \texttt{18} \\
     \hline
 \end{tabular}
+\par \normalsize
+\qquad In generating the above table, we have made use of the following two C++ functions:
+\begin{verbatim}
+double inverse_nlogn(double x) {
+  uint8_t max_iters = 10;
+  double a_0 = x / std::log2(x), a_1 = 0.0;
+
+  for (uint8_t i = 0; i < max_iters; ++i) {
+    a_1 = a_0 - ((a_0 * std::log2(a_0) - x) /
+                 ((1.0 / std::log(2.0)) + std::log2(a_0)));
+    if (abs((a_1 * std::log2(a_1)) - (a_0 * std::log2(a_0))) < 1)
+      return a_1;
+    else
+      a_0 = a_1;
+  }
+
+  return a_1;
+}
+\end{verbatim}
+and 
+\begin{verbatim}
+double inverse_factorial(double x) {
+  double i = 0, fact = 1;
+
+  while (fact < x) {
+    if (i > 0)
+      fact *= i;
+    i++;
+  }
+
+  return i - 1;
+}
+    
+\end{verbatim}
+\texttt{inverse\_nlogn} makes use of Newton's method to calculate an approximate 
+value $m(x)$ s.t. 
+\[
+    n\text{lg}n = x \Rightarrow m(x) \approx n, 
+\]
+while \texttt{inverse\_factorial} generates an approximate value $m(x)$ s.t. 
+\[
+    x = n! \Rightarrow m(x) = \lfloor n \rfloor. 
+\]
