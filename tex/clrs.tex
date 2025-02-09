@@ -8,6 +8,23 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix,positioning,arrows.meta,arrows}
+
+\tikzset{
+mymat/.style={
+  matrix of math nodes,
+  text height=2.5ex,
+  text depth=0.75ex,
+  text width=3.25ex,
+  align=center,
+  column sep=-\pgflinewidth
+  },
+mymats/.style={
+  mymat,
+  nodes={draw,fill=#1}
+  }  
+}
 
 \title{
     Introduction to Algorithms\\3rd Edition\\---\\
@@ -19,6 +36,9 @@
 \maketitle  
 
 \section*{Chapter 1}
-\input{ch01/ch01}
+\input{ch01/sections}
+
+\section*{Chapter 2}
+\input{ch02/sections}
 
 \end{document}
