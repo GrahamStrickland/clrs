@@ -1,74 +1,85 @@
-\begin{itemize}
-    \item[(a)]
-        \begin{tikzpicture}[>=latex]
-            \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 2} = [nodes={fill=black},text=white]
-            \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-            {
-                1  & 2  & 3  & 4  & 5  & 6 \\
-                31 & 41 & 59 & 26 & 41 & 58 \\
-            };
-        \end{tikzpicture}
-    \item[(b)]
-        \begin{tikzpicture}[>=latex]
-            \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 3} = [nodes={fill=black},text=white]
-            \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-            {
-                1  & 2  & 3  & 4  & 5  & 6 \\
-                31 & 41 & 59 & 26 & 41 & 58 \\
-            };
-        \end{tikzpicture}
-    \item[(c)]
-        \begin{tikzpicture}[>=latex]
-            \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 4} = [nodes={fill=black},text=white]
-            \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-            {
-                1  & 2  & 3  & 4  & 5  & 6 \\
-                31 & 41 & 59 & 26 & 41 & 58 \\
-            };
-        \end{tikzpicture}
-    \item[(d)]
-        \begin{tikzpicture}[>=latex]
-            \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 5} = [nodes={fill=black},text=white]
-            \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-            {
-                1  & 2  & 3  & 4  & 5  & 6 \\
-                26 & 31 & 41 & 59 & 41 & 58 \\
-            };
-        \end{tikzpicture}
-    \item[(e)]
-        \begin{tikzpicture}[>=latex]
-            \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 5} = [nodes={fill=gray!30}]
-            \tikzstyle{row 2 column 6} = [nodes={fill=black},text=white]
-            \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-            at (0,0)
-            (mat1)
-            {
-                1  & 2  & 3  & 4  & 5  & 6 \\
-                26 & 31 & 41 & 41 & 59 & 58 \\
-            };
-        \end{tikzpicture}
-    \item[(f)]
-        \begin{tikzpicture}[>=latex]
-            \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-            at (0,0)
-            (mat1)
-            {
-                1  & 2  & 3  & 4  & 5  & 6 \\
-                26 & 31 & 41 & 41 & 58 & 59 \\
-            };
-        \end{tikzpicture}
-\end{itemize}
+\begin{tikzpicture}[>=latex]
+    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 2} = [nodes={fill=black},text=white]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (0,0)
+    (arr1)
+    {
+        1  & 2  & 3  & 4  & 5  & 6 \\
+        31 & 41 & 59 & 26 & 41 & 58 \\
+    };
+    \node[left=0pt of arr1-2-1]
+        {(a)}
+
+    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 3} = [nodes={fill=black},text=white]
+    \matrix[mymat,right=of arr1,row 2/.style={nodes=draw}]
+    (arr2)
+    {
+        1  & 2  & 3  & 4  & 5  & 6 \\
+        31 & 41 & 59 & 26 & 41 & 58 \\
+    };
+    \node[left=0pt of arr2-2-1]
+        {(b)}
+
+    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 4} = [nodes={fill=black},text=white]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (0,-2)
+    (arr3)
+    {
+        1  & 2  & 3  & 4  & 5  & 6 \\
+        31 & 41 & 59 & 26 & 41 & 58 \\
+    };
+    \node[left=0pt of arr3-2-1]
+        {(c)}
+
+    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 5} = [nodes={fill=black},text=white]
+    \matrix[mymat,right=of arr3,row 2/.style={nodes=draw}]
+    (arr4)
+    {
+        1  & 2  & 3  & 4  & 5  & 6 \\
+        26 & 31 & 41 & 59 & 41 & 58 \\
+    };
+    \node[left=0pt of arr4-2-1]
+        {(d)}
+
+    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 5} = [nodes={fill=gray!30}]
+    \tikzstyle{row 2 column 6} = [nodes={fill=black},text=white]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (0,-4)
+    (arr5)
+    {
+        1  & 2  & 3  & 4  & 5  & 6 \\
+        26 & 31 & 41 & 41 & 59 & 58 \\
+    };
+    \node[left=0pt of arr5-2-1]
+        {(e)}
+
+    \matrix[mymat,right=of arr5,row 2/.style={nodes=draw}]
+    (arr6)
+    {
+        1  & 2  & 3  & 4  & 5  & 6 \\
+        26 & 31 & 41 & 41 & 58 & 59 \\
+    };
+    \node[left=0pt of arr6-2-1]
+        {(f)}
+
+    \begin{scope}[shorten <= -2pt]
+        \draw[->]
+            (arr1-2-2.south east) -- (arr1-2-2.south west);
+        \draw[->]
+            (arr2-2-3.south east) -- (arr2-2-3.south west);
+    \end{scope}
+\end{tikzpicture}
