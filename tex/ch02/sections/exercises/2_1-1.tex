@@ -9,7 +9,7 @@
         31 & 41 & 59 & 26 & 41 & 58 \\
     };
     \node[left=0pt of arr1-2-1]
-        {(a)}
+        {(a)};
 
     \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
     \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
@@ -21,7 +21,7 @@
         31 & 41 & 59 & 26 & 41 & 58 \\
     };
     \node[left=0pt of arr2-2-1]
-        {(b)}
+        {(b)};
 
     \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
     \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
@@ -35,7 +35,7 @@
         31 & 41 & 59 & 26 & 41 & 58 \\
     };
     \node[left=0pt of arr3-2-1]
-        {(c)}
+        {(c)};
 
     \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
     \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
@@ -49,7 +49,7 @@
         26 & 31 & 41 & 59 & 41 & 58 \\
     };
     \node[left=0pt of arr4-2-1]
-        {(d)}
+        {(d)};
 
     \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
     \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
@@ -65,7 +65,7 @@
         26 & 31 & 41 & 41 & 59 & 58 \\
     };
     \node[left=0pt of arr5-2-1]
-        {(e)}
+        {(e)};
 
     \matrix[mymat,right=of arr5,row 2/.style={nodes=draw}]
     (arr6)
@@ -74,12 +74,18 @@
         26 & 31 & 41 & 41 & 58 & 59 \\
     };
     \node[left=0pt of arr6-2-1]
-        {(f)}
+        {(f)};
 
-    \begin{scope}[shorten <= -2pt]
+    \begin{scope}[>=stealth]
         \draw[->]
-            (arr1-2-2.south east) -- (arr1-2-2.south west);
+            (arr1-2-2.south east) .. controls ++(south west:0.5) .. (arr1-2-2.south west);
         \draw[->]
-            (arr2-2-3.south east) -- (arr2-2-3.south west);
+            (arr2-2-3.south east) .. controls ++(south west:0.5) .. (arr2-2-3.south west);
+        \draw[->]
+            (arr3-2-4.south) .. controls ++(south west:0.5) .. (arr3-2-1.south);
+        \draw[->]
+            (arr4-2-5.south) .. controls ++(south west:0.5) .. (arr4-2-4.south);
+        \draw[->]
+            (arr5-2-6.south) .. controls ++(south west:0.5) .. (arr5-2-5.south);
     \end{scope}
 \end{tikzpicture}
