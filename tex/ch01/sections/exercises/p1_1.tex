@@ -1,36 +1,39 @@
 From the program \path{src/algorithms/big\_oh/comp\_runtime.cpp}, we have the following
-output:\par
-\tiny\begin{tabular}{ l | r | r | r | r | r | r | r |}
-    \qquad & \multicolumn{1}{c}{1 second} & \multicolumn{1}{c}{1 minute} 
-          & \multicolumn{1}{c}{1 hour} & \multicolumn{1}{c}{1 day} & \multicolumn{1}{c}{1 month} 
-          & \multicolumn{1}{c}{1 year} & \multicolumn{1}{c}{1 century} \\
-    \hline
-    $\text{lg}\,n$  & \texttt{2e+06}  & \texttt{1.15292e+24} & \texttt{inf}
-    & \texttt{inf}         & \texttt{inf}         & \texttt{inf}         & \texttt{inf} \\
-    \hline
-    $\sqrt{n}$      & \texttt{1e+12}  & \texttt{3.6e+15}     & \texttt{1.296e+19}
-    & \texttt{7.46496e+21} & \texttt{3.65783e+23} & \texttt{9.95841e+26} & \texttt{9.95841e+30} \\
-    \hline
-    $n$             & \texttt{1e+06}  & \texttt{6e+07}       & \texttt{3.6e+09}
-    & \texttt{8.64e+10}    & \texttt{6.048e+11}   & \texttt{3.1557e+13}  & \texttt{3.1557e+15} \\
-    \hline
-    $n\text{lg}\,n$ & \texttt{62746}  & \texttt{2.80142e+06} & \texttt{1.33378e+08}
-    & \texttt{2.75515e+09} & \texttt{1.77631e+10} & \texttt{7.98145e+11} & \texttt{6.86552e+13} \\
-    \hline
-    $n^2$           & \texttt{1000}   & \texttt{7745}        & \texttt{60000}
-    & \texttt{293938}      & \texttt{777688}      & \texttt{5.61756e+06} & \texttt{5.61756e+07} \\
-    \hline
-    $n^3$           & \texttt{99}     & \texttt{391}         & \texttt{1532}
-    & \texttt{4420}        & \texttt{8456}        & \texttt{31600}       & \texttt{146678} \\
-    \hline
-    $2^n$           & \texttt{19}     & \texttt{25}          & \texttt{31}
-    & \texttt{36}          & \texttt{39}          & \texttt{44}          & \texttt{51} \\
-    \hline
-    $n!$            & \texttt{10}     & \texttt{12}          & \texttt{13}
-    & \texttt{14}          & \texttt{15}          & \texttt{17}          & \texttt{18} \\
-    \hline
-\end{tabular}
-\par \normalsize
+output:
+
+\begin{adjustbox}{width={\textwidth},totalheight={\textheight},keepaspectratio}
+    \begin{tabular}{@{} l | r | r | r | r | r | r | r |}
+        \qquad & \multicolumn{1}{c |}{1 second} & \multicolumn{1}{c |}{1 minute} 
+               & \multicolumn{1}{c |}{1 hour} & \multicolumn{1}{c |}{1 day} 
+               & \multicolumn{1}{c |}{1 month} & \multicolumn{1}{c |}{1 year} 
+               & \multicolumn{1}{c |}{1 century} \\
+        \hline
+        $\text{lg}\,n$  & \texttt{2e+06}  & \texttt{1.15292e+24} & \texttt{inf}
+        & \texttt{inf}         & \texttt{inf}         & \texttt{inf}         & \texttt{inf} \\
+        \hline
+        $\sqrt{n}$      & \texttt{1e+12}  & \texttt{3.6e+15}     & \texttt{1.296e+19}
+        & \texttt{7.46496e+21} & \texttt{3.65783e+23} & \texttt{9.95841e+26} & \texttt{9.95841e+30} \\
+        \hline
+        $n$             & \texttt{1e+06}  & \texttt{6e+07}       & \texttt{3.6e+09}
+        & \texttt{8.64e+10}    & \texttt{6.048e+11}   & \texttt{3.1557e+13}  & \texttt{3.1557e+15} \\
+        \hline
+        $n\text{lg}\,n$ & \texttt{62746}  & \texttt{2.80142e+06} & \texttt{1.33378e+08}
+        & \texttt{2.75515e+09} & \texttt{1.77631e+10} & \texttt{7.98145e+11} & \texttt{6.86552e+13} \\
+        \hline
+        $n^2$           & \texttt{1000}   & \texttt{7745}        & \texttt{60000}
+        & \texttt{293938}      & \texttt{777688}      & \texttt{5.61756e+06} & \texttt{5.61756e+07} \\
+        \hline
+        $n^3$           & \texttt{99}     & \texttt{391}         & \texttt{1532}
+        & \texttt{4420}        & \texttt{8456}        & \texttt{31600}       & \texttt{146678} \\
+        \hline
+        $2^n$           & \texttt{19}     & \texttt{25}          & \texttt{31}
+        & \texttt{36}          & \texttt{39}          & \texttt{44}          & \texttt{51} \\
+        \hline
+        $n!$            & \texttt{10}     & \texttt{12}          & \texttt{13}
+        & \texttt{14}          & \texttt{15}          & \texttt{17}          & \texttt{18} \\
+        \hline
+    \end{tabular}
+\end{adjustbox}
 \qquad In generating the above table, we have made use of the following two C++ functions:
 \begin{verbatim}
 double inverse_nlogn(double x) {
