@@ -83,7 +83,7 @@
         {(f)};
 
     % Black arrows for keys moving in line 8
-    \begin{scope}[>=stealth',thick]
+    \begin{scope}[>=stealth']
         \draw[->]
             ($(arr1-2-2.south east)-(0.2,0)$) .. controls +(0.1,-0.6) and +(-0.1,-0.6) 
                     .. ($(arr1-2-2.south west)+(0.2,0)$);
@@ -102,7 +102,7 @@
     \end{scope}
 
     % Shaded arrows for array values moved one position to the right
-    \begin{scope}[>=stealth',thick,draw=gray!80]
+    \begin{scope}[>=stealth',draw=gray!80]
         \draw[->]
             ($(arr3-2-1.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
                     .. ($(arr3-2-2.south west)+(0.2,0)$);
