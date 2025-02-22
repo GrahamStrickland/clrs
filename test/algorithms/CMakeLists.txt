@@ -7,12 +7,14 @@ set(HEADER FILES
     ../../src/algorithms/search/linear_search.h
     ../../src/algorithms/search/recursive_binary_search.h
     ../../src/algorithms/sorting/bubble_sort.h
+    ../../src/algorithms/sorting/insertion_sort.h
 )
 set(SOURCES 
     ../../src/algorithms/search/binary_search.cpp
     ../../src/algorithms/search/linear_search.cpp
     ../../src/algorithms/search/recursive_binary_search.cpp
     ../../src/algorithms/sorting/bubble_sort.cpp
+    ../../src/algorithms/sorting/insertion_sort.cpp
     test_algorithms.cpp
     test_search.cpp 
     test_sorting.cpp
