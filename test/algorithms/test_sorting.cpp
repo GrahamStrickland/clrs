@@ -6,46 +6,33 @@
 
 BOOST_AUTO_TEST_SUITE(test_sorting)
 
-std::vector<std::vector<int32_t>> input_vecs = {{5, 2, 4, 6, 1, 3},
-                                                {31, 41, 59, 26, 41, 58},
-                                                {6, 5, 4, 3, 2, 1},
-                                                {5, 2, 4, 7, 1, 3, 2, 6},
-                                                {3, 41, 52, 26, 38, 57, 9, 49}};
+std::array<std::array<int32_t, 8>, 5> input_arrs = {
+    {{{5, 2, 7, 4, 6, 1, 3, 8}},
+     {{31, 41, 59, 26, 41, 58, 59, 45}},
+     {{8, 7, 6, 5, 4, 3, 2, 1}},
+     {{5, 2, 4, 7, 1, 3, 2, 6}},
+     {{3, 41, 52, 26, 38, 57, 9, 49}}}};
 
-std::vector<std::vector<int32_t>> expected_vecs = {
-    {1, 2, 3, 4, 5, 6},
-    {26, 31, 41, 41, 58, 59},
-    {1, 2, 3, 4, 5, 6},
-    {1, 2, 2, 3, 4, 5, 6, 7},
-    {3, 9, 26, 38, 41, 49, 52, 57}};
+std::array<std::array<int32_t, 8>, 5> expected_arrs = {
+    {{{1, 2, 3, 4, 5, 6, 7, 8}},
+     {{26, 31, 41, 41, 45, 58, 59, 59}},
+     {{1, 2, 3, 4, 5, 6, 7, 8}},
+     {{1, 2, 2, 3, 4, 5, 6, 7}},
+     {{3, 9, 26, 38, 41, 49, 52, 57}}}};
 
-auto test_cases = boost::unit_test::data::make(input_vecs) ^
-                  boost::unit_test::data::make(expected_vecs);
+auto test_cases = boost::unit_test::data::make(input_arrs) ^
+                  boost::unit_test::data::make(expected_arrs);
 
-BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, input_vec, exp_vec) {
-  int32_t obs[input_vec.size()], exp[exp_vec.size()];
+BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, input_arr, exp_arr) {
+  insertion_sort(input_arr, input_arr.size());
 
-  bubble_sort(obs, input_vec.size());
-
-  for (uint8_t i = 0; i < input_vec.size(); i++) {
-    obs[i] = input_vec[i];
-    exp[i] = exp_vec[i];
-  }
-
-  BOOST_ASSERT(obs == exp);
+  BOOST_ASSERT(input_arr == exp_arr);
 }
 
-BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, input_vec, exp_vec) {
-  int32_t obs[input_vec.size()], exp[exp_vec.size()];
+BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, input_arr, exp_arr) {
+  bubble_sort(input_arr, input_arr.size());
 
-  insertion_sort(obs, input_vec.size());
-
-  for (uint8_t i = 0; i < input_vec.size(); i++) {
-    obs[i] = input_vec[i];
-    exp[i] = exp_vec[i];
-  }
-
-  BOOST_ASSERT(obs == exp);
+  BOOST_ASSERT(input_arr == exp_arr);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

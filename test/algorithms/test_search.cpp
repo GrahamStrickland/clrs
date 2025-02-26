@@ -1,3 +1,4 @@
+#include <boost/test/data/test_case.hpp>
 #include <boost/test/included/unit_test.hpp>
 
 #include "../../src/algorithms/search/binary_search.h"
@@ -6,86 +7,34 @@
 
 BOOST_AUTO_TEST_SUITE(test_search)
 
-BOOST_AUTO_TEST_CASE(test_binary_search) {
-  int32_t A[] = {26, 31, 41, 41, 58, 59};
-  uint8_t len = 6;
-  int32_t nu = 31;
-  int32_t obs = -1;
-  int32_t exp = 1;
+std::array<std::array<int32_t, 8>, 4> input_vecs = {
+    {{{26, 31, 41, 41, 58, 59, 101, 104}},
+     {{26, 31, 41, 41, 58, 59, 101, 104}},
+     {{1, 4, 5, 7, 19, 28, 45, 92}},
+     {{1, 4, 5, 7, 19, 28, 45, 92}}}};
+std::array<int32_t, 4> input_vals = {31, 32, 92, 101};
+std::array<int32_t, 4> expected_vals = {1, -1, 7, -1};
 
-  obs = binary_search(A, len, nu);
-  BOOST_ASSERT(obs == exp);
+auto test_cases = boost::unit_test::data::make(input_vecs) ^
+                  boost::unit_test::data::make(input_vals) ^
+                  boost::unit_test::data::make(expected_vals);
 
-  nu = 32;
-  exp = -1;
-  obs = binary_search(A, len, nu);
-  BOOST_ASSERT(obs == exp);
+BOOST_DATA_TEST_CASE(test_linear_search, test_cases, input_arr, nu, exp) {
+  auto obs = linear_search(input_arr, input_arr.size(), nu);
 
-  int32_t B[] = {1, 4, 5, 7, 19, 28, 45, 92};
-  len = 8;
-  nu = 92;
-  exp = 7;
-  obs = binary_search(B, len, nu);
-  BOOST_ASSERT(obs == exp);
-
-  nu = 101;
-  exp = -1;
-  obs = binary_search(B, len, nu);
   BOOST_ASSERT(obs == exp);
 }
 
-BOOST_AUTO_TEST_CASE(test_linear_search) {
-  int32_t A[] = {31, 41, 59, 26, 41, 58};
-  uint8_t len = 6;
-  int32_t nu = 31;
-  int32_t obs = -1;
-  int32_t exp = 0;
+BOOST_DATA_TEST_CASE(test_binary_search, test_cases, input_arr, nu, exp) {
+  auto obs = binary_search(input_arr, input_arr.size(), nu);
 
-  obs = linear_search(A, len, nu);
-  BOOST_ASSERT(obs == exp);
-
-  nu = 32;
-  exp = -1;
-  obs = linear_search(A, len, nu);
-  BOOST_ASSERT(obs == exp);
-
-  int32_t B[] = {1, 4, 39, 99, 100, 20};
-  nu = 39;
-  exp = 2;
-  obs = linear_search(B, len, nu);
-  BOOST_ASSERT(obs == exp);
-
-  nu = 101;
-  exp = -1;
-  obs = linear_search(B, len, nu);
   BOOST_ASSERT(obs == exp);
 }
 
-BOOST_AUTO_TEST_CASE(test_recursive_binary_search) {
-  int32_t A[] = {26, 31, 41, 41, 58, 59};
-  uint8_t len = 6;
-  int32_t nu = 31;
-  int32_t obs = -1;
-  int32_t exp = 1;
+BOOST_DATA_TEST_CASE(test_recursive_binary_search, test_cases, input_arr, nu,
+                     exp) {
+  auto obs = recursive_binary_search(input_arr, nu, 0, input_arr.size());
 
-  obs = recursive_binary_search(A, nu, 0, len);
-  BOOST_ASSERT(obs == exp);
-
-  nu = 32;
-  exp = -1;
-  obs = recursive_binary_search(A, nu, 0, len);
-  BOOST_ASSERT(obs == exp);
-
-  int32_t B[] = {1, 4, 5, 7, 19, 28, 45, 92};
-  len = 8;
-  nu = 7;
-  exp = 3;
-  obs = recursive_binary_search(B, nu, 0, len);
-  BOOST_ASSERT(obs == exp);
-
-  nu = 101;
-  exp = -1;
-  obs = recursive_binary_search(B, nu, 0, len);
   BOOST_ASSERT(obs == exp);
 }
 

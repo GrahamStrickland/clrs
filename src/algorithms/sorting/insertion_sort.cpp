@@ -1,43 +1,11 @@
-// Insertion-Sort algorithm from p. 18 of CLRS 3e
+#include "insertion_sort.h"
 
-#include <iostream>
-
-void testInsertionSort(int A[], int len);
-void insertionSort(int A[], int len);
-
-int main(int argc, char *argv[]) {
-  int A[] = {5, 2, 4, 6, 1, 3};
-  int B[] = {31, 41, 59, 26, 41, 58};
-  int C[] = {6, 5, 4, 3, 2, 1};
-  int len = 6;
-
-  // Test Insertion-Sort algorithm with various arrays
-  testInsertionSort(A, len);
-  testInsertionSort(B, len);
-  testInsertionSort(C, len);
-
-  return EXIT_SUCCESS;
-}
-
-void testInsertionSort(int A[], int len) {
-  std::cout << "Array before Insertion-Sort: ";
-  for (int i = 0; i < len; i++)
-    std::cout << A[i] << ' ';
-
-  insertionSort(A, len);
-
-  std::cout << "\n\nArray after Insertion-Sort: ";
-  for (int i = 0; i < len; i++)
-    std::cout << A[i] << ' ';
-  std::cout << "\n\n";
-}
-
-void insertionSort(int A[], int len) {
-  for (int j = 1; j < len; j++) {
-    int key = A[j];
+void insertion_sort(int32_t A[], uint8_t len) {
+  for (uint8_t j = 1; j < len; j++) {
+    uint32_t key = A[j];
 
     // Insert A[j] into the sorted sequence A[1..j-1]
-    int i = j - 1;
+    uint8_t i = j - 1;
     while (i >= 0 && A[i] > key) {
       A[i + 1] = A[i];
       i = i - 1;
