@@ -5,6 +5,6 @@
 
 #include <cstdint>
 
-int32_t linear_search(int32_t A[], uint8_t len, int32_t nu);
+template <typename T> T linear_search(T A[], uint8_t len, T nu);
 
 #endif // LINEAR_SEARCH_H

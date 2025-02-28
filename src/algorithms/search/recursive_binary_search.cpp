@@ -1,7 +1,7 @@
 #include "recursive_binary_search.h"
 
-int32_t recursive_binary_search(int32_t A[], int32_t nu, uint8_t low,
-                                uint8_t high) {
+template <typename T>
+T recursive_binary_search(T A[], T nu, uint8_t low, uint8_t high) {
   if (low > high)
     return -1;
   uint8_t mid = low + (high - low) / 2;

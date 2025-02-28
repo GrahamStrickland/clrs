@@ -5,6 +5,6 @@
 
 #include <cstdint>
 
-void bubble_sort(int32_t A[], uint8_t len);
+template <typename T> void bubble_sort(T A[], uint8_t len);
 
 #endif // BUBBLE_SORT_H

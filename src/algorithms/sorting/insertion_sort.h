@@ -5,6 +5,6 @@
 
 #include <cstdint>
 
-void insertion_sort(int32_t A[], uint8_t len);
+template <typename T> void insertion_sort(T A[], uint8_t len);
 
 #endif // INSERTION_SORT_H

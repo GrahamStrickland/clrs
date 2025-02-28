@@ -1,6 +1,6 @@
 #include "linear_search.h"
 
-int32_t linear_search(int32_t A[], uint8_t len, int32_t nu) {
+template <typename T> T linear_search(T A[], uint8_t len, T nu) {
   uint8_t j = 0;
 
   while (j != len) {
@@ -12,4 +12,3 @@ int32_t linear_search(int32_t A[], uint8_t len, int32_t nu) {
 
   return -1;
 }
-

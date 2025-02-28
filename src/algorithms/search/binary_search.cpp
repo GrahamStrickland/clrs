@@ -1,6 +1,6 @@
 #include "binary_search.h"
 
-int32_t binary_search(int32_t A[], uint8_t len, int32_t nu) {
+template <typename T> T binary_search(T A[], uint8_t len, T nu) {
   uint8_t low = 0;
   uint8_t high = len - 1;
 
