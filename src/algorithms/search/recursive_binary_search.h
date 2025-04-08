@@ -3,9 +3,22 @@
 #ifndef RECURSIVE_BINARY_SEARCH_H
 #define RECURSIVE_BINARY_SEARCH_H
 
-#include <cstdint>
+#include <span>
 
-template <typename T>
-T recursive_binary_search(T A[], T nu, uint8_t low, uint8_t high);
+namespace clrs {
+template <typename T, std::size_t N, typename V>
+T recursive_binary_search(std::span<T, N> a, V const &nu, uint8_t const &low,
+                          uint8_t const &high) {
+  if (low > high)
+    return -1;
+  uint8_t mid = low + (high - low) / 2;
+  if (nu == a[mid])
+    return mid;
+  else if (nu > a[mid])
+    return recursive_binary_search(a, nu, mid + 1, high);
+  else
+    return recursive_binary_search(a, nu, low, mid - 1);
+}
+} // namespace clrs
 
 #endif // RECURSIVE_BINARY_SEARCH_H
