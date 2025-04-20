@@ -3,8 +3,21 @@
 #ifndef BUBBLE_SORT_H
 #define BUBBLE_SORT_H
 
-#include <cstdint>
+#include <span>
 
-template <typename T> void bubble_sort(T A[], uint8_t len);
-
+namespace clrs {
+template <typename T, std::size_t N> 
+void bubble_sort(std::span<T, N> a) {
+  auto len = a.size();
+  for (uint8_t i = 0; i < len; i++) {
+    for (uint8_t j = len - 1; j >= i + 1; j--) {
+      if (a[j] < a[j - 1]) {
+        int32_t temp = a[j];
+        a[j] = a[j - 1];
+        a[j - 1] = temp;
+      }
+    }
+  }
+}
+} // namespace clrs
 #endif // BUBBLE_SORT_H
