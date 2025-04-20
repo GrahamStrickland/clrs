@@ -3,6 +3,7 @@
 
 #include "matrix.h"
 
+namespace clrs {
 template <typename T> class square_matrix : public matrix<T> {
 public:
   square_matrix<T>(uint8_t n);
@@ -25,4 +26,5 @@ private:
   square_matrix_multiply_recursive(const square_matrix<T> &src) const;
   void assign(uint8_t m, uint8_t n, const square_matrix<T> &src);
 };
+} // namespace clrs
 #endif // SQUARE_MATRIX_H

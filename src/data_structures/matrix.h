@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <string>
 
+namespace clrs {
 template <typename T> class matrix {
 public:
   matrix<T>(uint8_t row, uint8_t col);
@@ -47,4 +48,5 @@ struct matrix_exception : public std::runtime_error {
   matrix_exception(const std::string &message = "Matrix exception")
       : std::runtime_error(message) {}
 };
+} // namespace clrs
 #endif // MATRIX_H

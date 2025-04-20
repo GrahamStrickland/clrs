@@ -2,6 +2,7 @@
 
 #include "matrix.h"
 
+namespace clrs {
 template <typename T> matrix<T>::matrix(uint8_t rows, uint8_t cols) {
   m_rows = rows;
   m_cols = cols;
@@ -201,3 +202,4 @@ template class matrix<std::complex<int>>;
 template class matrix<std::complex<long>>;
 template class matrix<std::complex<float>>;
 template class matrix<std::complex<double>>;
+} // namespace clrs

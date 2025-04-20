@@ -3,6 +3,7 @@
 
 #include "square_matrix.h"
 
+namespace clrs {
 template <typename T>
 square_matrix<T>::square_matrix(uint8_t n) : matrix<T>(n, n) {}
 
@@ -165,3 +166,4 @@ template class square_matrix<std::complex<int>>;
 template class square_matrix<std::complex<long>>;
 template class square_matrix<std::complex<float>>;
 template class square_matrix<std::complex<double>>;
+} // namespace clrs
