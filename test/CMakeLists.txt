@@ -9,6 +9,8 @@ set(HEADER FILES
     ../../src/algorithms/search/binary_search.h
     ../../src/algorithms/search/linear_search.h
     ../../src/algorithms/search/recursive_binary_search.h
+    ../../src/algorithms/sorting/bubble_sort.h
+    ../../src/algorithms/sorting/insertion_sort.h
 )
 
 set(DS_SOURCES 
@@ -18,6 +20,7 @@ set(DS_SOURCES
 )
 set(ALG_SOURCES 
     algorithms/test_search.cpp 
+    algorithms/test_sorting.cpp 
 )
 
 find_package(Boost 1.88.0 REQUIRED COMPONENTS unit_test_framework)
@@ -34,5 +37,6 @@ if (Boost_FOUND)
     target_link_libraries(test_algorithms Boost::headers)
     target_compile_definitions(test_algorithms PRIVATE BOOST_ALLOW_DEPRECATED_HEADERS)
     add_test(NAME test_search COMMAND test_search)
+    add_test(NAME test_sorting COMMAND test_sorting)
 endif()
 
