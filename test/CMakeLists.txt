@@ -11,6 +11,7 @@ set(HEADER FILES
     ../../src/algorithms/search/recursive_binary_search.h
     ../../src/algorithms/sorting/bubble_sort.h
     ../../src/algorithms/sorting/insertion_sort.h
+    algorithms/test_algorithms.h
 )
 
 set(DS_SOURCES 

@@ -1,11 +1,9 @@
-#define BOOST_TEST_MODULE boost_test_algorithms
-
 #include "../../src/algorithms/sorting/bubble_sort.h"
 #include "../../src/algorithms/sorting/insertion_sort.h"
+#include "test_algorithms.h"
 
 #include <boost/test/data/test_case.hpp>
 #include <boost/test/included/unit_test.hpp>
-#include <boost/test/tools/output_test_stream.hpp>
 
 #include <cstdint>
 
@@ -31,15 +29,15 @@ auto test_cases = boost::unit_test::data::make(input_arrs) ^
 } // namespace
 
 BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, input_arr, exp_arr) {
-  clrs::insertion_sort(std::span(input_arr));
+  clrs::insertion_sort(input_arr);
 
-  BOOST_CHECK_EQUAL(input_arr, std::span(exp_arr));
+  BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
 BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, input_arr, exp_arr) {
-  clrs::bubble_sort(std::span(input_arr));
+  clrs::bubble_sort(input_arr);
 
-  BOOST_CHECK_EQUAL(input_arr, std::span(exp_arr));
+  BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

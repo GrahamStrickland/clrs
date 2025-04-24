@@ -3,11 +3,10 @@
 #ifndef BUBBLE_SORT_H
 #define BUBBLE_SORT_H
 
-#include <span>
+#include <array>
 
 namespace clrs {
-template <typename T, std::size_t N> 
-void bubble_sort(std::span<T, N> a) {
+template <typename T, std::size_t N> void bubble_sort(std::array<T, N> a) {
   auto len = a.size();
   for (uint8_t i = 0; i < len; i++) {
     for (uint8_t j = len - 1; j >= i + 1; j--) {

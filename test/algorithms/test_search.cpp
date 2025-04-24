@@ -3,23 +3,12 @@
 #include "../../src/algorithms/search/binary_search.h"
 #include "../../src/algorithms/search/linear_search.h"
 #include "../../src/algorithms/search/recursive_binary_search.h"
+#include "test_algorithms.h"
 
 #include <boost/test/data/test_case.hpp>
 #include <boost/test/included/unit_test.hpp>
-#include <boost/test/tools/output_test_stream.hpp>
 
 #include <cstdint>
-
-// make streamable for boost test:
-namespace std {
-std::ostream &boost_test_print_type(std::ostream &os,
-                                    std::array<int32_t, 8> const &arr) {
-  os << "{";
-  for (char const *sep = ""; auto const &el : arr)
-    os << std::exchange(sep, ", ") << el;
-  return os << "}";
-}
-} // namespace std
 
 BOOST_AUTO_TEST_SUITE(test_search)
 
