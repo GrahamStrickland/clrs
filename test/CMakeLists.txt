@@ -11,7 +11,6 @@ set(HEADER FILES
     ../../src/algorithms/search/recursive_binary_search.h
     ../../src/algorithms/sorting/bubble_sort.h
     ../../src/algorithms/sorting/insertion_sort.h
-    algorithms/test_algorithms.h
 )
 
 set(DS_SOURCES 
@@ -20,8 +19,7 @@ set(DS_SOURCES
     data_structures/test_matrix.cpp
 )
 set(ALG_SOURCES 
-    algorithms/test_search.cpp 
-    algorithms/test_sorting.cpp 
+    algorithms/test_algorithms.cpp 
 )
 
 find_package(Boost 1.88.0 REQUIRED COMPONENTS unit_test_framework)
