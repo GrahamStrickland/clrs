@@ -6,8 +6,7 @@
 #include <array>
 
 namespace clrs {
-template <typename T, std::size_t N> 
-void insertion_sort(std::array<T, N> a) {
+template <typename T, std::size_t N> void insertion_sort(std::array<T, N> &a) {
   auto len = a.size();
   for (uint8_t j = 1; j < len; j++) {
     T key = a[j];

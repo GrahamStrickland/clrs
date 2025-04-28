@@ -82,13 +82,15 @@ auto test_cases = boost::unit_test::data::make(input_arrs) ^
                   boost::unit_test::data::make(expected_arrs);
 } // namespace
 
-BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, input_arr, exp_arr) {
+BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, const_input_arr, exp_arr) {
+  std::array<int32_t, 8> input_arr = const_input_arr;
   clrs::insertion_sort(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
-BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, input_arr, exp_arr) {
+BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, const_input_arr, exp_arr) {
+  std::array<int32_t, 8> input_arr = const_input_arr;
   clrs::bubble_sort(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
