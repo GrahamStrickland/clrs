@@ -11,6 +11,7 @@ set(HEADER FILES
     ../../src/algorithms/search/recursive_binary_search.h
     ../../src/algorithms/sorting/bubble_sort.h
     ../../src/algorithms/sorting/insertion_sort.h
+    ../../src/algorithms/binary/binary_addition.h
 )
 
 set(DS_SOURCES 
@@ -37,5 +38,6 @@ if (Boost_FOUND)
     target_compile_definitions(test_algorithms PRIVATE BOOST_ALLOW_DEPRECATED_HEADERS)
     add_test(NAME test_search COMMAND test_search)
     add_test(NAME test_sorting COMMAND test_sorting)
+    add_test(NAME test_binary COMMAND test_binary)
 endif()
 

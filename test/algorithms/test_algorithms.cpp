@@ -1,5 +1,6 @@
 #define BOOST_TEST_MODULE boost_test_algorithms
 
+#include "../../src/algorithms/binary/binary_addition.h"
 #include "../../src/algorithms/search/binary_search.h"
 #include "../../src/algorithms/search/linear_search.h"
 #include "../../src/algorithms/search/recursive_binary_search.h"
@@ -82,7 +83,8 @@ auto test_cases = boost::unit_test::data::make(input_arrs) ^
                   boost::unit_test::data::make(expected_arrs);
 } // namespace
 
-BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, const_input_arr, exp_arr) {
+BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, const_input_arr,
+                     exp_arr) {
   std::array<int32_t, 8> input_arr = const_input_arr;
   clrs::insertion_sort(input_arr);
 
@@ -94,6 +96,32 @@ BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, const_input_arr, exp_arr) {
   clrs::bubble_sort(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(test_binary)
+
+namespace { // file static visibility
+std::array<std::bitset<7>, 4> constexpr input_bitsets{
+    std::bitset<7>{"0000000"}, std::bitset<7>{"0000001"},
+    std::bitset<7>{"1000000"}, std::bitset<7>{"1000001"}};
+
+std::array<std::bitset<8>, 4> constexpr expected_bitsets{
+    std::bitset<8>{"01111111"}, std::bitset<8>{"10000000"},
+    std::bitset<8>{"10111111"}, std::bitset<8>{"11000000"}};
+
+auto test_cases = boost::unit_test::data::make(input_bitsets) ^
+                  boost::unit_test::data::make(expected_bitsets);
+} // namespace
+
+BOOST_DATA_TEST_CASE(test_binary_addition, test_cases, const_input_bitset,
+                     exp_bitset) {
+  std::bitset<7> input_bitset = const_input_bitset;
+  const std::bitset<8> output_bitset =
+      clrs::binary_addition(input_bitset, std::bitset<7>{"1111111"});
+
+  BOOST_CHECK_EQUAL(output_bitset, exp_bitset);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
