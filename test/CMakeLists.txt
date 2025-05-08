@@ -12,6 +12,7 @@ set(HEADER FILES
     ../../src/algorithms/sorting/bubble_sort.h
     ../../src/algorithms/sorting/insertion_sort.h
     ../../src/algorithms/binary/binary_addition.h
+    ../../src/algorithms/sorting/selection_sort.h
 )
 
 set(DS_SOURCES 

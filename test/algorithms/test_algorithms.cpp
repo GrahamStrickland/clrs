@@ -6,6 +6,7 @@
 #include "../../src/algorithms/search/recursive_binary_search.h"
 #include "../../src/algorithms/sorting/bubble_sort.h"
 #include "../../src/algorithms/sorting/insertion_sort.h"
+#include "../../src/algorithms/sorting/selection_sort.h"
 
 #include <boost/test/data/test_case.hpp>
 #include <boost/test/included/unit_test.hpp>
@@ -94,6 +95,13 @@ BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, const_input_arr,
 BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, const_input_arr, exp_arr) {
   std::array<int32_t, 8> input_arr = const_input_arr;
   clrs::bubble_sort(input_arr);
+
+  BOOST_CHECK_EQUAL(input_arr, exp_arr);
+}
+
+BOOST_DATA_TEST_CASE(test_selection_sort, test_cases, const_input_arr, exp_arr) {
+  std::array<int32_t, 8> input_arr = const_input_arr;
+  clrs::selection_sort(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }

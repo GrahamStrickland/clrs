@@ -1,14 +1,16 @@
+% Exercise 2.1-2
+
 \begin{algorithmic}[1]
     \TITLE{\textsc{Insertion-Sort}$(A)$}
-    \FOR{$j=2$ \TO $A.\mathit{length}$}
-    \STATE $\mathit{key} = A[j]$
-    \STATE \COMMENT{Insert $A[j]$ to the sorted sequence $A[1\, .\, .\, j - 1]$}
-    \STATE $i = j-1$
-    \WHILE{$i>0$ \AND $A[i] < key$}
-    \STATE $A[i+1]= A[i]$
-    \STATE $i = i-1$
-    \ENDWHILE
-    \STATE $A[i+1] = \mathit{key}$
+    \FOR{$j = 2$ \TO $A.\mathit{length}$}
+            \STATE $\mathit{key} = A[j]$
+            \STATE \COMMENT{Insert $A[j]$ to the sorted sequence $A[1\, .\, .\, j - 1]$}
+            \STATE $i = j-1$
+        \WHILE{$i>0$ \AND $A[i] < key$}
+            \STATE $A[i+1]= A[i]$
+            \STATE $i = i-1$
+        \ENDWHILE
+            \STATE $A[i+1] = \mathit{key}$
     \ENDFOR
 \end{algorithmic}
 
