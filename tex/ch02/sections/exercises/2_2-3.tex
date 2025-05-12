@@ -1,0 +1,17 @@
+% Exercise 2.2-3
+
+Assuming the element being searched for is equally likely to be at any position in 
+the array, we would on average search through
+\[
+    \frac{1 + 2 + \cdots + n}{n}  = \frac{1}{n}\sum_{k=1}^nk = \frac{n + 1}{2}
+\]
+elements for an input sequence of length $n$. In the worse case we would search through
+all $n$ elements.
+
+Thus the average- and worst-case running times are $\Theta(n)$, since
+\[
+    \frac{n + 1}{2} = \frac{n}{2} + \frac{1}{2},
+\]
+and the dominant term is $\frac{1}{2}n$, which is equivalent to $\Theta(n)$. Obviously,
+looping through $n$ items sequentially is $\Theta(n)$, so the average- and worse-case
+running times are in an equivalent $\Theta$-class.

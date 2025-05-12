@@ -1,124 +1,129 @@
 % Exercise 2.1-1
 
-\begin{tikzpicture}[>=latex]
-    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 2} = [nodes={fill=black},text=white]
-    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-    at (0,0)
-    (arr1)
-    {
-        1  & 2  & 3  & 4  & 5  & 6 \\
-        31 & 41 & 59 & 26 & 41 & 58 \\
-    };
-    \node[left=0pt of arr1-2-1]
-        {(a)};
+In Figure~\ref{2_1-1}, we illustrate the operation of \textsc{Insertion-Sort} on the
+array $A = \langle 31, 41, 59, 26, 41, 58 \rangle$.
+\begin{figure}[!ht]
+    \begin{tikzpicture}[>=latex]
+        \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 2} = [nodes={fill=black},text=white]
+        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+        at (0,0)
+        (arr1)
+        {
+            1  & 2  & 3  & 4  & 5  & 6 \\
+            31 & 41 & 59 & 26 & 41 & 58 \\
+        };
+        \node[left=0pt of arr1-2-1]
+            {(a)};
 
-    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 3} = [nodes={fill=black},text=white]
-    \matrix[mymat,right=of arr1,row 2/.style={nodes=draw}]
-    (arr2)
-    {
-        1  & 2  & 3  & 4  & 5  & 6 \\
-        31 & 41 & 59 & 26 & 41 & 58 \\
-    };
-    \node[left=0pt of arr2-2-1]
-        {(b)};
+        \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 3} = [nodes={fill=black},text=white]
+        \matrix[mymat,right=of arr1,row 2/.style={nodes=draw}]
+        (arr2)
+        {
+            1  & 2  & 3  & 4  & 5  & 6 \\
+            31 & 41 & 59 & 26 & 41 & 58 \\
+        };
+        \node[left=0pt of arr2-2-1]
+            {(b)};
 
-    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 4} = [nodes={fill=black},text=white]
-    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-    at (0,-2)
-    (arr3)
-    {
-        1  & 2  & 3  & 4  & 5  & 6 \\
-        31 & 41 & 59 & 26 & 41 & 58 \\
-    };
-    \node[left=0pt of arr3-2-1]
-        {(c)};
+        \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 4} = [nodes={fill=black},text=white]
+        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+        at (0,-2)
+        (arr3)
+        {
+            1  & 2  & 3  & 4  & 5  & 6 \\
+            31 & 41 & 59 & 26 & 41 & 58 \\
+        };
+        \node[left=0pt of arr3-2-1]
+            {(c)};
 
-    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 5} = [nodes={fill=black},text=white]
-    \matrix[mymat,right=of arr3,row 2/.style={nodes=draw}]
-    (arr4)
-    {
-        1  & 2  & 3  & 4  & 5  & 6 \\
-        26 & 31 & 41 & 59 & 41 & 58 \\
-    };
-    \node[left=0pt of arr4-2-1]
-        {(d)};
+        \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 5} = [nodes={fill=black},text=white]
+        \matrix[mymat,right=of arr3,row 2/.style={nodes=draw}]
+        (arr4)
+        {
+            1  & 2  & 3  & 4  & 5  & 6 \\
+            26 & 31 & 41 & 59 & 41 & 58 \\
+        };
+        \node[left=0pt of arr4-2-1]
+            {(d)};
 
-    \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 5} = [nodes={fill=gray!30}]
-    \tikzstyle{row 2 column 6} = [nodes={fill=black},text=white]
-    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-    at (0,-4)
-    (arr5)
-    {
-        1  & 2  & 3  & 4  & 5  & 6 \\
-        26 & 31 & 41 & 41 & 59 & 58 \\
-    };
-    \node[left=0pt of arr5-2-1]
-        {(e)};
+        \tikzstyle{row 2 column 1} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 2} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 3} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 4} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 5} = [nodes={fill=gray!30}]
+        \tikzstyle{row 2 column 6} = [nodes={fill=black},text=white]
+        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+        at (0,-4)
+        (arr5)
+        {
+            1  & 2  & 3  & 4  & 5  & 6 \\
+            26 & 31 & 41 & 41 & 59 & 58 \\
+        };
+        \node[left=0pt of arr5-2-1]
+            {(e)};
 
-    \tikzstyle{row 2 column 1} = [nodes={fill=white},text=black]
-    \tikzstyle{row 2 column 2} = [nodes={fill=white},text=black]
-    \tikzstyle{row 2 column 3} = [nodes={fill=white},text=black]
-    \tikzstyle{row 2 column 4} = [nodes={fill=white},text=black]
-    \tikzstyle{row 2 column 5} = [nodes={fill=white},text=black]
-    \tikzstyle{row 2 column 6} = [nodes={fill=white},text=black]
-    \matrix[mymat,right=of arr5,row 2/.style={nodes=draw}]
-    (arr6)
-    {
-        1  & 2  & 3  & 4  & 5  & 6 \\
-        26 & 31 & 41 & 41 & 58 & 59 \\
-    };
-    \node[left=0pt of arr6-2-1]
-        {(f)};
+        \tikzstyle{row 2 column 1} = [nodes={fill=white},text=black]
+        \tikzstyle{row 2 column 2} = [nodes={fill=white},text=black]
+        \tikzstyle{row 2 column 3} = [nodes={fill=white},text=black]
+        \tikzstyle{row 2 column 4} = [nodes={fill=white},text=black]
+        \tikzstyle{row 2 column 5} = [nodes={fill=white},text=black]
+        \tikzstyle{row 2 column 6} = [nodes={fill=white},text=black]
+        \matrix[mymat,right=of arr5,row 2/.style={nodes=draw}]
+        (arr6)
+        {
+            1  & 2  & 3  & 4  & 5  & 6 \\
+            26 & 31 & 41 & 41 & 58 & 59 \\
+        };
+        \node[left=0pt of arr6-2-1]
+            {(f)};
 
-    % Black arrows for keys moving in line 8
-    \begin{scope}[>=stealth']
-        \draw[->]
-            ($(arr1-2-2.south east)-(0.2,0)$) .. controls +(0.1,-0.6) and +(-0.1,-0.6) 
-                    .. ($(arr1-2-2.south west)+(0.2,0)$);
-        \draw[->]
-            ($(arr2-2-3.south east)-(0.2,0)$) .. controls +(0.1,-0.6) and +(-0.1,-0.6) 
-                    .. ($(arr2-2-3.south west)+(0.2,0)$);
-        \draw[->]
-            ($(arr3-2-4.south)+(0.2,0)$) .. controls +(-0.1,-0.6) and +(0.1,-0.6) 
-                    .. ($(arr3-2-1.south)-(0.2,0)$);
-        \draw[->]
-            ($(arr4-2-5.south)+(0.2,0)$) .. controls +(-0.1,-0.6) and +(0.1,-0.6) 
-                    .. ($(arr4-2-4.south)-(0.2,0)$);
-        \draw[->]
-            ($(arr5-2-6.south)+(0.2,0)$) .. controls +(-0.1,-0.6) and +(0.1,-0.6) 
-                    .. ($(arr5-2-5.south)-(0.2,0)$);
-    \end{scope}
+        % Black arrows for keys moving in line 8
+        \begin{scope}[>=stealth']
+            \draw[->]
+                ($(arr1-2-2.south east)-(0.2,0)$) .. controls +(0.1,-0.6) and +(-0.1,-0.6) 
+                        .. ($(arr1-2-2.south west)+(0.2,0)$);
+            \draw[->]
+                ($(arr2-2-3.south east)-(0.2,0)$) .. controls +(0.1,-0.6) and +(-0.1,-0.6) 
+                        .. ($(arr2-2-3.south west)+(0.2,0)$);
+            \draw[->]
+                ($(arr3-2-4.south)+(0.2,0)$) .. controls +(-0.1,-0.6) and +(0.1,-0.6) 
+                        .. ($(arr3-2-1.south)-(0.2,0)$);
+            \draw[->]
+                ($(arr4-2-5.south)+(0.2,0)$) .. controls +(-0.1,-0.6) and +(0.1,-0.6) 
+                        .. ($(arr4-2-4.south)-(0.2,0)$);
+            \draw[->]
+                ($(arr5-2-6.south)+(0.2,0)$) .. controls +(-0.1,-0.6) and +(0.1,-0.6) 
+                        .. ($(arr5-2-5.south)-(0.2,0)$);
+        \end{scope}
 
-    % Shaded arrows for array values moved one position to the right
-    \begin{scope}[>=stealth',draw=gray!80]
-        \draw[->]
-            ($(arr3-2-1.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
-                    .. ($(arr3-2-2.south west)+(0.2,0)$);
-        \draw[->]
-            ($(arr3-2-2.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
-                    .. ($(arr3-2-3.south west)+(0.2,0)$);
-        \draw[->]
-            ($(arr3-2-3.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
-                    .. ($(arr3-2-4.south west)+(0.2,0)$);
-        \draw[->]
-            ($(arr4-2-4.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
-                    .. ($(arr4-2-5.south west)+(0.2,0)$);
-        \draw[->]
-            ($(arr5-2-5.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
-                    .. ($(arr5-2-6.south west)+(0.2,0)$);
-    \end{scope}
-\end{tikzpicture}
+        % Shaded arrows for array values moved one position to the right
+        \begin{scope}[>=stealth',draw=gray!80]
+            \draw[->]
+                ($(arr3-2-1.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
+                        .. ($(arr3-2-2.south west)+(0.2,0)$);
+            \draw[->]
+                ($(arr3-2-2.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
+                        .. ($(arr3-2-3.south west)+(0.2,0)$);
+            \draw[->]
+                ($(arr3-2-3.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
+                        .. ($(arr3-2-4.south west)+(0.2,0)$);
+            \draw[->]
+                ($(arr4-2-4.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
+                        .. ($(arr4-2-5.south west)+(0.2,0)$);
+            \draw[->]
+                ($(arr5-2-5.south east)-(0.2,0)$) .. controls +(0.1,-0.3) and +(-0.1,-0.3) 
+                        .. ($(arr5-2-6.south west)+(0.2,0)$);
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Illustration of \textsc{Insertion-Sort}. \label{2_1-1}} 
+\end{figure}
