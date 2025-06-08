@@ -6,16 +6,18 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 \begin{figure}[!ht]
     \begin{tikzpicture}[>=latex]
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (5, 0)
+        \matrix[mymat,anchor=west,row 2/.style={nodes=draw},label=above:sorted sequence]
+        at (4.5, 0)
         (arr1)
         {
             3 & 9 & 26 & 38 & 41 & 49 & 52 & 57 \\
         };
 
+        \node[fill=none,label=merge] at (7.5, -1.5) {};
+
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (3, -2)
+        at (1.865, -2)
         (arr2)
         {
             3 & 26 & 41 & 52 \\
@@ -29,9 +31,12 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
             9 & 38 & 49 & 57 \\
         };
 
+        \node[fill=none,label=merge] at (3.5, -3.5) {};
+        \node[fill=none,label=merge] at (11.75, -3.5) {};
+
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (2, -4)
+        at (0.625, -4)
         (arr4)
         {
             3 & 41 \\
@@ -39,7 +44,7 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (5, -4)
+        at (4.625, -4)
         (arr5)
         {
             26 & 52 \\
@@ -47,7 +52,7 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (9, -4)
+        at (8.625, -4)
         (arr6)
         {
             38 & 57 \\
@@ -55,7 +60,7 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (12, -4)
+        at (12.625, -4)
         (arr7)
         {
             9 & 49 \\
@@ -63,15 +68,20 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (1.5, -6)
+        at (0, -6)
         (arr8)
         {
             3 \\
         };
 
+        \node[fill=none,label=merge] at (1.5, -5.5) {};
+        \node[fill=none,label=merge] at (5.5, -5.5) {};
+        \node[fill=none,label=merge] at (9.5, -5.5) {};
+        \node[fill=none,label=merge] at (13.5, -5.5) {};
+
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (3, -6)
+        at (2, -6)
         (arr9)
         {
             41 \\
@@ -79,7 +89,7 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (4.5, -6)
+        at (4, -6)
         (arr10)
         {
             52 \\
@@ -95,7 +105,7 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (8.5, -6)
+        at (8, -6)
         (arr12)
         {
             38 \\
@@ -111,7 +121,7 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (11.5, -6)
+        at (12, -6)
         (arr14)
         {
             9 \\
@@ -119,11 +129,13 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
         \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
         \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (13, -6)
+        at (14, -6)
         (arr15)
         {
             49 \\
         };
+
+        \node[fill=none,label=initial sequence] at (7.5, -7.5) {};
 
         \begin{scope}[>=stealth',very thick,draw=gray!80]
             \draw[->]
