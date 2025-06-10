@@ -13,6 +13,8 @@ set(HEADER FILES
     ../../src/algorithms/sorting/insertion_sort.h
     ../../src/algorithms/binary/binary_addition.h
     ../../src/algorithms/sorting/selection_sort.h
+    ../../src/algorithms/sorting/merge_sort.h
+    ../../src/algorithms/sorting/merge_sort_no_sentinel.h
 )
 
 set(DS_SOURCES 
