@@ -5,6 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{hyperref}
 \usepackage{adjustbox}
 \usepackage[noend]{algorithmic}
@@ -12,6 +13,9 @@
 
 \newcommand{\TITLE}[1]{\item[#1]}
 \renewcommand{\algorithmiccomment}[1]{$/\!/$ \parbox[t]{4.5cm}{\raggedright #1}}
+\newcommand{\ltwodots}{%
+    \mathinner{{\ldotp}\,{\ldotp}}%
+}
 
 \usetikzlibrary{calc,matrix,positioning,arrows.meta,arrows}
 
