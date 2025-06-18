@@ -3,17 +3,22 @@ use chrono::{Duration, TimeDelta};
 use std::f64::consts::LN_2;
 
 pub fn fmt_f64(num: f64, width: usize, precision: usize, exp_pad: usize) -> String {
-    let mut num = format!("{:.precision$e}", num, precision = precision);
-    let exp = num.split_off(num.find('e').unwrap());
+    let mut numstr = format!("{:.precision$e}", num, precision = precision);
+    if numstr == "inf" {
+        return format!("{:>width$}", numstr, width = width);
+    } else if num.fract() == 0.0 && (num as i32) < i32::MAX {
+        return format!("{:>width$}", num as i64, width = width);
+    }
+    let exp = numstr.split_off(numstr.find('e').unwrap());
 
     let (sign, exp) = if exp.starts_with("e-") {
         ('-', &exp[2..])
     } else {
         ('+', &exp[1..])
     };
-    num.push_str(&format!("e{}{:0>pad$}", sign, exp, pad = exp_pad));
+    numstr.push_str(&format!("e{}{:0>pad$}", sign, exp, pad = exp_pad));
 
-    format!("{:>width$}", num, width = width)
+    format!("{:>width$}", numstr, width = width)
 }
 
 pub fn inverse_nlogn(x: f64) -> f64 {
