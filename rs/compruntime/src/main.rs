@@ -17,7 +17,9 @@ fn main() {
 
     let headers = ["lg(n)", "sqrt(n)", "n", "nlg(n)", "n^2", "n^3", "2^n", "n!"];
 
-    println!("Comparison of running times for the largest problem size n of a problem that can be solved in time t:");
+    println!(
+        "Comparison of running times for the largest problem size n of a problem that can be solved in time t:"
+    );
     println!("Assuming that the algorithm to solve the problem takes f(n) microseconds:\n");
     println!("{:-<140}", "");
     println!("f(n)\t\t1s\t\t1m\t\t1h\t\t1d\t\t1w\t\t1m\t\t1y\t\t1c");
