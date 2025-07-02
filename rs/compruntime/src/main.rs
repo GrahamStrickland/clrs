@@ -20,10 +20,8 @@ fn main() {
 
     let headers = ["lg(n)", "sqrt(n)", "n", "nlg(n)", "n^2", "n^3", "2^n", "n!"];
 
-    println!(
-        "Comparison of running times for the largest problem size n of a problem that can be solved in time t,"
-    );
-    println!("assuming that the algorithm to solve the problem takes f(n) microseconds:\n");
+    println!("Comparison of running times for the largest problem size n of a problem that can be solved in time t, assuming that the algorithm to 
+solve the problem takes f(n) microseconds:");
     println!("{:-<136}", "");
     println!("f(n)\t\t1 s\t\t1m\t\t1h\t\t1d\t\t1w\t\t1m\t\t1y\t\t1c");
     println!("{:-<136}", "");
@@ -32,17 +30,17 @@ fn main() {
         print!("{:<8}", header);
 
         for &time in &runtimes {
-            let secs = time.num_seconds() as f64;
+            let msecs = time.num_microseconds().unwrap() as f64;
 
             let smallest_n = match *header {
-                "lg(n)" => (2f64).powf(secs),
-                "sqrt(n)" => (secs).powi(2),
-                "n" => secs,
-                "nlg(n)" => inverse_nlogn(secs),
-                "n^2" => (secs).sqrt(),
-                "n^3" => (secs).powf(1.0 / 3.0),
-                "2^n" => secs.ln() / LN_2,
-                "n!" => inverse_factorial(secs),
+                "lg(n)" => (2f64).powf(msecs),
+                "sqrt(n)" => (msecs).powi(2),
+                "n" => msecs,
+                "nlg(n)" => inverse_nlogn(msecs),
+                "n^2" => (msecs).sqrt(),
+                "n^3" => (msecs).powf(1.0 / 3.0),
+                "2^n" => msecs.ln() / LN_2,
+                "n!" => inverse_factorial(msecs),
                 _ => 0.0,
             };
 

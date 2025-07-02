@@ -1,5 +1,3 @@
-use chrono::{Duration, TimeDelta};
-
 use std::f64::consts::LN_2;
 
 pub fn fmt_f64(num: f64, width: usize, precision: usize, exp_pad: usize) -> String {
@@ -9,7 +7,12 @@ pub fn fmt_f64(num: f64, width: usize, precision: usize, exp_pad: usize) -> Stri
     } else if num.fract() == 0.0 && (num as i32) < i32::MAX {
         return format!("{:>width$}", num as i64, width = width);
     }
-    let exp = numstr.split_off(numstr.find('e').unwrap());
+    let idx = match numstr.find('e') {
+        Some(idx) => idx,
+        None => return numstr,
+    };
+
+    let exp = numstr.split_off(idx);
 
     let (sign, exp) = if exp.starts_with("e-") {
         ('-', &exp[2..])
@@ -55,6 +58,7 @@ pub fn inverse_factorial(x: f64) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use chrono::{Duration, TimeDelta};
 
     const RUNTIMES: [TimeDelta; 7] = [
         Duration::seconds(1),
@@ -70,25 +74,25 @@ mod tests {
     fn test_fmt_f64() {
         let nums = vec![
             62746.0,
-            2.80142e+06,
-            1.33378e+08,
-            2.75515e+09,
-            1.77631e+10,
-            7.98145e+11,
-            6.86552e+13,
+            2801417.0,
+            133378058.0,
+            2755147513.0,
+            71870856404.0,
+            797633893349.0,
+            68654697441062.0,
         ];
         let exps = vec![
-            "62746",
-            "2.80142e+06",
-            "1.33378e+08",
+            "      62746",
+            "    2801417",
+            "  133378058",
             "2.75515e+09",
-            "1.77631e+10",
-            "7.98145e+11",
-            "6.86552e+13",
+            "7.18709e+10",
+            "7.97634e+11",
+            "6.86547e+13",
         ];
 
         for (num, exp) in nums.iter().zip(exps.iter()) {
-            let res = fmt_f64(*num, 12, 3, 2);
+            let res = fmt_f64(*num, 11, 5, 2);
             assert_eq!(res, String::from(*exp),);
         }
     }
@@ -97,12 +101,12 @@ mod tests {
     fn test_inverse_nlogn() {
         let exps = vec![
             62746.0,
-            2.80142e+06,
-            1.33378e+08,
-            2.75515e+09,
-            1.77631e+10,
-            7.98145e+11,
-            6.86552e+13,
+            2801417.0,
+            133378058.0,
+            2755147513.0,
+            71870856404.0,
+            797633893349.0,
+            68654697441062.0,
         ];
         let tol = 1e3;
 
@@ -115,13 +119,13 @@ mod tests {
 
     #[test]
     fn test_inverse_factorial() {
-        let exps = vec![10.0, 12.0, 13.0, 14.0, 15.0, 17.0, 18.0];
+        let exps = vec![9.0, 11.0, 12.0, 13.0, 15.0, 17.0, 18.0];
         let tol = 1e3;
 
         for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
             let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;
             let res = inverse_factorial(time_in_microseconds);
-            assert!((res - exp).abs() < tol);
+            assert_eq!(res, *exp);
         }
     }
 }
