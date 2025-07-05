@@ -1,74 +1,68 @@
 % Problem 1-1
 
-From the program \path{src/algorithms/big_oh/comp_runtime.cpp}, we have the following
+From the program in \path{rs/compruntime}, we have the following
 output:
+\small\begin{verbatim}
+----------------------------------------------------------
+f(n)            1 s             1m              1h        
+----------------------------------------------------------
+lg(n)                inf             inf             inf  
+sqrt(n)   1.00000000e+12  3.60000000e+15  1.29600000e+19  
+n                1000000        60000000  3.60000000e+09  
+nlg(n)             62746         2801417       133378058  
+n^2                 1000            7745           60000  
+n^3                   99             391            1532  
+2^n                   19              25              31  
+n!                    10              12              13  
+----------------------------------------------------------
+--------------------------------------------------------------
+      1d              1m              1y              1c
+--------------------------------------------------------------
+           inf             inf             inf             inf
+7.46496000e+21  6.71846400e+24  9.94519296e+26  9.94519296e+30
+8.64000000e+10  2.59200000e+12  3.15360000e+13  3.15360000e+15
+2.75514751e+09  7.18708564e+10  7.97633893e+11  6.86109568e+13
+        293938         1609968         5615692        56156922
+          4420           13736           31593          146645
+            36              41              44              51
+            14              16              17              18
+--------------------------------------------------------------
+\end{verbatim}\normalsize
+\qquad In generating the above results, we have made use of the following two Rust functions:
+\small\begin{verbatim}
+pub fn inverse_nlogn(x: f64) -> f64 {
+    let max_iters = 10;
+    let mut a_0 = x / (x.log2());
+    let mut a_1: f64 = 0.0;
 
-\begin{adjustbox}{width={\textwidth},totalheight={\textheight},keepaspectratio}
-    \begin{tabular}{@{} l | r | r | r | r | r | r | r |}
-        \qquad & \multicolumn{1}{c |}{1 second} & \multicolumn{1}{c |}{1 minute} 
-               & \multicolumn{1}{c |}{1 hour} & \multicolumn{1}{c |}{1 day} 
-               & \multicolumn{1}{c |}{1 month} & \multicolumn{1}{c |}{1 year} 
-               & \multicolumn{1}{c |}{1 century} \\
-        \hline
-        $\lg\,n$  & \texttt{2e+06}  & \texttt{1.15292e+24} & \texttt{inf}
-        & \texttt{inf}         & \texttt{inf}         & \texttt{inf}         & \texttt{inf} \\
-        \hline
-        $\sqrt{n}$      & \texttt{1e+12}  & \texttt{3.6e+15}     & \texttt{1.296e+19}
-        & \texttt{7.46496e+21} & \texttt{3.65783e+23} & \texttt{9.95841e+26} & \texttt{9.95841e+30} \\
-        \hline
-        $n$             & \texttt{1e+06}  & \texttt{6e+07}       & \texttt{3.6e+09}
-        & \texttt{8.64e+10}    & \texttt{6.048e+11}   & \texttt{3.1557e+13}  & \texttt{3.1557e+15} \\
-        \hline
-        $n\lg\,n$ & \texttt{62746}  & \texttt{2.80142e+06} & \texttt{1.33378e+08}
-        & \texttt{2.75515e+09} & \texttt{1.77631e+10} & \texttt{7.98145e+11} & \texttt{6.86552e+13} \\
-        \hline
-        $n^2$           & \texttt{1000}   & \texttt{7745}        & \texttt{60000}
-        & \texttt{293938}      & \texttt{777688}      & \texttt{5.61756e+06} & \texttt{5.61756e+07} \\
-        \hline
-        $n^3$           & \texttt{99}     & \texttt{391}         & \texttt{1532}
-        & \texttt{4420}        & \texttt{8456}        & \texttt{31600}       & \texttt{146678} \\
-        \hline
-        $2^n$           & \texttt{19}     & \texttt{25}          & \texttt{31}
-        & \texttt{36}          & \texttt{39}          & \texttt{44}          & \texttt{51} \\
-        \hline
-        $n!$            & \texttt{10}     & \texttt{12}          & \texttt{13}
-        & \texttt{14}          & \texttt{15}          & \texttt{17}          & \texttt{18} \\
-        \hline
-    \end{tabular}
-\end{adjustbox}
-\qquad In generating the above table, we have made use of the following two C++ functions:
-\begin{verbatim}
-double inverse_nlogn(double x) {
-  uint8_t max_iters = 10;
-  double a_0 = x / std::log2(x), a_1 = 0.0;
+    for _ in 0..max_iters {
+        a_1 = a_0 - (a_0 * a_0.log2() - x) / ((1.0 / LN_2) + a_0.log2());
+        if ((a_1 * a_1.log2()) - (a_0 * a_0.log2())).abs() < 1.0 {
+            return a_1.floor();
+        } else {
+            a_0 = a_1;
+        }
+    }
 
-  for (uint8_t i = 0; i < max_iters; ++i) {
-    a_1 = a_0 - ((a_0 * std::log2(a_0) - x) /
-                 ((1.0 / std::log(2.0)) + std::log2(a_0)));
-    if (abs((a_1 * std::log2(a_1)) - (a_0 * std::log2(a_0))) < 1)
-      return a_1;
-    else
-      a_0 = a_1;
-  }
-
-  return a_1;
+    a_1.floor()
 }
-\end{verbatim}
+\end{verbatim}\normalsize
 and 
-\begin{verbatim}
-double inverse_factorial(double x) {
-  double i = 0, fact = 1;
+\small\begin{verbatim}
+pub fn inverse_factorial(x: f64) -> f64 {
+    let mut i = 0.0;
+    let mut fact = 1.0;
 
-  while (fact < x) {
-    if (i > 0)
-      fact *= i;
-    i++;
-  }
+    while fact < x {
+        if i > 0.0 {
+            fact *= i;
+        }
+        i += 1.0;
+    }
 
-  return i - 1;
+    i - 1.0
 }
-    
-\end{verbatim}
+\end{verbatim}\normalsize
 \texttt{inverse\_nlogn} makes use of Newton's method to calculate an approximate 
 value $m(x)$ s.t. 
 \[

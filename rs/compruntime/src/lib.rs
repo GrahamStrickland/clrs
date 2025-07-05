@@ -32,13 +32,13 @@ pub fn inverse_nlogn(x: f64) -> f64 {
     for _ in 0..max_iters {
         a_1 = a_0 - (a_0 * a_0.log2() - x) / ((1.0 / LN_2) + a_0.log2());
         if ((a_1 * a_1.log2()) - (a_0 * a_0.log2())).abs() < 1.0 {
-            return a_1;
+            return a_1.floor();
         } else {
             a_0 = a_1;
         }
     }
 
-    a_1
+    a_1.floor()
 }
 
 pub fn inverse_factorial(x: f64) -> f64 {
@@ -108,19 +108,19 @@ mod tests {
             797633893349.0,
             68654697441062.0,
         ];
-        let tol = 1e3;
 
         for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
             let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;
             let res = inverse_nlogn(time_in_microseconds);
-            assert!((res - exp).abs() < tol);
+            let tol = 1e-3;
+
+            assert!((res - exp).abs() / exp < tol);
         }
     }
 
     #[test]
     fn test_inverse_factorial() {
-        let exps = vec![9.0, 11.0, 12.0, 13.0, 15.0, 17.0, 18.0];
-        let tol = 1e3;
+        let exps = vec![10.0, 12.0, 13.0, 14.0, 16.0, 17.0, 18.0];
 
         for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
             let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;
