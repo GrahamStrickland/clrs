@@ -2,7 +2,7 @@ use std::f64::consts::LN_2;
 
 use chrono::Duration;
 
-use clrs_big_oh::{inverse_factorial, inverse_nlogn};
+use clrs_algorithms::big_o::{inverse_factorial, inverse_nlogn};
 use clrs_utils::fmt_f64;
 
 fn main() {

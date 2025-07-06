@@ -59,7 +59,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "clrs_big_oh"
+name = "clrs_algorithms"
 version = "0.1.0"
 dependencies = [
  "chrono",
@@ -70,7 +70,7 @@ name = "clrs_compruntime"
 version = "0.1.0"
 dependencies = [
  "chrono",
- "clrs_big_oh",
+ "clrs_algorithms",
  "clrs_utils",
 ]
 

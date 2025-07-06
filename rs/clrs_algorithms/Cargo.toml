@@ -1,5 +1,5 @@
 [package]
-name = "clrs_big_oh"
+name = "clrs_algorithms"
 version = "0.1.0"
 edition = "2024"
 
