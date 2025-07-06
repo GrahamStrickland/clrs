@@ -1,0 +1,3 @@
+[workspace]
+members = ["clrs_utils", "clrs_big_oh", "clrs_compruntime"]
+resolver = "3"

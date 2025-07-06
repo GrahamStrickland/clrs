@@ -2,9 +2,8 @@ use std::f64::consts::LN_2;
 
 use chrono::Duration;
 
-use compruntime::fmt_f64;
-use compruntime::inverse_factorial;
-use compruntime::inverse_nlogn;
+use clrs_big_oh::{inverse_factorial, inverse_nlogn};
+use clrs_utils::fmt_f64;
 
 fn main() {
     let runtimes = [

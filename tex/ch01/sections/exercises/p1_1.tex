@@ -1,6 +1,6 @@
 % Problem 1-1
 
-From the program in \path{rs/compruntime}, we have the following
+From the program in \path{rs/clrs_compruntime/src/main.rs}, we have the following
 output:
 \small\begin{verbatim}
 ----------------------------------------------------------
@@ -28,7 +28,8 @@ n!                    10              12              13
             14              16              17              18
 --------------------------------------------------------------
 \end{verbatim}\normalsize
-\qquad In generating the above results, we have made use of the following two Rust functions:
+\qquad In generating the above results, we have made use of the following two Rust 
+functions in \path{rs/clrs_big_oh/src/lib.rs}:
 \small\begin{verbatim}
 pub fn inverse_nlogn(x: f64) -> f64 {
     let max_iters = 10;
@@ -47,7 +48,7 @@ pub fn inverse_nlogn(x: f64) -> f64 {
     a_1.floor()
 }
 \end{verbatim}\normalsize
-and 
+and:
 \small\begin{verbatim}
 pub fn inverse_factorial(x: f64) -> f64 {
     let mut i = 0.0;
