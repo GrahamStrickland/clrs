@@ -3,20 +3,45 @@ pub mod binary;
 pub mod search;
 pub mod sorting;
 
+use chrono::{Duration, TimeDelta};
+
+const RUNTIMES: [TimeDelta; 7] = [
+    Duration::seconds(1),
+    Duration::minutes(1),
+    Duration::hours(1),
+    Duration::days(1),
+    Duration::days(30),
+    Duration::days(365),
+    Duration::days(36500),
+];
+
+const SORTING_VECS: [[i32; 8]; 5] = [
+    [5, 2, 7, 4, 6, 1, 3, 8],
+    [31, 41, 59, 26, 41, 58, 59, 45],
+    [8, 7, 6, 5, 4, 3, 2, 1],
+    [5, 2, 4, 7, 1, 3, 2, 6],
+    [3, 41, 52, 26, 38, 57, 9, 49],
+];
+
+fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
+    for vec in SORTING_VECS.iter() {
+        let mut obs = Vec::new();
+        let mut actual = Vec::new();
+        for elem in vec {
+            obs.push(*elem);
+            actual.push(*elem);
+        }
+        actual.sort();
+        sorting_algorithm(&mut obs);
+        assert_eq!(obs, actual);
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    // Big O algorithm tests
     use super::big_o::{inverse_factorial, inverse_nlogn};
-    use chrono::{Duration, TimeDelta};
-
-    const RUNTIMES: [TimeDelta; 7] = [
-        Duration::seconds(1),
-        Duration::minutes(1),
-        Duration::hours(1),
-        Duration::days(1),
-        Duration::days(30),
-        Duration::days(365),
-        Duration::days(36500),
-    ];
+    use super::{RUNTIMES, SORTING_VECS};
 
     #[test]
     fn test_inverse_nlogn() {
@@ -50,31 +75,55 @@ mod tests {
         }
     }
 
+    // Sorting algorithm tests
     use super::sorting::insertion_sort;
-
+    use super::test_sort_i32;
     #[test]
     fn test_insertion_sort() {
-        let input_vecs = vec![
-            vec![5, 2, 7, 4, 6, 1, 3, 8],
-            vec![31, 41, 59, 26, 41, 58, 59, 45],
-            vec![8, 7, 6, 5, 4, 3, 2, 1],
-            vec![5, 2, 4, 7, 1, 3, 2, 6],
-            vec![3, 41, 52, 26, 38, 57, 9, 49],
-        ];
+        test_sort_i32(insertion_sort::<i32>);
+    }
 
-        for vec in input_vecs.iter() {
+    use super::sorting::selection_sort;
+    #[test]
+    fn test_selection_sort() {
+        test_sort_i32(selection_sort::<i32>);
+    }
+
+    use super::sorting::merge_sort;
+    #[test]
+    fn test_merge_sort() {
+        for vec in SORTING_VECS.iter() {
             let mut obs = Vec::new();
             let mut actual = Vec::new();
             for elem in vec {
                 obs.push(*elem);
                 actual.push(*elem);
             }
+            let len = obs.len() - 1;
             actual.sort();
-            insertion_sort::<i32>(&mut obs);
+            merge_sort(&mut obs, 0, len, i32::MAX);
             assert_eq!(obs, actual);
         }
     }
 
+    use super::sorting::merge_sort_no_sentinel;
+    #[test]
+    fn test_merge_sort_no_sentinel() {
+        for vec in SORTING_VECS.iter() {
+            let mut obs = Vec::new();
+            let mut actual = Vec::new();
+            for elem in vec {
+                obs.push(*elem);
+                actual.push(*elem);
+            }
+            let len = obs.len() - 1;
+            actual.sort();
+            merge_sort_no_sentinel(&mut obs, 0, len);
+            assert_eq!(obs, actual);
+        }
+    }
+
+    // Search algorithm tests
     use super::search::linear_search;
 
     #[test]
@@ -94,6 +143,7 @@ mod tests {
         }
     }
 
+    // Binary algorithm tests
     use super::binary::binary_addition;
 
     #[test]
