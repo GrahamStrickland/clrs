@@ -1,0 +1,30 @@
+% Exercise 2.3-5
+
+\begin{algorithmic}[1]
+    \TITLE{\textsc{Binary-Search}$(A, \nu)$}
+    \STATE $\mathit{low} = 1$
+    \STATE $\mathit{high} = A.\mathit{length}$
+    \WHILE{$mathit{low} < \mathit{high}$}
+        \STATE $\mathit{mid} = \floor{\frac{\mathit{high} + \mathit{low}}{2}}$
+        \IF{$A[\mathit{mid}] == \nu$}
+            \RETURN $\mathit{mid}$
+        \ELSIF{$A[\mathit{mid}] > \nu$}
+            \STATE $\mathit{high} = \mathit{mid} - 1$
+        \ELSE
+            \STATE $\mathit{low} = \mathit{mid} + 1$
+        \ENDIF
+    \ENDWHILE
+
+    \RETURN $-1$
+\end{algorithmic}
+
+Suppose we have an array $A$ of length $n$. Then, in the worst case, we loop through
+the \textbf{while} loop of \textsc{Binary-Search} (lines 3-9) until 
+$\mathit{low} = \mathit{high}$ and return -1, so that $\nu$ is not in $A$. If we
+continually divide $n$ by 2, and $n$ is a power of 2, then we will execute 
+\[
+    \floor{\frac{\mathit{high} - \mathit{low}}{2}}
+\]
+exactly $\lg{n}$ times. If $n$ is not a power of 2, then the same operation
+executes $\floor{\lg{n}}$ times. In any case, we have a worst-case running time of
+$\Theta(\lg{n})$ for \textsc{Binary-Search}.
