@@ -1,0 +1,10 @@
+% Exercise 2.3-7
+
+Suppose we take the recursive approach of dividing the set $S$ of $n$ integers in half
+and checking each half. If the first half has index 1 and index $\floor{n/2}$
+referencing elements such that for $A = S$ enumerated as an array, 
+$A[1] = A[\floor{n/2}] = x$, we return $\mathit{true}$. If not, we check the other half
+with the same condition and if the condition is $\mathit{false}$ for the upper half,
+wle recursively check each lower and upper half of the two subarrays. This process of
+repeated recursive subdivisions will have a running time of $\Theta(n\lg{n})$, since the 
+recurrence is the same as for merge sort.
