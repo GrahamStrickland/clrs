@@ -5,6 +5,7 @@ pub mod sorting;
 
 use chrono::{Duration, TimeDelta};
 
+#[allow(dead_code)]
 const RUNTIMES: [TimeDelta; 7] = [
     Duration::seconds(1),
     Duration::minutes(1),
@@ -15,6 +16,7 @@ const RUNTIMES: [TimeDelta; 7] = [
     Duration::days(36500),
 ];
 
+#[allow(dead_code)]
 const SORTING_VECS: [[i32; 8]; 5] = [
     [5, 2, 7, 4, 6, 1, 3, 8],
     [31, 41, 59, 26, 41, 58, 59, 45],
@@ -23,6 +25,19 @@ const SORTING_VECS: [[i32; 8]; 5] = [
     [3, 41, 52, 26, 38, 57, 9, 49],
 ];
 
+#[allow(dead_code)]
+const SEARCHING_VECS: [[i32; 8]; 4] = [
+    [26, 31, 41, 41, 58, 59, 101, 104],
+    [26, 31, 41, 41, 58, 59, 101, 104],
+    [1, 4, 5, 7, 19, 28, 45, 92],
+    [1, 4, 5, 7, 19, 28, 45, 92],
+];
+#[allow(dead_code)]
+const SEARCHING_VALS: [i32; 4] = [31, 32, 92, 101];
+#[allow(dead_code)]
+const EXPECTED_SEARCHES: [Option<usize>; 4] = [Some(1), None, Some(7), None];
+
+#[allow(dead_code)]
 fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
     for vec in SORTING_VECS.iter() {
         let mut obs = Vec::new();
@@ -41,7 +56,7 @@ fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
 mod tests {
     // Big O algorithm tests
     use super::big_o::{inverse_factorial, inverse_nlogn};
-    use super::{RUNTIMES, SORTING_VECS};
+    use super::{RUNTIMES, SORTING_VECS, SEARCHING_VECS, SEARCHING_VALS, EXPECTED_SEARCHES};
 
     #[test]
     fn test_inverse_nlogn() {
@@ -124,22 +139,21 @@ mod tests {
     }
 
     // Search algorithm tests
-    use super::search::linear_search;
+    use super::search::{binary_search, linear_search};
 
     #[test]
     fn test_linear_search() {
-        let input_vecs = vec![
-            vec![26, 31, 41, 41, 58, 59, 101, 104],
-            vec![26, 31, 41, 41, 58, 59, 101, 104],
-            vec![1, 4, 5, 7, 19, 28, 45, 92],
-            vec![1, 4, 5, 7, 19, 28, 45, 92],
-        ];
-        let input_vals = vec![31, 32, 92, 101];
-        let expected_vals = vec![Some(1), None, Some(7), None];
+        for (i, vec) in SEARCHING_VECS.iter().enumerate() {
+            let res = linear_search::<i32>(vec, &SEARCHING_VALS[i]);
+            assert_eq!(res, EXPECTED_SEARCHES[i]);
+        }
+    }
 
-        for (i, vec) in input_vecs.iter().enumerate() {
-            let res = linear_search::<i32>(&vec, &input_vals[i]);
-            assert_eq!(res, expected_vals[i]);
+    #[test]
+    fn test_binary_search() {
+        for (i, vec) in SEARCHING_VECS.iter().enumerate() {
+            let res = binary_search::<i32>(vec, &SEARCHING_VALS[i]);
+            assert_eq!(res, EXPECTED_SEARCHES[i]);
         }
     }
 
