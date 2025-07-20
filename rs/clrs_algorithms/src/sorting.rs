@@ -146,3 +146,18 @@ where
         merge_no_sentinel(a, p, q, r);
     }
 }
+
+// Bubble-Sort algorithm from p.2-2 on pg. 40 of CLRS 3e
+pub fn bubble_sort<T>(a: &mut [T])
+where
+    T: Copy,
+    T: Ord,
+{
+    for i in 0..a.len() - 1 {
+        for j in (i + 1..=a.len() - 1).rev() {
+            if a[j] < a[j - 1] {
+                (a[j], a[j - 1]) = (a[j - 1], a[j]);
+            }
+        }
+    }
+}

@@ -138,6 +138,12 @@ mod tests {
         }
     }
 
+    use super::sorting::bubble_sort;
+    #[test]
+    fn test_bubble_sort() {
+        test_sort_i32(bubble_sort::<i32>);
+    }
+
     // Search algorithm tests
     use super::search::{binary_search, linear_search};
 
