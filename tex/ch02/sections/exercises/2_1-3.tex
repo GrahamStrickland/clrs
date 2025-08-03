@@ -14,7 +14,7 @@
 \end{algorithmic}
 
 \begin{description}
-    \item[Initialization:] With the loop invariant being that $A[j]$ refers to an 
+    \item[Initialisation:] With the loop invariant being that $A[j]$ refers to an 
         element of the sequence $A = \langle a_1, a_2, \ldots, a_n \rangle$ and 
         each element in $A[1\ltwodots j - 1]$ has been checked for equality, we 
         have the loop invariant valid, since $j = 1$ and $A[1]$ is in $A$ for 
@@ -30,7 +30,7 @@
         \textrm{NIL}.
 \end{description}
 
-Thus the algorithm is correct, since the loop invariant is initialized and 
+Thus the algorithm is correct, since the loop invariant is initialised and 
 maintained throughout, and the algorithm terminates with the correct output;
 if a value is returned, $\nu$ is in $A$, and occurs at $A[j]$ for return value
 $j$, otherwise the special value \textrm{NIL} was returned, and $\nu$ is not in $A$.

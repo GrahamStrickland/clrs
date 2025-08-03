@@ -1,0 +1,87 @@
+% Problem 2-3
+
+\begin{itemize}
+    \item[\textbf{a.}] The running time is $\Theta(n)$, since there is only one 
+        \textbf{for} loop that runs $n$ times.
+    \item[\textbf{b.}]
+        \begin{algorithmic}[1]
+            \TITLE{\textsc{Horners-Rule}$(a_1 \ltwodots a_n, n, x)$}
+            \STATE $y = 0$
+            \FOR{$i = n \: \mathbf{downto} \: 0$}
+                \STATE $\mathit{temp} = x$
+                \FOR{$j = i \: \mathbf{downto} \: 0$}
+                    \STATE $\mathit{temp} = \mathit{temp} \cdot x$
+                \ENDFOR
+                \STATE $y = a_i \cdot temp + y$
+            \ENDFOR
+            \RETURN $y$
+        \end{algorithmic}
+        The running time of this algorithm is $\Theta(n^2)$, since the outer 
+        \textbf{for} loop of lines 2-6 runs $n$ times and for each execution of
+        this loop, the inner \textbf{for} loop of lines 4-5 runs $n - i$ times,
+        where $i$ is the value of the loop iteration variable declared in line 2
+        of that iteration.
+
+        Cleary this algorithm has a much greater running time than Horner's rule.
+    \item[\textbf{c.}] 
+        \begin{proof}
+            \begin{description}
+                \item[Initialisation:] The initialisation of the \textbf{for}
+                    loop of lines 2-3 assigns $i$ to $n$, thus
+                    \[
+                        \sum_{k = 0}^{n - (i + 1)} a_{k + i + 1}x^k
+                        = \sum_{k = 0}^{n - (n + 1)} a_{k + n + 1} x^k
+                        = \sum_{k = 0}^{-1} a_{k + n + 1} x^k
+                        = 0,
+                    \]
+                    which is valid, since $y = 0$ upon initialisation of the
+                    \textbf{for} loop, therefore its initialisation is correct.
+                \item[Maintenance:] For each subsequent iteration of the \textbf{for}
+                    loop, $y$ is assigned to $a_i + x \cdot y$, so that, for the first
+                    \textbf{for} loop, $y$ is assigned to $a_1 + x \cdot 0 = a_1$,
+                    and
+                    \[
+                        \sum_{k = 0}^{n - (n - 1 + 1)} a_{k + (n - 1) + 1} x^k
+                        = \sum_{k = 0}^0 a_{k + n} x^k = a_1,
+                    \]
+                    which is correct.
+
+                    For subsequent \textbf{for} loops, $a_i + x \cdot y$ multiplies the
+                    value of the previous \textbf{for} loop, 
+                    \[
+                        \sum_{k = 0}^{n - (i + 2)} a_{k + i + 2} x^k 
+                    \]
+                    by $x$, so that we have 
+                    \[
+                        x\sum_{k = 0}^{n - i - 2} a_{k + i + 2}x^k
+                        = \sum_{k = 0}^{n - i - 2} a_{k + i + 2}x^{k + 1},
+                    \]
+                    and we add $a_i$ to this value, with the result
+                    \[
+                        y = \sum_{k = 0}^{n - (i + 1)}a_{k + i} x^{k+1}.
+                    \]
+                    Thus the loop invariant is maintained at each iteration.
+                \item[Termination:] Since the \textbf{for} loop terminates at $i = 0$,
+                    we have 
+                    \[
+                        \sum_{k = 0}^{n - (i + 1)} a_{k + i + 1}x^{k - 1}
+                        = \sum_{k = 0}^{n - 1} a_{k + 1} x^{k - 1}
+                    \]
+                    at the beginning of the lop, and with one more operation,
+                    \[
+                        y = \sum_{k = 0}^n a_k x^k,
+                    \]
+                    so that the loop terminates correctly.
+            \end{description}
+        \end{proof}
+    \item[\textbf{d.}] Since the loop invariant is initialised, maintainedj, and terminates
+        correctly, for
+        \[
+            P(x) = \sum_{k = 0}^n a_k x^k,
+        \]
+        the correct evaluation is performed for $a_0, a_1, \ldots, a_n$.
+\end{itemize}
+
+The implementation of Horner's rule can be seen in the following file:
+
+\path{rs/clrs_polynomials/src/lib.rs}.

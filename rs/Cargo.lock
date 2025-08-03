@@ -75,6 +75,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "clrs_polynomials"
+version = "0.1.0"
+
+[[package]]
 name = "clrs_utils"
 version = "0.1.0"
 
