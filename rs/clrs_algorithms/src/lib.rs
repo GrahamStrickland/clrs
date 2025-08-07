@@ -1,3 +1,4 @@
+pub mod arrays;
 pub mod big_o;
 pub mod binary;
 pub mod search;
@@ -17,7 +18,7 @@ const RUNTIMES: [TimeDelta; 7] = [
 ];
 
 #[allow(dead_code)]
-const SORTING_VECS: [[i32; 8]; 5] = [
+const SORTING_ARRS: [[i32; 8]; 5] = [
     [5, 2, 7, 4, 6, 1, 3, 8],
     [31, 41, 59, 26, 41, 58, 59, 45],
     [8, 7, 6, 5, 4, 3, 2, 1],
@@ -26,7 +27,7 @@ const SORTING_VECS: [[i32; 8]; 5] = [
 ];
 
 #[allow(dead_code)]
-const SEARCHING_VECS: [[i32; 8]; 4] = [
+const SEARCHING_ARRS: [[i32; 8]; 4] = [
     [26, 31, 41, 41, 58, 59, 101, 104],
     [26, 31, 41, 41, 58, 59, 101, 104],
     [1, 4, 5, 7, 19, 28, 45, 92],
@@ -39,7 +40,7 @@ const EXPECTED_SEARCHES: [Option<usize>; 4] = [Some(1), None, Some(7), None];
 
 #[allow(dead_code)]
 fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
-    for vec in SORTING_VECS.iter() {
+    for vec in SORTING_ARRS.iter() {
         let mut obs = Vec::new();
         let mut actual = Vec::new();
         for elem in vec {
@@ -56,7 +57,7 @@ fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
 mod tests {
     // Big O algorithm tests
     use super::big_o::{inverse_factorial, inverse_nlogn};
-    use super::{RUNTIMES, SORTING_VECS, SEARCHING_VECS, SEARCHING_VALS, EXPECTED_SEARCHES};
+    use super::{EXPECTED_SEARCHES, RUNTIMES, SEARCHING_ARRS, SEARCHING_VALS, SORTING_ARRS};
 
     #[test]
     fn test_inverse_nlogn() {
@@ -107,10 +108,10 @@ mod tests {
     use super::sorting::merge_sort;
     #[test]
     fn test_merge_sort() {
-        for vec in SORTING_VECS.iter() {
+        for arr in SORTING_ARRS.iter() {
             let mut obs = Vec::new();
             let mut actual = Vec::new();
-            for elem in vec {
+            for elem in arr {
                 obs.push(*elem);
                 actual.push(*elem);
             }
@@ -124,10 +125,10 @@ mod tests {
     use super::sorting::merge_sort_no_sentinel;
     #[test]
     fn test_merge_sort_no_sentinel() {
-        for vec in SORTING_VECS.iter() {
+        for arr in SORTING_ARRS.iter() {
             let mut obs = Vec::new();
             let mut actual = Vec::new();
-            for elem in vec {
+            for elem in arr {
                 obs.push(*elem);
                 actual.push(*elem);
             }
@@ -149,7 +150,7 @@ mod tests {
 
     #[test]
     fn test_linear_search() {
-        for (i, vec) in SEARCHING_VECS.iter().enumerate() {
+        for (i, vec) in SEARCHING_ARRS.iter().enumerate() {
             let res = linear_search::<i32>(vec, &SEARCHING_VALS[i]);
             assert_eq!(res, EXPECTED_SEARCHES[i]);
         }
@@ -157,7 +158,7 @@ mod tests {
 
     #[test]
     fn test_binary_search() {
-        for (i, vec) in SEARCHING_VECS.iter().enumerate() {
+        for (i, vec) in SEARCHING_ARRS.iter().enumerate() {
             let res = binary_search::<i32>(vec, &SEARCHING_VALS[i]);
             assert_eq!(res, EXPECTED_SEARCHES[i]);
         }
@@ -185,6 +186,24 @@ mod tests {
         for (inp_bits, exp_bits) in inp_bits_vec.iter().zip(exp_bits_vec.iter()) {
             let output_bits = binary_addition(&inp_bits, &rhs);
             assert_eq!(output_bits, *exp_bits);
+        }
+    }
+
+    // Array algorithm tests
+    use super::arrays::count_inversions;
+    #[test]
+    fn test_find_total_inversions() {
+        let arrays = [[2, 3, 8, 6, 1], [8, 6, 3, 2, 1]];
+        let expected = [5, 10];
+
+        for (i, arr) in arrays.iter().enumerate() {
+            let mut obs = Vec::new();
+            for elem in arr {
+                obs.push(*elem);
+            }
+
+            let res = count_inversions::<i32>(&mut obs, 0, 4, i32::MAX);
+            assert_eq!(res, expected[i]);
         }
     }
 }
