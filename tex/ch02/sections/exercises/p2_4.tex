@@ -15,7 +15,7 @@
         \]
         inversions.
     \item[\textbf{c.}] Since the worst-case running time of \textsc{Insertion-Sort}
-        occurs for exactly the array discussed in \textb{b.} above, and we know that
+        occurs for exactly the array discussed in \textbf{b.} above, and we know that
         \textsc{Insertion-Sort} has a worst-case running time which is $\Theta(n^2)$,
         we see that there is a direct correspondence between the number of inversions
         in the input array of \textsc{Insertion-Sort} and its running time. This
@@ -51,6 +51,7 @@
                     \STATE $A[k] = L[i]$
                     \STATE $i = i + 1$
                 \ELSE
+                    \STATE $A[k] = R[j]$
                     \STATE $j = j + 1$
                     \STATE $\mathit{counted} = \textrm{FALSE}$
                 \ENDIF

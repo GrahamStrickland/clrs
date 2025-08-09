@@ -1,0 +1,14 @@
+% Exercise 3.1-2
+
+\begin{proof}
+    By the binomial expansion, we have
+    \[
+        {(n + a)}^b = \sum_{k=0}^b \binom{b}{k} n^k a^{b - k},
+    \]
+    and since $b \in \mathbb{R}$ and $b > 0$, it follows that $0 \leq k \leq b$ for
+    all terms in the expansion, so that the highest-order term is
+    \[
+        n^ba^{b - b} = n^b a^0 = n^b.
+    \]
+    Thus ${(n + a)}^b = \Theta(n^b)$.
+\end{proof}

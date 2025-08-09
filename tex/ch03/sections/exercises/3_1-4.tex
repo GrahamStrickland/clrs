@@ -1,0 +1,9 @@
+% Exercise 3.1-4
+
+Since $2^{n + 1} = 2 \cdot 2^n$, i.e., for $g(n) = 2^{n+1}$ and $f(n) = 2^n$, we
+have $g(n) = c \cdot f(n)$ for all $n_0 > 0$, where $c = 2$ and $n_0 = 0$, we do
+have $2^{n + 1} = O(2^n)$.
+
+However, $2^{2n} = 2^n \cdot 2^n$, so we do not ahve any $c \in \mathbb{R}^+$
+such that $g(n) = 2^{2n} = c \cdot f(n)$ for $n \geq n_0$, where 
+$n, n_0 \in \mathbb{N}$, $f(n) = 2^n$. Thus $2^{2n} \neq O(2^n)$.
