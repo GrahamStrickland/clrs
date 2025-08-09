@@ -1,5 +1,5 @@
-// Count-Inversions algorithm from problem 2-4 p.42 of CLRS 3e
-fn find_inversions<T>(a: &mut [T], p: usize, q: usize, r: usize, infinity: T) -> usize
+// Count-Inversions and Merge-Inversion algorithms from problem 2-4 p.42 of CLRS 3e
+fn merge_inversions<T>(a: &mut [T], p: usize, q: usize, r: usize, infinity: T) -> usize
 where
     T: Copy,
     T: Ord,
@@ -27,7 +27,7 @@ where
 
     for k in p..=r {
         if counted == false && rarr[j] < larr[i] {
-            inversions += n1 - i + 1;
+            inversions += n1 - i;
             counted = true;
         }
 
@@ -35,6 +35,7 @@ where
             a[k] = larr[i];
             i += 1;
         } else {
+            a[k] = rarr[j];
             j += 1;
             counted = false;
         }
@@ -54,7 +55,7 @@ where
         let q = (p + r) / 2;
         inversions += count_inversions(a, p, q, infinity);
         inversions += count_inversions(a, q + 1, r, infinity);
-        inversions += find_inversions(a, p, q, r, infinity);
+        inversions += merge_inversions(a, p, q, r, infinity);
     }
 
     inversions

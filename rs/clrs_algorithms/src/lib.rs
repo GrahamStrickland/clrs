@@ -189,12 +189,19 @@ mod tests {
         }
     }
 
-    // Array algorithm tests
+    // Miscellaneous array algorithm tests
     use super::arrays::count_inversions;
+
     #[test]
     fn test_find_total_inversions() {
-        let arrays = [[2, 3, 8, 6, 1], [8, 6, 3, 2, 1]];
-        let expected = [5, 10];
+        let arrays = [
+            [2, 3, 8, 6, 1],
+            [8, 6, 3, 2, 1],
+            [5, 4, 3, 2, 1],
+            [1, 2, 3, 4, 5],
+            [1, 3, 2, 5, 4],
+        ];
+        let expected = [5, 10, 10, 0, 2];
 
         for (i, arr) in arrays.iter().enumerate() {
             let mut obs = Vec::new();
