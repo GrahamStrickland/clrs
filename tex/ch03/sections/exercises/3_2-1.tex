@@ -1,0 +1,35 @@
+% Exercise 3.2-1
+
+\begin{proof}
+    \begin{itemize}
+        \item[\textbf{a.}] Suppose $f(n)$ and $g(n)$ are monotonically increasing 
+            functions, i.e., $m \leq n \Rightarrow f(m) \leq f(n)$ and
+            $g(m) \leq g(n)$. Then, clearly for $m \leq n$, we have
+            \[
+                f(m) + g(m) \leq f(n) + g(m) \leq f(n) + g(n),
+            \]
+            so that $f(n) + g(n)$ is monotonically increasing.
+        \item[\textbf{b.}] Since $m \leq n \Rightarrow g(m) \leq g(n)$ and 
+            $f(m) \leq f(n)$, it must also be the case that 
+            \[
+                m \leq n \Rightarrow g(m) \leq g(n) \Rightarrow f(g(m)) \leq f(g(n)),
+            \]
+            so that $f(g(n))$ is a monotonically increasing function.
+        \item[\textbf{c.}] Suppose further that $f(n)$ and $g(n)$ are nonnegative.
+            Then 
+            \[
+                m \leq n \Rightarrow f(m) \leq f(n) \Rightarrow f(m) \cdot g(n) 
+                \leq f(n) \cdot g(n)
+            \]
+            and
+            \[
+                m \leq n \Rightarrow g(m) \leq g(n) \Rightarrow f(n) \cdot g(m) 
+                \leq f(n) \cdot g(n),
+            \]
+            so that we have
+            \[
+                m \leq n \Rightarrow f(m) \cdot g(m) \leq f(n) \cdot g(n), 
+            \]
+            and $f(n) \cdot g(n)$ is a monotonically increasing function.
+    \end{itemize}
+\end{proof}
