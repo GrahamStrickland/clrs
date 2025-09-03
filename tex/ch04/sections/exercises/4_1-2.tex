@@ -1,0 +1,26 @@
+% Exercise 4.1-2
+
+\begin{algorithmic}[1]
+    \TITLE{\textsc{Brute-Force-Maximum-Subarray}$(A)$}
+    \STATE $\mathit{low} = 0$
+    \STATE $\mathit{high} = 1$
+    \STATE $\mathit{sum} = 0$
+    \STATE $\mathit{maxSum} = 0$
+    \STATE $\mathit{first} = \mathit{low}$
+    \STATE $\mathit{last} = \mathit{high}$
+    \WHILE{$\mathit{low} < A.\mathit{length} - 1$}
+        \WHILE{$\mathit{high} < A.\mathit{length}$}
+            \STATE $\mathit{sum} = \mathit{sum} + A[\mathit{high}] - A[\mathit{low}]$
+            \IF{$\mathit{sum} > \mathit{maxSum}$}
+                \STATE $\mathit{maxSum} = \mathit{sum}$
+                \STATE $\mathit{first} = \mathit{low}$
+                \STATE $\mathit{last} = \mathit{high}$
+            \ENDIF
+            \STATE $\mathit{high} = \mathit{high} + 1$
+        \ENDWHILE
+        \STATE $\mathit{low} = \mathit{low} + 1$
+        \STATE $\mathit{high} = \mathit{low} + 1$
+    \ENDWHILE
+
+    \RETURN $(\mathit{first}, \mathit{last}, \mathit{maxSum})$
+\end{algorithmic}
