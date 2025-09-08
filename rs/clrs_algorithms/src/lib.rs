@@ -1,6 +1,7 @@
 pub mod arrays;
 pub mod big_o;
 pub mod binary;
+pub mod max_subarray;
 pub mod search;
 pub mod sorting;
 
@@ -39,6 +40,11 @@ const SEARCHING_VALS: [i32; 4] = [31, 32, 92, 101];
 const EXPECTED_SEARCHES: [Option<usize>; 4] = [Some(1), None, Some(7), None];
 
 #[allow(dead_code)]
+const STOCK_PRICES: [i32; 17] = [
+    100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97,
+];
+
+#[allow(dead_code)]
 fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
     for vec in SORTING_ARRS.iter() {
         let mut obs = Vec::new();
@@ -51,6 +57,22 @@ fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
         sorting_algorithm(&mut obs);
         assert_eq!(obs, actual);
     }
+}
+
+#[allow(dead_code)]
+fn test_find_max_subarray(
+    max_subarray_algorithm: fn(&Vec<i32>, usize, usize) -> (usize, usize, i32),
+) {
+    let mut daily_changes = Vec::new();
+    for i in 1..STOCK_PRICES.len() {
+        daily_changes.push(STOCK_PRICES[i] - STOCK_PRICES[i - 1]);
+    }
+
+    let (low, high, sum) = max_subarray_algorithm(&daily_changes, 0, STOCK_PRICES.len() - 2);
+
+    assert_eq!(low, 7);
+    assert_eq!(high, 10);
+    assert_eq!(sum, 43);
 }
 
 #[cfg(test)]
@@ -212,5 +234,27 @@ mod tests {
             let res = count_inversions::<i32>(&mut obs, 0, 4, i32::MAX);
             assert_eq!(res, expected[i]);
         }
+    }
+
+    use super::max_subarray::find_maximum_subarray;
+    use super::test_find_max_subarray;
+
+    #[test]
+    fn test_find_maximum_subarray() {
+        test_find_max_subarray(find_maximum_subarray);
+    }
+
+    use super::max_subarray::brute_force_find_maximum_subarray;
+
+    #[test]
+    fn test_brute_force_find_maximum_subarray() {
+        test_find_max_subarray(brute_force_find_maximum_subarray);
+    }
+
+    use super::max_subarray::find_maximum_subarray_non_recursive;
+
+    #[test]
+    fn test_find_maximum_subarray_non_recursive() {
+        test_find_max_subarray(find_maximum_subarray_non_recursive);
     }
 }
