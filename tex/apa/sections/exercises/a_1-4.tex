@@ -1,0 +1,24 @@
+% Exercise A.1-4
+
+\begin{proof}
+    We have 
+    \begin{equation*}
+        \begin{split}
+            \frac{k - 1}{2^k} &= \frac{k}{2^k} - \frac{1}{2^k} \\
+                              &= kx^k - x^k,
+        \end{split}
+    \end{equation*}
+    for $x = \frac{1}{2}$. Now, since $\lvert x \rvert < 1$, from \textbf{A.6}
+    and \textbf{A.8}, we have
+    \begin{equation*}
+        \begin{split}
+            \sum_{k = 0}^\infty (k - 1) / 2^k 
+            &= \sum_{k = 0}^\infty kx^k - \sum_{k = 0}^\infty x^k \\
+            &= \frac{x}{{(1 - x)}^2} - \frac{1}{1 - x} \\
+            &= \frac{x - (1 - x)}{{(1 - x)}^2} \\
+            &= \frac{2x - 1}{{(1 - x)}^2} \\
+            &= \frac{1 - 1}{(-\frac{1}{2})^2} \\
+            &= 0.
+        \end{split}
+    \end{equation*}
+\end{proof}

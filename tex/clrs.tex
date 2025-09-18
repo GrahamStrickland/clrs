@@ -11,6 +11,7 @@
 \usepackage[noend]{algorithmic}
 \usepackage{tikz}
 \usepackage{mathtools}
+\usepackage{hyperref}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
@@ -48,6 +49,10 @@ mymats/.style={
 \begin{document}
 \maketitle  
 
+\tableofcontents
+
+\newpage
+
 \section{The Role of Algorithms in Computing}
 \input{ch01/sections}
 
@@ -59,5 +64,10 @@ mymats/.style={
 
 \section{Divide-and-Conquer}
 \input{ch04/sections}
+
+\appendix
+
+\section{Summations}
+\input{apa/sections}
 
 \end{document}

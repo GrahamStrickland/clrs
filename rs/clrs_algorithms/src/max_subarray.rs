@@ -23,7 +23,7 @@ fn find_max_crossing_subarray(
     for j in (mid + 1)..=high {
         sum += a[j];
         if sum > right_sum {
-            right_sum = sum;
+right_sum = sum;
             max_crossing_subarray.1 = j;
         }
     }

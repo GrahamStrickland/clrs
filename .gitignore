@@ -51,6 +51,7 @@ $HOME
 *.fdb_latexmk
 *.fls
 *.synctex.gz
+*.toc
 
 # Rust files
 **/target/*
