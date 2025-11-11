@@ -1,6 +1,7 @@
 #define BOOST_TEST_MODULE boost_test_algorithms
 
 #include "../../src/algorithms/binary/binary_addition.h"
+#include "../../src/algorithms/max_subarray/brute_force_max_subarray.h"
 #include "../../src/algorithms/search/binary_search.h"
 #include "../../src/algorithms/search/linear_search.h"
 #include "../../src/algorithms/search/recursive_binary_search.h"
@@ -148,6 +149,28 @@ BOOST_DATA_TEST_CASE(test_binary_addition, test_cases, const_input_bitset,
       clrs::binary_addition(input_bitset, std::bitset<7>{"1111111"});
 
   BOOST_CHECK_EQUAL(output_bitset, exp_bitset);
+}
+
+BOOST_AUTO_TEST_SUITE(test_max_subarray)
+
+BOOST_AUTO_TEST_CASE(test_brute_force_find_max_subarray) {
+  constexpr std::size_t num_stocks = 17;
+  std::array<int, num_stocks> constexpr stock_prices = {
+      100, 113, 110, 85,  105, 102, 86, 63, 81,
+      101, 94,  106, 101, 79,  94,  90, 97};
+
+  std::vector<int> daily_changes;
+
+  for (std::size_t i = 0; i < num_stocks; i++) {
+    daily_changes.push_back(stock_prices[i] - stock_prices[i - 1]);
+  }
+
+  const auto [low, high, sum] =
+      clrs::brute_force_find_max_subarray(std::span(daily_changes));
+
+  BOOST_CHECK_EQUAL(low, 7);
+  BOOST_CHECK_EQUAL(high, 10);
+  BOOST_CHECK_EQUAL(sum, 43);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
