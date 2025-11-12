@@ -23,7 +23,7 @@ fn find_max_crossing_subarray(
     for j in (mid + 1)..=high {
         sum += a[j];
         if sum > right_sum {
-right_sum = sum;
+            right_sum = sum;
             max_crossing_subarray.1 = j;
         }
     }
@@ -59,26 +59,23 @@ pub fn brute_force_find_maximum_subarray(
     _low: usize,
     _high: usize,
 ) -> (usize, usize, i32) {
-    let mut low = 0;
-    let mut high = 1;
-    let mut sum = 0;
-    let mut max_subarray = (low, high, sum);
+    let mut max_low = 0;
+    let mut max_high = 0;
+    let mut max_sum = a[0];
 
-    while low < a.len() - 1 {
-        while high < a.len() {
-            sum += a[high];
-            high += 1;
+    for i in 0..a.len() {
+        let mut current_sum = 0;
+        for j in i..a.len() {
+            current_sum += a[j];
+            if current_sum > max_sum {
+                max_sum = current_sum;
+                max_low = i;
+                max_high = j;
+            }
         }
-        if sum > max_subarray.2 {
-            max_subarray = (low, high, sum);
-        }
-
-        low += 1;
-        high = low + 1;
-        sum = 0;
     }
 
-    max_subarray
+    (max_low, max_high, max_sum)
 }
 
 // Non-recursive Find-Maximum-Subarray algorithm from ex. 4.1-5 on p.75 of CLRS 3e
