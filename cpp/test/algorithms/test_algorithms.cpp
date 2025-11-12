@@ -151,6 +151,8 @@ BOOST_DATA_TEST_CASE(test_binary_addition, test_cases, const_input_bitset,
   BOOST_CHECK_EQUAL(output_bitset, exp_bitset);
 }
 
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE(test_max_subarray)
 
 BOOST_AUTO_TEST_CASE(test_brute_force_find_max_subarray) {
@@ -168,8 +170,8 @@ BOOST_AUTO_TEST_CASE(test_brute_force_find_max_subarray) {
   const auto [low, high, sum] =
       clrs::brute_force_find_max_subarray(std::span(daily_changes));
 
-  BOOST_CHECK_EQUAL(low, 7);
-  BOOST_CHECK_EQUAL(high, 10);
+  BOOST_CHECK_EQUAL(low, std::size_t{7});
+  BOOST_CHECK_EQUAL(high, std::size_t{10});
   BOOST_CHECK_EQUAL(sum, 43);
 }
 
