@@ -55,3 +55,6 @@ $HOME
 
 # Rust files
 **/target/*
+
+# Python files
+*.pyc
