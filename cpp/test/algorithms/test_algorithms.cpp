@@ -3,6 +3,7 @@
 #include "../../src/algorithms/binary/binary_addition.h"
 #include "../../src/algorithms/max_subarray/brute_force_max_subarray.h"
 #include "../../src/algorithms/max_subarray/find_max_subarray.h"
+#include "../../src/algorithms/max_subarray/find_max_subarray_non_recursive.h"
 #include "../../src/algorithms/search/binary_search.h"
 #include "../../src/algorithms/search/linear_search.h"
 #include "../../src/algorithms/search/recursive_binary_search.h"
@@ -209,6 +210,17 @@ BOOST_AUTO_TEST_CASE(test_brute_force_find_max_subarray) {
 
   const auto [low, high, sum] =
       clrs::brute_force_find_max_subarray(daily_changes);
+
+  BOOST_CHECK_EQUAL(low, std::size_t{7});
+  BOOST_CHECK_EQUAL(high, std::size_t{10});
+  BOOST_CHECK_EQUAL(sum, 43);
+}
+
+BOOST_AUTO_TEST_CASE(test_find_max_subarray_non_recursive) {
+  std::vector<int> daily_changes = get_daily_changes();
+
+  const auto [low, high, sum] = clrs::find_maximum_subarray_non_recursive(
+      daily_changes, 0, daily_changes.size() - 1);
 
   BOOST_CHECK_EQUAL(low, std::size_t{7});
   BOOST_CHECK_EQUAL(high, std::size_t{10});

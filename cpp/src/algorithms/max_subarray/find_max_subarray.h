@@ -11,7 +11,7 @@ find_max_crossing_subarray(std::vector<int> a, std::size_t low, std::size_t mid,
                            std::size_t high) {
   int left_sum = INT_MIN, sum = 0;
   std::tuple<std::size_t, std::size_t, int> max_crossing_subarray = {low, high,
-                                                                   sum};
+                                                                     sum};
 
   for (int i = static_cast<int>(mid); i >= static_cast<int>(low); i--) {
     sum = sum + a[static_cast<std::size_t>(i)];
