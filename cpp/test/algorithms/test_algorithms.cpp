@@ -4,6 +4,8 @@
 #include "../../src/algorithms/max_subarray/brute_force_max_subarray.h"
 #include "../../src/algorithms/max_subarray/find_max_subarray.h"
 #include "../../src/algorithms/max_subarray/find_max_subarray_non_recursive.h"
+#include "../../src/algorithms/max_subarray/hybrid_max_subarray.h"
+#include "../../src/algorithms/polynomials/horners_rule.h"
 #include "../../src/algorithms/search/binary_search.h"
 #include "../../src/algorithms/search/linear_search.h"
 #include "../../src/algorithms/search/recursive_binary_search.h"
@@ -25,6 +27,14 @@ inline std::ostream &boost_test_print_type(std::ostream &os,
                                            std::array<int32_t, 8> const &arr) {
   os << "{";
   for (char const *sep = ""; auto const &el : arr)
+    os << std::exchange(sep, ", ") << el;
+  return os << "}";
+}
+
+inline std::ostream &boost_test_print_type(std::ostream &os,
+                                           std::vector<double> const &vec) {
+  os << "{";
+  for (char const *sep = ""; auto const &el : vec)
     os << std::exchange(sep, ", ") << el;
   return os << "}";
 }
@@ -225,6 +235,49 @@ BOOST_AUTO_TEST_CASE(test_find_max_subarray_non_recursive) {
   BOOST_CHECK_EQUAL(low, std::size_t{7});
   BOOST_CHECK_EQUAL(high, std::size_t{10});
   BOOST_CHECK_EQUAL(sum, 43);
+}
+
+BOOST_AUTO_TEST_CASE(test_hybrid_max_subarray) {
+  std::vector<int> daily_changes = get_daily_changes();
+
+  const auto [low, high, sum] =
+      clrs::hybrid_maximum_subarray(daily_changes, 0, daily_changes.size() - 1);
+
+  BOOST_CHECK_EQUAL(low, std::size_t{7});
+  BOOST_CHECK_EQUAL(high, std::size_t{10});
+  BOOST_CHECK_EQUAL(sum, 43);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(test_horners_rule)
+
+namespace { // file static visibility
+std::array<std::vector<double>, 9> const input_vecs{{{1.0},
+                                                     {1.0, 2.0},
+                                                     {1.0, 2.0, 3.0},
+                                                     {1.0, 2.0, 3.0},
+                                                     {1.0, 2.0, 3.0},
+                                                     {1.0, 1.0, 1.0},
+                                                     {1.0, -1.0, 1.0},
+                                                     {-1.0, -1.0, -1.0}}};
+
+std::array<double, 9> constexpr input_xs{0.0,  1.0,  1.0,  0.0, 2.0,
+                                         0.01, 0.01, 0.01, 0.01};
+
+std::array<double, 9> constexpr expected_outputs{
+    1.0, 3.0, 6.0, 1.0, 17.0, 1.0203, 1.0101, 0.9901, -1.0101};
+
+auto test_cases = boost::unit_test::data::make(input_vecs) ^
+                  boost::unit_test::data::make(input_xs) ^
+                  boost::unit_test::data::make(expected_outputs);
+} // namespace
+
+BOOST_DATA_TEST_CASE(test_horners_rule, test_cases, input_vec, input_x,
+                     exp_output) {
+  auto output = clrs::horners_rule(input_vec, input_x);
+
+  BOOST_CHECK_EQUAL(output, exp_output);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
