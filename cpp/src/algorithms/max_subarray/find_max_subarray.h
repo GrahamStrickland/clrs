@@ -3,15 +3,14 @@
 #ifndef FIND_MAX_SUBARRAY_H
 #define FIND_MAX_SUBARRAY_H
 
-#include <span>
+#include <vector>
 
 namespace clrs {
-template <typename T, std::size_t N>
-std::tuple<std::size_t, std::size_t, T>
-find_max_crossing_subarray(std::span<T, N> a, std::size_t low, std::size_t mid,
+std::tuple<std::size_t, std::size_t, int>
+find_max_crossing_subarray(std::vector<int> a, std::size_t low, std::size_t mid,
                            std::size_t high) {
-  T left_sum = INT_MIN, sum = 0;
-  std::tuple<std::size_t, std::size_t, T> max_crossing_subarray = {low, high,
+  int left_sum = INT_MIN, sum = 0;
+  std::tuple<std::size_t, std::size_t, int> max_crossing_subarray = {low, high,
                                                                    sum};
 
   for (int i = static_cast<int>(mid); i >= static_cast<int>(low); i--) {
@@ -22,7 +21,7 @@ find_max_crossing_subarray(std::span<T, N> a, std::size_t low, std::size_t mid,
     }
   }
 
-  T right_sum = INT_MIN;
+  int right_sum = INT_MIN;
   sum = 0;
 
   for (std::size_t j = mid + 1; j <= high; j++) {
@@ -38,22 +37,16 @@ find_max_crossing_subarray(std::span<T, N> a, std::size_t low, std::size_t mid,
   return max_crossing_subarray;
 }
 
-template <typename T, std::size_t N>
-std::tuple<std::size_t, std::size_t, T>
-find_maximum_subarray(std::span<T, N> a, std::size_t low, std::size_t high) {
-  std::tuple<std::size_t, std::size_t, T> max_subarray = {low, high, a[low]};
-  std::tuple<std::size_t, std::size_t, T> left_subarray;
-  std::tuple<std::size_t, std::size_t, T> right_subarray;
-  std::tuple<std::size_t, std::size_t, T> cross_subarray;
-
+std::tuple<std::size_t, std::size_t, int>
+find_maximum_subarray(std::vector<int> a, std::size_t low, std::size_t high) {
   if (high == low) {
-    return max_subarray; // Base case: only one element
+    return {low, high, a[low]};
   } else {
     std::size_t mid = (low + high) / 2;
 
-    left_subarray = find_maximum_subarray(a, low, mid);
-    right_subarray = find_maximum_subarray(a, mid + 1, high);
-    cross_subarray = find_max_crossing_subarray(a, low, mid, high);
+    auto left_subarray = find_maximum_subarray(a, low, mid);
+    auto right_subarray = find_maximum_subarray(a, mid + 1, high);
+    auto cross_subarray = find_max_crossing_subarray(a, low, mid, high);
 
     if (std::get<2>(left_subarray) >= std::get<2>(right_subarray) &&
         std::get<2>(left_subarray) >= std::get<2>(cross_subarray)) {

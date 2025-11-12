@@ -3,17 +3,16 @@
 #ifndef BRUTE_FORCE_MAX_SUBARRAY_H
 #define BRUTE_FORCE_MAX_SUBARRAY_H
 
-#include <span>
+#include <vector>
 
 namespace clrs {
-template <typename T, std::size_t N>
-std::tuple<std::size_t, std::size_t, T>
-brute_force_find_max_subarray(std::span<T, N> a) {
+std::tuple<std::size_t, std::size_t, int>
+brute_force_find_max_subarray(std::vector<int> a) {
   std::size_t max_low = 0, max_high = 0;
-  T max_sum = a[0];
+  int max_sum = a[0];
 
   for (std::size_t i = 0; i < a.size(); i++) {
-    T current_sum = 0;
+    int current_sum = 0;
     for (std::size_t j = i; j < a.size(); j++) {
       current_sum += a[j];
       if (current_sum > max_sum) {

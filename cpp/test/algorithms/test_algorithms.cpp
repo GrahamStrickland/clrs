@@ -170,16 +170,15 @@ std::vector<int> get_daily_changes() {
 }
 
 using max_subarray_func_def =
-    std::tuple<std::size_t, std::size_t, int> (*)(std::span<int>);
+    std::tuple<std::size_t, std::size_t, int> (*)(std::vector<int>);
 
 std::tuple<std::size_t, std::size_t, int>
-find_max_subarray_func(std::span<int> data) {
+find_max_subarray_func(std::vector<int> data) {
   return clrs::find_maximum_subarray(data, 0, data.size() - 1);
 }
 
 max_subarray_func_def constexpr algorithms[] = {
-    clrs::brute_force_find_max_subarray<int, std::dynamic_extent>,
-    find_max_subarray_func};
+    clrs::brute_force_find_max_subarray, find_max_subarray_func};
 
 auto test_cases = boost::unit_test::data::make(algorithms);
 } // namespace
@@ -187,7 +186,7 @@ auto test_cases = boost::unit_test::data::make(algorithms);
 BOOST_DATA_TEST_CASE(test_max_subarray_algorithms, test_cases, algorithm_func) {
   std::vector<int> daily_changes = get_daily_changes();
 
-  const auto [low, high, sum] = algorithm_func(std::span(daily_changes));
+  const auto [low, high, sum] = algorithm_func(daily_changes);
 
   BOOST_CHECK_EQUAL(low, std::size_t{7});
   BOOST_CHECK_EQUAL(high, std::size_t{10});
@@ -197,8 +196,8 @@ BOOST_DATA_TEST_CASE(test_max_subarray_algorithms, test_cases, algorithm_func) {
 BOOST_AUTO_TEST_CASE(test_divide_conquer_find_max_subarray) {
   std::vector<int> daily_changes = get_daily_changes();
 
-  const auto [low, high, sum] = clrs::find_maximum_subarray(
-      std::span(daily_changes), 0, daily_changes.size() - 1);
+  const auto [low, high, sum] =
+      clrs::find_maximum_subarray(daily_changes, 0, daily_changes.size() - 1);
 
   BOOST_CHECK_EQUAL(low, std::size_t{7});
   BOOST_CHECK_EQUAL(high, std::size_t{10});
@@ -209,7 +208,7 @@ BOOST_AUTO_TEST_CASE(test_brute_force_find_max_subarray) {
   std::vector<int> daily_changes = get_daily_changes();
 
   const auto [low, high, sum] =
-      clrs::brute_force_find_max_subarray(std::span(daily_changes));
+      clrs::brute_force_find_max_subarray(daily_changes);
 
   BOOST_CHECK_EQUAL(low, std::size_t{7});
   BOOST_CHECK_EQUAL(high, std::size_t{10});
