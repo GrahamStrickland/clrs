@@ -15,6 +15,8 @@ set(HEADER FILES
     ../../src/algorithms/sorting/selection_sort.h
     ../../src/algorithms/sorting/merge_sort.h
     ../../src/algorithms/sorting/merge_sort_no_sentinel.h
+    ../../src/algorithms/max_subarray/brute_force_max_subarray.h
+    ../../src/algorithms/max_subarray/find_max_subarray.h
 )
 
 set(DS_SOURCES 

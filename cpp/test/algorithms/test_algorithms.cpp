@@ -2,6 +2,7 @@
 
 #include "../../src/algorithms/binary/binary_addition.h"
 #include "../../src/algorithms/max_subarray/brute_force_max_subarray.h"
+#include "../../src/algorithms/max_subarray/find_max_subarray.h"
 #include "../../src/algorithms/search/binary_search.h"
 #include "../../src/algorithms/search/linear_search.h"
 #include "../../src/algorithms/search/recursive_binary_search.h"
@@ -155,17 +156,57 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(test_max_subarray)
 
-BOOST_AUTO_TEST_CASE(test_brute_force_find_max_subarray) {
-  constexpr std::size_t num_stocks = 17;
-  std::array<int, num_stocks> constexpr stock_prices = {
-      100, 113, 110, 85,  105, 102, 86, 63, 81,
-      101, 94,  106, 101, 79,  94,  90, 97};
+namespace { // file static visibility
+constexpr std::size_t num_stocks = 17;
+std::array<int, num_stocks> constexpr stock_prices = {
+    100, 113, 110, 85, 105, 102, 86, 63, 81, 101, 94, 106, 101, 79, 94, 90, 97};
 
+std::vector<int> get_daily_changes() {
   std::vector<int> daily_changes;
-
-  for (std::size_t i = 0; i < num_stocks; i++) {
+  for (std::size_t i = 1; i < num_stocks; i++) {
     daily_changes.push_back(stock_prices[i] - stock_prices[i - 1]);
   }
+  return daily_changes;
+}
+
+using max_subarray_func_def =
+    std::tuple<std::size_t, std::size_t, int> (*)(std::span<int>);
+
+std::tuple<std::size_t, std::size_t, int>
+find_max_subarray_func(std::span<int> data) {
+  return clrs::find_maximum_subarray(data, 0, data.size() - 1);
+}
+
+max_subarray_func_def constexpr algorithms[] = {
+    clrs::brute_force_find_max_subarray<int, std::dynamic_extent>,
+    find_max_subarray_func};
+
+auto test_cases = boost::unit_test::data::make(algorithms);
+} // namespace
+
+BOOST_DATA_TEST_CASE(test_max_subarray_algorithms, test_cases, algorithm_func) {
+  std::vector<int> daily_changes = get_daily_changes();
+
+  const auto [low, high, sum] = algorithm_func(std::span(daily_changes));
+
+  BOOST_CHECK_EQUAL(low, std::size_t{7});
+  BOOST_CHECK_EQUAL(high, std::size_t{10});
+  BOOST_CHECK_EQUAL(sum, 43);
+}
+
+BOOST_AUTO_TEST_CASE(test_divide_conquer_find_max_subarray) {
+  std::vector<int> daily_changes = get_daily_changes();
+
+  const auto [low, high, sum] = clrs::find_maximum_subarray(
+      std::span(daily_changes), 0, daily_changes.size() - 1);
+
+  BOOST_CHECK_EQUAL(low, std::size_t{7});
+  BOOST_CHECK_EQUAL(high, std::size_t{10});
+  BOOST_CHECK_EQUAL(sum, 43);
+}
+
+BOOST_AUTO_TEST_CASE(test_brute_force_find_max_subarray) {
+  std::vector<int> daily_changes = get_daily_changes();
 
   const auto [low, high, sum] =
       clrs::brute_force_find_max_subarray(std::span(daily_changes));
