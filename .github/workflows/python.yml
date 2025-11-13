@@ -1,26 +1,60 @@
-name: Test Python Library
+name: Format and test Python library
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: 
+      - "main"
 
 jobs:
+  format:
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Format with ruff
+        uses: chartboost/ruff-action@v1
+        working-directory: py
+        with:
+          args: "format"
+
+      - name: Fix with ruff
+        uses: chartboost/ruff-action@v1
+        working-directory: py
+        with:
+          args: "check --fix"
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        working-directory: py
+        with:
+          version: "latest"
+          enable-cache: true
+
+      - name: Install dependencies
+        working-directory: py
+        run: uv python install 3.14
+
+      - name: Sort imports with isort 
+        working-directory: py
+        run: uv run isort python
   test:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Install uv
-      uses: actions/setup-uv@v4
-      with:
-        version: "latest"
-      
-    - name: Install dependencies
-      working-directory: py
-      run: uv sync --dev
+      - name: Check out repository code
+        uses: actions/checkout@v4
 
-    - name: Run pytest
-      working-directory: py
-      run: uv run -m pytest -v
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        working-directory: py
+        with:
+          version: "latest"
+          enable-cache: true
+
+      - name: Install dependencies
+        working-directory: py
+        run: uv python install 3.14
+
+      - name: Test with pytest
+        working-directory: py
+        run: uv run --frozen pytest
