@@ -114,56 +114,53 @@ auto test_count_inversions_cases =
     boost::unit_test::data::make(expected_inversions);
 } // namespace
 
-BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, const_input_arr,
-                     exp_arr) {
-  std::array<int32_t, 8> input_arr = const_input_arr;
+BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, test_data_arr, exp_arr) {
+  std::array<int32_t, 8> input_arr = test_data_arr;
   clrs::insertion_sort(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
-BOOST_DATA_TEST_CASE(test_insertion_sort_reverse, test_cases, const_input_arr,
+BOOST_DATA_TEST_CASE(test_insertion_sort_reverse, test_cases, test_data_arr,
                      exp_arr) {
-  std::array<int32_t, 8> input_arr = const_input_arr;
+  std::array<int32_t, 8> input_arr = test_data_arr;
   clrs::insertion_sort_reverse(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
-
-BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, const_input_arr, exp_arr) {
-  std::array<int32_t, 8> input_arr = const_input_arr;
+BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, test_data_arr, exp_arr) {
+  std::array<int32_t, 8> input_arr = test_data_arr;
   clrs::bubble_sort(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
-BOOST_DATA_TEST_CASE(test_selection_sort, test_cases, const_input_arr,
-                     exp_arr) {
-  std::array<int32_t, 8> input_arr = const_input_arr;
+BOOST_DATA_TEST_CASE(test_selection_sort, test_cases, test_data_arr, exp_arr) {
+  std::array<int32_t, 8> input_arr = test_data_arr;
   clrs::selection_sort(input_arr);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
-BOOST_DATA_TEST_CASE(test_merge_sort, test_cases, const_input_arr, exp_arr) {
-  std::array<int32_t, 8> input_arr = const_input_arr;
+BOOST_DATA_TEST_CASE(test_merge_sort, test_cases, test_data_arr, exp_arr) {
+  std::array<int32_t, 8> input_arr = test_data_arr;
   clrs::merge_sort(input_arr, 0, input_arr.size() - 1);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
-BOOST_DATA_TEST_CASE(test_merge_sort_no_sentinel, test_cases, const_input_arr,
+BOOST_DATA_TEST_CASE(test_merge_sort_no_sentinel, test_cases, test_data_arr,
                      exp_arr) {
-  std::array<int32_t, 8> input_arr = const_input_arr;
+  std::array<int32_t, 8> input_arr = test_data_arr;
   clrs::merge_sort_no_sentinel(input_arr, 0, input_arr.size() - 1);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
 
 BOOST_DATA_TEST_CASE(test_count_inversions, test_count_inversions_cases,
-                     const_input_arr, exp_inversions) {
-  std::array<int32_t, 5> input_arr = const_input_arr;
+                     test_data_arr, exp_inversions) {
+  std::array<int32_t, 5> input_arr = test_data_arr;
   auto inversions = clrs::count_inversions(input_arr, 0, input_arr.size() - 1);
 
   BOOST_CHECK_EQUAL(exp_inversions, inversions);
@@ -186,9 +183,9 @@ auto test_cases = boost::unit_test::data::make(input_bitsets) ^
                   boost::unit_test::data::make(expected_bitsets);
 } // namespace
 
-BOOST_DATA_TEST_CASE(test_binary_addition, test_cases, const_input_bitset,
+BOOST_DATA_TEST_CASE(test_binary_addition, test_cases, test_input_bitset,
                      exp_bitset) {
-  std::bitset<7> input_bitset = const_input_bitset;
+  std::bitset<7> input_bitset = test_input_bitset;
   const std::bitset<8> output_bitset =
       clrs::binary_addition(input_bitset, std::bitset<7>{"1111111"});
 
