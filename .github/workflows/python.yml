@@ -27,7 +27,6 @@ jobs:
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v4
         with:
-          src: ./py
           version: "latest"
           enable-cache: true
 
@@ -36,7 +35,8 @@ jobs:
         run: uv python install 3.14
 
       - name: Sort imports with isort 
-        run: uv run isort py
+        working-directory: py
+        run: uv run isort .
 
   test:
     runs-on: macos-latest
@@ -47,7 +47,6 @@ jobs:
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v4
         with:
-          src: ./py
           version: "latest"
           enable-cache: true
 
