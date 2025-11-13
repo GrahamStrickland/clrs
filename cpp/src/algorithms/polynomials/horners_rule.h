@@ -9,7 +9,7 @@ namespace clrs {
 double horners_rule(std::vector<double> coeffs, double x) {
   double y = 0;
 
-  for (std::size_t i = coeffs.size() - 1; i >= 0; i--)
+  for (int i = static_cast<int>(coeffs.size()) - 1; i >= 0; i--)
     y = coeffs[i] + x * y;
 
   return y;
