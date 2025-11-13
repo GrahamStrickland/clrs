@@ -14,20 +14,20 @@ jobs:
 
       - name: Format with ruff
         uses: chartboost/ruff-action@v1
-        working-directory: py
         with:
+          src: ./py
           args: "format"
 
       - name: Fix with ruff
         uses: chartboost/ruff-action@v1
-        working-directory: py
         with:
+          src: ./py
           args: "check --fix"
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v4
-        working-directory: py
         with:
+          src: ./py
           version: "latest"
           enable-cache: true
 
@@ -38,6 +38,7 @@ jobs:
       - name: Sort imports with isort 
         working-directory: py
         run: uv run isort python
+
   test:
     runs-on: macos-latest
     steps:
@@ -46,8 +47,8 @@ jobs:
 
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v4
-        working-directory: py
         with:
+          src: ./py
           version: "latest"
           enable-cache: true
 
