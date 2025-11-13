@@ -11,10 +11,12 @@ set(HEADER FILES
     ../../src/algorithms/search/recursive_binary_search.h
     ../../src/algorithms/sorting/bubble_sort.h
     ../../src/algorithms/sorting/insertion_sort.h
+    ../../src/algorithms/sorting/insertion_sort_reverse.h
     ../../src/algorithms/binary/binary_addition.h
     ../../src/algorithms/sorting/selection_sort.h
     ../../src/algorithms/sorting/merge_sort.h
     ../../src/algorithms/sorting/merge_sort_no_sentinel.h
+    ../../src/algorithms/sorting/count_inversions.h
     ../../src/algorithms/max_subarray/find_max_subarray.h
     ../../src/algorithms/max_subarray/brute_force_max_subarray.h
     ../../src/algorithms/max_subarray/find_max_subarray_non_recursive.h

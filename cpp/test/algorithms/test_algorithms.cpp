@@ -10,7 +10,9 @@
 #include "../../src/algorithms/search/linear_search.h"
 #include "../../src/algorithms/search/recursive_binary_search.h"
 #include "../../src/algorithms/sorting/bubble_sort.h"
+#include "../../src/algorithms/sorting/count_inversions.h"
 #include "../../src/algorithms/sorting/insertion_sort.h"
+#include "../../src/algorithms/sorting/insertion_sort_reverse.h"
 #include "../../src/algorithms/sorting/merge_sort.h"
 #include "../../src/algorithms/sorting/merge_sort_no_sentinel.h"
 #include "../../src/algorithms/sorting/selection_sort.h"
@@ -23,8 +25,9 @@
 
 // make streamable for boost test:
 namespace std {
+template <std::size_t N>
 inline std::ostream &boost_test_print_type(std::ostream &os,
-                                           std::array<int32_t, 8> const &arr) {
+                                           std::array<int32_t, N> const &arr) {
   os << "{";
   for (char const *sep = ""; auto const &el : arr)
     os << std::exchange(sep, ", ") << el;
@@ -97,6 +100,18 @@ std::array<std::array<int32_t, 8>, 5> constexpr expected_arrs{
 
 auto test_cases = boost::unit_test::data::make(input_arrs) ^
                   boost::unit_test::data::make(expected_arrs);
+
+std::array<std::array<int32_t, 5>, 5> constexpr input_inversions_arrs{
+    {{2, 3, 8, 6, 1},
+     {8, 6, 3, 2, 1},
+     {5, 4, 3, 2, 1},
+     {1, 2, 3, 4, 5},
+     {1, 3, 2, 5, 4}}};
+std::array<std::size_t, 5> constexpr expected_inversions{5, 10, 10, 0, 2};
+
+auto test_count_inversions_cases =
+    boost::unit_test::data::make(input_inversions_arrs) ^
+    boost::unit_test::data::make(expected_inversions);
 } // namespace
 
 BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, const_input_arr,
@@ -106,6 +121,15 @@ BOOST_DATA_TEST_CASE(test_insertion_sort, test_cases, const_input_arr,
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
 }
+
+BOOST_DATA_TEST_CASE(test_insertion_sort_reverse, test_cases, const_input_arr,
+                     exp_arr) {
+  std::array<int32_t, 8> input_arr = const_input_arr;
+  clrs::insertion_sort_reverse(input_arr);
+
+  BOOST_CHECK_EQUAL(input_arr, exp_arr);
+}
+
 
 BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, const_input_arr, exp_arr) {
   std::array<int32_t, 8> input_arr = const_input_arr;
@@ -135,6 +159,14 @@ BOOST_DATA_TEST_CASE(test_merge_sort_no_sentinel, test_cases, const_input_arr,
   clrs::merge_sort_no_sentinel(input_arr, 0, input_arr.size() - 1);
 
   BOOST_CHECK_EQUAL(input_arr, exp_arr);
+}
+
+BOOST_DATA_TEST_CASE(test_count_inversions, test_count_inversions_cases,
+                     const_input_arr, exp_inversions) {
+  std::array<int32_t, 5> input_arr = const_input_arr;
+  auto inversions = clrs::count_inversions(input_arr, 0, input_arr.size() - 1);
+
+  BOOST_CHECK_EQUAL(exp_inversions, inversions);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
