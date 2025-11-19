@@ -7,7 +7,7 @@
     \STATE $\mathit{maxHigh} = 2$
     \STATE $\mathit{maxValue} = A[\mathit{low}] + A[j]$
     \STATE $\mathit{currentValue} = \mathit{maxValue}$
-    \WHILE{$j \leq \mathit{high}$}
+    \WHILE{$j < \mathit{high}$}
         \STATE $\mathit{currentValue} = A[j + 1]$
         \FOR{$i = j \: \mathbf{downto} \: \mathit{low}$}
             \STATE $\mathit{currentValue} = \mathit{currentValue} + A[i]$
@@ -18,7 +18,6 @@
             \ENDIF
         \ENDFOR
         \STATE $j = j + 1$
-        \STATE $\mathit{currentValue} = \mathit{maxValue}$
     \ENDWHILE
 
     \RETURN $(\mathit{maxLow}, \mathit{maxHigh}, \mathit{maxValue})$
