@@ -1,7 +1,7 @@
-pub mod arrays;
 pub mod big_o;
 pub mod binary;
 pub mod max_subarray;
+pub mod polynomials;
 pub mod search;
 pub mod sorting;
 
@@ -54,6 +54,21 @@ fn test_sort_i32(sorting_algorithm: fn(&mut [i32])) {
             actual.push(*elem);
         }
         actual.sort();
+        sorting_algorithm(&mut obs);
+        assert_eq!(obs, actual);
+    }
+}
+
+#[allow(dead_code)]
+fn test_sort_i32_reverse(sorting_algorithm: fn(&mut [i32])) {
+    for vec in SORTING_ARRS.iter() {
+        let mut obs = Vec::new();
+        let mut actual = Vec::new();
+        for elem in vec {
+            obs.push(*elem);
+            actual.push(*elem);
+        }
+        actual.sort_by(|a, b| b.cmp(a));
         sorting_algorithm(&mut obs);
         assert_eq!(obs, actual);
     }
@@ -121,6 +136,13 @@ mod tests {
         test_sort_i32(insertion_sort::<i32>);
     }
 
+    use super::sorting::insertion_sort_reverse;
+    use super::test_sort_i32_reverse;
+    #[test]
+    fn test_insertion_sort_reverse() {
+        test_sort_i32_reverse(insertion_sort_reverse::<i32>);
+    }
+
     use super::sorting::selection_sort;
     #[test]
     fn test_selection_sort() {
@@ -167,6 +189,30 @@ mod tests {
         test_sort_i32(bubble_sort::<i32>);
     }
 
+    use super::sorting::count_inversions;
+    #[test]
+    fn test_find_total_inversions() {
+        let arrays = [
+            [2, 3, 8, 6, 1],
+            [8, 6, 3, 2, 1],
+            [5, 4, 3, 2, 1],
+            [1, 2, 3, 4, 5],
+            [1, 3, 2, 5, 4],
+        ];
+        let expected = [5, 10, 10, 0, 2];
+
+        for (i, arr) in arrays.iter().enumerate() {
+            let mut obs = Vec::new();
+            for elem in arr {
+                obs.push(*elem);
+            }
+
+            let res = count_inversions::<i32>(&mut obs, 0, 4, i32::MAX);
+            assert_eq!(res, expected[i]);
+        }
+    }
+
+
     // Search algorithm tests
     use super::search::{binary_search, linear_search};
 
@@ -211,31 +257,6 @@ mod tests {
         }
     }
 
-    // Miscellaneous array algorithm tests
-    use super::arrays::count_inversions;
-
-    #[test]
-    fn test_find_total_inversions() {
-        let arrays = [
-            [2, 3, 8, 6, 1],
-            [8, 6, 3, 2, 1],
-            [5, 4, 3, 2, 1],
-            [1, 2, 3, 4, 5],
-            [1, 3, 2, 5, 4],
-        ];
-        let expected = [5, 10, 10, 0, 2];
-
-        for (i, arr) in arrays.iter().enumerate() {
-            let mut obs = Vec::new();
-            for elem in arr {
-                obs.push(*elem);
-            }
-
-            let res = count_inversions::<i32>(&mut obs, 0, 4, i32::MAX);
-            assert_eq!(res, expected[i]);
-        }
-    }
-
     use super::max_subarray::find_maximum_subarray;
     use super::test_find_max_subarray;
 
@@ -256,5 +277,20 @@ mod tests {
     #[test]
     fn test_find_maximum_subarray_non_recursive() {
         test_find_max_subarray(find_maximum_subarray_non_recursive);
+    }
+
+    // Polynomial evaluation tests
+    use super::polynomials::horners_rule;
+    #[test]
+    fn test_horners_rule() {
+        assert_eq!(horners_rule(vec![1.0], 0, 0.0), 1.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0], 1, 1.0), 3.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 1.0), 6.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 0.0), 1.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 2.0), 17.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 0.01), 1.0203);
+        assert_eq!(horners_rule(vec![1.0, 1.0, 1.0], 2, 0.01), 1.0101);
+        assert_eq!(horners_rule(vec![1.0, -1.0, 1.0], 2, 0.01), 0.9901);
+        assert_eq!(horners_rule(vec![-1.0, -1.0, -1.0], 2, 0.01), -1.0101);
     }
 }
