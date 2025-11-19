@@ -1,6 +1,11 @@
 from typing import Callable
 
-from clrs import brute_force_find_maximum_subarray, find_maximum_subarray
+from clrs import (
+    brute_force_find_maximum_subarray,
+    find_maximum_subarray,
+    find_maximum_subarray_non_recursive,
+)
+
 
 STOCK_PRICES = [
     100,
@@ -42,3 +47,7 @@ def test_find_max_subarray():
 
 def test_brute_force_find_max_subarray():
     assert_find_max_subarray(brute_force_find_maximum_subarray)
+
+
+def test_find_maximum_subarray_non_recursive():
+    assert_find_max_subarray(find_maximum_subarray_non_recursive)

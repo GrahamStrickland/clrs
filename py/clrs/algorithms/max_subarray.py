@@ -69,3 +69,25 @@ def brute_force_find_maximum_subarray(a: list, _1: int, _2: int) -> tuple:
                 max_high = j
 
     return (max_low, max_high, max_sum)
+
+
+# Non-recursive Find-Maximum-Subarray algorithm from ex. 4.1-5 on p.75 of CLRS 3e
+def find_maximum_subarray_non_recursive(a: list, low: int, high: int) -> tuple:
+    j = low + 1
+    max_low = 1
+    max_high = 2
+    max_val = a[low] + a[j]
+    current_val = max_val
+
+    while j < high:
+        current_val = a[j + 1]
+        for i in range(j, low - 1, -1):
+            current_val += a[i]
+            if max_val < current_val:
+                max_low = i
+                max_high = j + 1
+                max_val = current_val
+
+        j += 1
+
+    return (max_low, max_high, max_val)
