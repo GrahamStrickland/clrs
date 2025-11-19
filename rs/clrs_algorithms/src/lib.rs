@@ -107,11 +107,11 @@ mod tests {
             797633893349.0,
             68654697441062.0,
         ];
+        let tol = 1e-3;
 
         for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
             let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;
             let res = inverse_nlogn(time_in_microseconds);
-            let tol = 1e-3;
 
             assert!((res - exp).abs() / exp < tol);
         }
@@ -211,7 +211,6 @@ mod tests {
             assert_eq!(res, expected[i]);
         }
     }
-
 
     // Search algorithm tests
     use super::search::{binary_search, linear_search};
