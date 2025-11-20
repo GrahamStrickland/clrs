@@ -21,6 +21,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <boost/test/tools/output_test_stream.hpp>
 
+#include <algorithm>
 #include <cstdint>
 
 // make streamable for boost test:
@@ -126,7 +127,11 @@ BOOST_DATA_TEST_CASE(test_insertion_sort_reverse, test_cases, test_data_arr,
   std::array<int32_t, 8> input_arr = test_data_arr;
   clrs::insertion_sort_reverse(input_arr);
 
-  BOOST_CHECK_EQUAL(input_arr, exp_arr);
+  std::array<int32_t, 8> sorted_exp_arr;
+  std::partial_sort_copy(exp_arr.begin(), exp_arr.end(), sorted_exp_arr.begin(),
+                         sorted_exp_arr.end(), std::greater<int32_t>());
+
+  BOOST_CHECK_EQUAL(input_arr, sorted_exp_arr);
 }
 
 BOOST_DATA_TEST_CASE(test_bubble_sort, test_cases, test_data_arr, exp_arr) {

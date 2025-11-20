@@ -8,7 +8,11 @@
             \STATE $i = j-1$
         \WHILE{$i>0$ \AND $A[i] < key$}
             \STATE $A[i+1]= A[i]$
-            \STATE $i = i-1$
+            \IF{$i > 0$}
+                \STATE $i = i-1$
+            \ELSE
+                \STATE $i = 0$
+            \ENDIF
         \ENDWHILE
             \STATE $A[i+1] = \mathit{key}$
     \ENDFOR

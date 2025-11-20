@@ -9,17 +9,15 @@
 namespace clrs {
 template <typename T, std::size_t N>
 void insertion_sort_reverse(std::array<T, N> &a) {
-  auto len = a.size();
-  for (std::size_t j = 1; j < len; j++) {
+  for (std::size_t j = 1; j < a.size(); j++) {
     T key = a[j];
 
     // Insert A[j] into the sorted sequence A[1..j-1]
-    std::size_t i = j - 1;
-    while (i >= 0 && a[i] < key) {
-      a[i + 1] = a[i];
-      i = i - 1;
+    auto i = j - 1;
+    while (a[i] < key) {
+      std::swap(a[i], a[i + 1]);
+      i = i > 0 ? i - 1 : 0; 
     }
-    a[i + 1] = key;
   }
 }
 } // namespace clrs
