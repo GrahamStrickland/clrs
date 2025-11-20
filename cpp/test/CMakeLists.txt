@@ -32,7 +32,7 @@ set(ALG_SOURCES
     algorithms/test_algorithms.cpp 
 )
 
-find_package(Boost 1.88.0 REQUIRED COMPONENTS unit_test_framework)
+find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 if (Boost_FOUND)
     enable_testing()
 
