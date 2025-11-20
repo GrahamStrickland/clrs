@@ -28,8 +28,10 @@ jobs:
         -S ${{ github.workspace }}/cpp/test/
 
     - name: Build
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }}
 
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: ${{ steps.strings.outputs.build-output-dir }}/test_algorithms && ${{ steps.strings.outputs.build-output-dir }}/test_data_structures
+      run: |
+        ${{ steps.strings.outputs.build-output-dir }}/test_algorithms
+        ${{ steps.strings.outputs.build-output-dir }}/test_data_structures
