@@ -1,4 +1,4 @@
-from math import log2, log, floor
+from math import floor, log, log2
 
 
 def inverse_nlogn(x: float) -> float:

@@ -1,11 +1,7 @@
 from typing import Callable
 
-from clrs import (
-    brute_force_find_maximum_subarray,
-    find_maximum_subarray,
-    find_maximum_subarray_non_recursive,
-)
-
+from clrs import (brute_force_find_maximum_subarray, find_maximum_subarray,
+                  find_maximum_subarray_non_recursive)
 
 STOCK_PRICES = [
     100,

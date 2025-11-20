@@ -4,7 +4,6 @@ from pytest import approx
 
 from clrs import inverse_nlogn
 
-
 RUNTIMES = [
     timedelta(seconds=1),
     timedelta(minutes=1),
