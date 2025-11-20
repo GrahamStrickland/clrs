@@ -30,7 +30,7 @@ def test_inverse_nlogn():
     ]
 
     for t in zip(RUNTIMES, exps):
-        time_in_microseconds = t[0].microseconds
+        time_in_microseconds = t[0] / timedelta(microseconds=1)
 
         res = inverse_nlogn(time_in_microseconds)
 
