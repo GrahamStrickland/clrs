@@ -8,8 +8,8 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    "basedpyright>=1.33.0",
     "isort>=7.0.0",
     "pytest>=9.0.0",
     "ruff>=0.14.4",
+    "ty>=0.0.5",
 ]
