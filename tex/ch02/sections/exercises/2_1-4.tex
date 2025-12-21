@@ -3,39 +3,41 @@
 We have the following addition problem:
 
 \begin{itemize}
-    \item[\textbf{Input:}] Two $n$-element arrays $A$ and $B$ containing binary digits.
-    \item[\textbf{Output:}] $(n+1)$-element array $C$ containing the sum of $A$ and $B$.
+  \item[\textbf{Input:}] Two $n$-element arrays $A$ and $B$
+    containing binary digits.
+  \item[\textbf{Output:}] $(n+1)$-element array $C$ containing the
+    sum of $A$ and $B$.
 \end{itemize}
 
 We have the following algorithm as a solution:
 
 \begin{algorithmic}[1]
-    \TITLE{\textsc{Binary-Addition}$(A, B, n)$}
-    \STATE $\mathit{carry} = 0$
-    \FOR{$i=1$ \TO $n$}
-        \IF{$A[i] = 1$ and $B[i] = 1$}
-            \IF{$\mathit{carry} == 0$}
-                \STATE $C[i] = 0$
-                \STATE $\mathit{carry} = 1$
-            \ELSE
-                \STATE $C[i] = 1$
-                \STATE $\mathit{carry} = 1$
-            \ENDIF
-        \ELSIF{$A[i] == 1$ and $B[i] == 0$ or \\
-                \qquad $A[i] == 0$ and $B[i] == 1$}
-            \IF{$\mathit{carry} == 0$} 
-                \STATE $C[i] = 1$
-            \ELSE
-                \STATE $C[i] = 0$
-                \STATE $\mathit{carry} = 1$
-            \ENDIF
-        \ELSE
-            \STATE $C[i] = \mathit{carry}$
-            \STATE $\mathit{carry} = 0$
-        \ENDIF
-    \ENDFOR
-    \STATE $C[n + 1] = \mathit{carry}$
-    \RETURN $C$
+  \TITLE{\textsc{Binary-Addition}$(A, B, n)$}
+  \STATE $\mathit{carry} = 0$
+  \FOR{$i=1$ \TO $n$}
+  \IF{$A[i] = 1$ and $B[i] = 1$}
+  \IF{$\mathit{carry} == 0$}
+  \STATE $C[i] = 0$
+  \STATE $\mathit{carry} = 1$
+  \ELSE
+  \STATE $C[i] = 1$
+  \STATE $\mathit{carry} = 1$
+  \ENDIF
+  \ELSIF{$A[i] == 1$ and $B[i] == 0$ or \\
+  \qquad $A[i] == 0$ and $B[i] == 1$}
+  \IF{$\mathit{carry} == 0$}
+  \STATE $C[i] = 1$
+  \ELSE
+  \STATE $C[i] = 0$
+  \STATE $\mathit{carry} = 1$
+  \ENDIF
+  \ELSE
+  \STATE $C[i] = \mathit{carry}$
+  \STATE $\mathit{carry} = 0$
+  \ENDIF
+  \ENDFOR
+  \STATE $C[n + 1] = \mathit{carry}$
+  \RETURN $C$
 \end{algorithmic}
 
 The implementation can be seen in the following file:

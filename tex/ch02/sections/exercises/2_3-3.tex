@@ -1,24 +1,24 @@
 % Exercise 2.3-3
 
 \begin{proof}
-    We have the base case for $n = 2^1$ given by 
-    \[
-        T(n) = T(2) = 2 = 2\log_2{2^1} = 2 \cdot 1.
-    \]
-    Now, we assume as our induction step that if $n = 2^k$ for $k > 1$,
-    \[
-        T(n) = 2T(n/2) + n = n\lg{n}.
-    \]
-    Then, suppose that $n = 2^{k+1}$, so that we have
-    \begin{align*}
-T(n) &= 2T(2^{k+1}/2) + 2^{k+1} &\, \\
-             &= 2T(2^k) + 2^{k+1} &\, \\
-             &= 2(2^k\lg{2^k}) + 2^{k+1} \qquad 
-                 &\text{(by our induction assumption)} \\
-                 &= 2^{k+1}\lg{2^k} + 2^{k+1}\lg{2} \qquad 
-                 &\text{(since $\log_2{2} = 1$)} \\
-                 &= 2^{k+1}\lg{2^{k+1}} \qquad 
-                 &\text{(since $\log_2{a} + \log_2{b} = \log_2{ab}$)} 
-    \end{align*}
-    Therefore, by induction on $n = 2^k$, $T(n) = n\lg{n}$.
+  We have the base case for $n = 2^1$ given by
+  \[
+    T(n) = T(2) = 2 = 2\log_2{2^1} = 2 \cdot 1.
+  \]
+  Now, we assume as our induction step that if $n = 2^k$ for $k > 1$,
+  \[
+    T(n) = 2T(n/2) + n = n\lg{n}.
+  \]
+  Then, suppose that $n = 2^{k+1}$, so that we have
+  \begin{align*}
+    T(n) &= 2T(2^{k+1}/2) + 2^{k+1} &\, \\
+    &= 2T(2^k) + 2^{k+1} &\, \\
+    &= 2(2^k\lg{2^k}) + 2^{k+1} \qquad
+    &\text{(by our induction assumption)} \\
+    &= 2^{k+1}\lg{2^k} + 2^{k+1}\lg{2} \qquad
+    &\text{(since $\log_2{2} = 1$)} \\
+    &= 2^{k+1}\lg{2^{k+1}} \qquad
+    &\text{(since $\log_2{a} + \log_2{b} = \log_2{ab}$)}
+  \end{align*}
+  Therefore, by induction on $n = 2^k$, $T(n) = n\lg{n}$.
 \end{proof}

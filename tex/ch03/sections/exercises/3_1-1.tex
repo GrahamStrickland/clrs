@@ -1,18 +1,23 @@
 % Exercise 3.1-1
 
 \begin{proof}
-    Suppose $\max{(f(n), g(n))} = f(n)$, then $f(n) \geq g(n)$ for all $n > n_0$,
-    for some $n_0 \in \mathbb{R}^+$. Then, since the $\Theta$-relation is reflexive,
-    $f(n) = \Theta(f(n))$, so we have some $c_1, c_2, n_0 \in \mathbb{R}^+$ such that
-    $0 \leq c_1 f(n) \leq f(n) \leq c_2 f(n)$ for all $n > n_0$.
-    
-    Now, since $g(n)$ is asymptotically positive, it follows that 
-    $f(n) \leq c_2 f(n) \leq c_2 f(n) + c_2 g(n) = c_2(f(n) + g(n))$.
-    Then, $f(n) = \max{(g(n), f(n))} \Rightarrow c_3(f(n) + g(n)) \leq c_1 f(n)$ for
-    some $c_3 \in \mathbb{R}^+$, provided $c_3$ is sufficiently small and $c_3 < c_1$.
+  Suppose $\max{(f(n), g(n))} = f(n)$, then $f(n) \geq g(n)$ for all $n > n_0$,
+  for some $n_0 \in \mathbb{R}^+$. Then, since the $\Theta$-relation
+  is reflexive,
+  $f(n) = \Theta(f(n))$, so we have some $c_1, c_2, n_0 \in
+  \mathbb{R}^+$ such that
+  $0 \leq c_1 f(n) \leq f(n) \leq c_2 f(n)$ for all $n > n_0$.
 
-    Thus, we have $0 \leq c_3(f(n), g(n)) \leq \max{(f(n), g(n))} \leq c_2(f(n) + g(n))$,
-    and we have $\max{(f(n), g(n))} = \Theta(f(n) + g(n))$.
+  Now, since $g(n)$ is asymptotically positive, it follows that
+  $f(n) \leq c_2 f(n) \leq c_2 f(n) + c_2 g(n) = c_2(f(n) + g(n))$.
+  Then, $f(n) = \max{(g(n), f(n))} \Rightarrow c_3(f(n) + g(n)) \leq
+  c_1 f(n)$ for
+  some $c_3 \in \mathbb{R}^+$, provided $c_3$ is sufficiently small
+  and $c_3 < c_1$.
 
-    A similar argument proves the case where $\max{(f(n), g(n))} = g(n)$.
+  Thus, we have $0 \leq c_3(f(n), g(n)) \leq \max{(f(n), g(n))} \leq
+  c_2(f(n) + g(n))$,
+  and we have $\max{(f(n), g(n))} = \Theta(f(n) + g(n))$.
+
+  A similar argument proves the case where $\max{(f(n), g(n))} = g(n)$.
 \end{proof}

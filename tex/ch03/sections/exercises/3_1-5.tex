@@ -1,20 +1,22 @@
 % Exercise 3.1-5
 
 \begin{proof}
-    \begin{itemize}
-        \item[$(\Rightarrow)$] Suppose $f(n) = \Theta(g(n))$, then we have 
-            $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all $n \geq n_0$, 
-            where $c_1, c_2 \in \mathbb{R}^+, n, n_0 \in \mathbb{N}$.
+  \begin{itemize}
+    \item[$(\Rightarrow)$] Suppose $f(n) = \Theta(g(n))$, then we have
+      $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all $n \geq n_0$,
+      where $c_1, c_2 \in \mathbb{R}^+, n, n_0 \in \mathbb{N}$.
 
-            But then it follows that $0 \leq f(n) \leq c_2 g(n)$ for all $n \geq n_0$, 
-            so $f(n) = O(g(n))$, and $0 \leq c_1 g(n) \leq f(n)$ for all $n \geq n_0$, 
-            so $f(n) = \Omega(g(n))$.
+      But then it follows that $0 \leq f(n) \leq c_2 g(n)$ for all $n \geq n_0$,
+      so $f(n) = O(g(n))$, and $0 \leq c_1 g(n) \leq f(n)$ for all $n \geq n_0$,
+      so $f(n) = \Omega(g(n))$.
 
-        \item[$(\Leftarrow)$] 
-            Now, suppose $f(n) = O(g(n))$, i.e., $0 \leq f(n) \leq c_2 g(n)$ for all 
-            $n \geq n_0$ and $f(n) = \Omega(g(n))$, i.e., $0 \leq c_1 g(n) \leq f(n)$ 
-            for all $n \geq n_0$, where $c_1, c_2 \in \mathbb{R}^+, n, n_0 \in \mathbb{N}$. 
-            But then we have $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all $n \geq n_0$, 
-            so that $f(n) = \Theta(g(n))$.
-    \end{itemize}
+    \item[$(\Leftarrow)$]
+      Now, suppose $f(n) = O(g(n))$, i.e., $0 \leq f(n) \leq c_2 g(n)$ for all
+      $n \geq n_0$ and $f(n) = \Omega(g(n))$, i.e., $0 \leq c_1 g(n) \leq f(n)$
+      for all $n \geq n_0$, where $c_1, c_2 \in \mathbb{R}^+, n, n_0
+      \in \mathbb{N}$.
+      But then we have $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for
+      all $n \geq n_0$,
+      so that $f(n) = \Theta(g(n))$.
+  \end{itemize}
 \end{proof}

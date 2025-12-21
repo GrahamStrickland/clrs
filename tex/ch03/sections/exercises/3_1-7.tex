@@ -1,19 +1,21 @@
 % Exercise 3.1-7
 
 \begin{proof}
-    Suppose we have some function $f \in \lbrace o(g(n)) \cap \omega(g(n)) \rbrace$.
-    Then we have, for any $c_1, c_2 \in \mathbb{R}^+$, that there exists $n_0 > 0$
-    such that $0 \leq f(n) < c_2 g(n)$ and $0 \leq c_1 g(n) < f(n)$ for all 
-    $n \geq n_0$.
-    
-    But now we have 
-    \[
-        \lim_{n \to \infty}{\frac{f(n)}{g(n)}} = 0
-    \]
-    and
-    \[
-        \lim_{n \to \infty}{\frac{f(n)}{g(n)}} = \infty,
-    \]
-    so that we have a contradiction. Thus, we conclude that such an $f$ does not exist, 
-    and $o(g(n)) \cap \omega(g(n)) = \varnothing$, the empty set.
+  Suppose we have some function $f \in \lbrace o(g(n)) \cap
+  \omega(g(n)) \rbrace$.
+  Then we have, for any $c_1, c_2 \in \mathbb{R}^+$, that there exists $n_0 > 0$
+  such that $0 \leq f(n) < c_2 g(n)$ and $0 \leq c_1 g(n) < f(n)$ for all
+  $n \geq n_0$.
+
+  But now we have
+  \[
+    \lim_{n \to \infty}{\frac{f(n)}{g(n)}} = 0
+  \]
+  and
+  \[
+    \lim_{n \to \infty}{\frac{f(n)}{g(n)}} = \infty,
+  \]
+  so that we have a contradiction. Thus, we conclude that such an $f$
+  does not exist,
+  and $o(g(n)) \cap \omega(g(n)) = \varnothing$, the empty set.
 \end{proof}

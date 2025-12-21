@@ -1,10 +1,11 @@
 % Exercise 2.3-6
 
-Since the loop invariant of \textsc{Insertion-Sort} guarantees that we have 
+Since the loop invariant of \textsc{Insertion-Sort} guarantees that we have
 $A[1 \ltwodots j - 1]$ sorted, we can use the \textsc{Binary-Search} algorithm
 of 2.3-5 in place of the \textbf{while} loop of lines 5-7.
 
 Since every other operation in the algorithm for \textsc{Insertion-Sort} is
 $\Theta(n)$ and the \textbf{while} loop is nested but also $\Theta(n)$, we can
-improve the overall worst-case running time to $\Theta(n\lg{n})$, which is better 
+improve the overall worst-case running time to $\Theta(n\lg{n})$,
+which is better
 than $\Theta(n^2)$ for the original \textsc{Insertion-Sort} algorithm.

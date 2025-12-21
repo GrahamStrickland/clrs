@@ -4,182 +4,189 @@ In Figure~\ref{2_3-1}, we illustrate the operation of \textsc{Merge-Sort} on the
 array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
 \begin{figure}[!ht]
-    \begin{tikzpicture}[>=latex]
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw},label=above:sorted sequence]
-        at (4.5, 0)
-        (arr1)
-        {
-            3 & 9 & 26 & 38 & 41 & 49 & 52 & 57 \\
-        };
+  \begin{tikzpicture}[>=latex]
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row
+    2/.style={nodes=draw},label=above:sorted sequence]
+    at (4.5, 0)
+    (arr1)
+    {
+      3 & 9 & 26 & 38 & 41 & 49 & 52 & 57 \\
+    };
 
-        \node[fill=none,label=merge] at (7.5, -1.5) {};
+    \node[fill=none,label=merge] at (7.5, -1.5) {};
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (1.865, -2)
-        (arr2)
-        {
-            3 & 26 & 41 & 52 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (1.865, -2)
+    (arr2)
+    {
+      3 & 26 & 41 & 52 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (10, -2)
-        (arr3)
-        {
-            9 & 38 & 49 & 57 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (10, -2)
+    (arr3)
+    {
+      9 & 38 & 49 & 57 \\
+    };
 
-        \node[fill=none,label=merge] at (3.5, -3.5) {};
-        \node[fill=none,label=merge] at (11.75, -3.5) {};
+    \node[fill=none,label=merge] at (3.5, -3.5) {};
+    \node[fill=none,label=merge] at (11.75, -3.5) {};
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (0.625, -4)
-        (arr4)
-        {
-            3 & 41 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (0.625, -4)
+    (arr4)
+    {
+      3 & 41 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (4.625, -4)
-        (arr5)
-        {
-            26 & 52 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (4.625, -4)
+    (arr5)
+    {
+      26 & 52 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (8.625, -4)
-        (arr6)
-        {
-            38 & 57 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (8.625, -4)
+    (arr6)
+    {
+      38 & 57 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (12.625, -4)
-        (arr7)
-        {
-            9 & 49 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (12.625, -4)
+    (arr7)
+    {
+      9 & 49 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (0, -6)
-        (arr8)
-        {
-            3 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (0, -6)
+    (arr8)
+    {
+      3 \\
+    };
 
-        \node[fill=none,label=merge] at (1.5, -5.5) {};
-        \node[fill=none,label=merge] at (5.5, -5.5) {};
-        \node[fill=none,label=merge] at (9.5, -5.5) {};
-        \node[fill=none,label=merge] at (13.5, -5.5) {};
+    \node[fill=none,label=merge] at (1.5, -5.5) {};
+    \node[fill=none,label=merge] at (5.5, -5.5) {};
+    \node[fill=none,label=merge] at (9.5, -5.5) {};
+    \node[fill=none,label=merge] at (13.5, -5.5) {};
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (2, -6)
-        (arr9)
-        {
-            41 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (2, -6)
+    (arr9)
+    {
+      41 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (4, -6)
-        (arr10)
-        {
-            52 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (4, -6)
+    (arr10)
+    {
+      52 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (6, -6)
-        (arr11)
-        {
-            26 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (6, -6)
+    (arr11)
+    {
+      26 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (8, -6)
-        (arr12)
-        {
-            38 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (8, -6)
+    (arr12)
+    {
+      38 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (10, -6)
-        (arr13)
-        {
-            57 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (10, -6)
+    (arr13)
+    {
+      57 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (12, -6)
-        (arr14)
-        {
-            9 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (12, -6)
+    (arr14)
+    {
+      9 \\
+    };
 
-        \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
-        \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
-        at (14, -6)
-        (arr15)
-        {
-            49 \\
-        };
+    \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
+    \matrix[mymat,anchor=west,row 2/.style={nodes=draw}]
+    at (14, -6)
+    (arr15)
+    {
+      49 \\
+    };
 
-        \node[fill=none,label=initial sequence] at (7.5, -7.5) {};
+    \node[fill=none,label=initial sequence] at (7.5, -7.5) {};
 
-        \begin{scope}[>=stealth',very thick,draw=gray!80]
-            \draw[->]
-                ($(arr2-1-2.north east)+(0.2,0.2)$) -- ($(arr1-1-4.south west)-(0.2,0.2)$);
+    \begin{scope}[>=stealth',very thick,draw=gray!80]
+      \draw[->]
+      ($(arr2-1-2.north east)+(0.2,0.2)$) -- ($(arr1-1-4.south
+      west)-(0.2,0.2)$);
 
-            \draw[->]
-                ($(arr3-1-2.north west)+(0.2,0.2)$) -- ($(arr1-1-6.south east)-(0.2,0.2)$);
+      \draw[->]
+      ($(arr3-1-2.north west)+(0.2,0.2)$) -- ($(arr1-1-6.south
+      east)-(0.2,0.2)$);
 
-            \draw[->]
-                ($(arr4-1-2.north west)+(0.2,0.2)$) -- ($(arr2-1-2.south east)-(0.2,0.2)$);
+      \draw[->]
+      ($(arr4-1-2.north west)+(0.2,0.2)$) -- ($(arr2-1-2.south
+      east)-(0.2,0.2)$);
 
-            \draw[->]
-                ($(arr5-1-2.north west)+(0.2,0.2)$) -- ($(arr2-1-3.south east)-(0.2,0.2)$);
+      \draw[->]
+      ($(arr5-1-2.north west)+(0.2,0.2)$) -- ($(arr2-1-3.south
+      east)-(0.2,0.2)$);
 
-            \draw[->]
-                ($(arr6-1-2.north west)+(0.2,0.2)$) -- ($(arr3-1-2.south east)-(0.2,0.2)$);
+      \draw[->]
+      ($(arr6-1-2.north west)+(0.2,0.2)$) -- ($(arr3-1-2.south
+      east)-(0.2,0.2)$);
 
-            \draw[->]
-                ($(arr7-1-2.north west)+(0.2,0.2)$) -- ($(arr3-1-3.south east)-(0.2,0.2)$);
+      \draw[->]
+      ($(arr7-1-2.north west)+(0.2,0.2)$) -- ($(arr3-1-3.south
+      east)-(0.2,0.2)$);
 
-            \draw[->]
-                ($(arr8-1-1.north)+(0,0.2)$) -- ($(arr4-1-1.south)-(0,0.2)$);
+      \draw[->]
+      ($(arr8-1-1.north)+(0,0.2)$) -- ($(arr4-1-1.south)-(0,0.2)$);
 
-            \draw[->]
-                ($(arr9-1-1.north)+(0,0.2)$) -- ($(arr4-1-2.south)-(0,0.2)$);
+      \draw[->]
+      ($(arr9-1-1.north)+(0,0.2)$) -- ($(arr4-1-2.south)-(0,0.2)$);
 
-            \draw[->]
-                ($(arr10-1-1.north)+(0,0.2)$) -- ($(arr5-1-1.south)-(0,0.2)$);
+      \draw[->]
+      ($(arr10-1-1.north)+(0,0.2)$) -- ($(arr5-1-1.south)-(0,0.2)$);
 
-            \draw[->]
-                ($(arr11-1-1.north)+(0,0.2)$) -- ($(arr5-1-2.south)-(0,0.2)$);
+      \draw[->]
+      ($(arr11-1-1.north)+(0,0.2)$) -- ($(arr5-1-2.south)-(0,0.2)$);
 
-            \draw[->]
-                ($(arr12-1-1.north)+(0,0.2)$) -- ($(arr6-1-1.south)-(0,0.2)$);
+      \draw[->]
+      ($(arr12-1-1.north)+(0,0.2)$) -- ($(arr6-1-1.south)-(0,0.2)$);
 
-            \draw[->]
-                ($(arr13-1-1.north)+(0,0.2)$) -- ($(arr6-1-2.south)-(0,0.2)$);
+      \draw[->]
+      ($(arr13-1-1.north)+(0,0.2)$) -- ($(arr6-1-2.south)-(0,0.2)$);
 
-            \draw[->]
-                ($(arr14-1-1.north)+(0,0.2)$) -- ($(arr7-1-1.south)-(0,0.2)$);
+      \draw[->]
+      ($(arr14-1-1.north)+(0,0.2)$) -- ($(arr7-1-1.south)-(0,0.2)$);
 
-            \draw[->]
-                ($(arr15-1-1.north)+(0,0.2)$) -- ($(arr7-1-2.south)-(0,0.2)$);
-        \end{scope}
-    \end{tikzpicture}
-    \caption{Illustration of \textsc{Merge-Sort}. \label{2_3-1}} 
+      \draw[->]
+      ($(arr15-1-1.north)+(0,0.2)$) -- ($(arr7-1-2.south)-(0,0.2)$);
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Illustration of \textsc{Merge-Sort}. \label{2_3-1}}
 \end{figure}

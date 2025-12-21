@@ -1,28 +1,33 @@
 % Exercise 3.1-6
 
 \begin{proof}
-    \begin{itemize}
-        \item[$(\Rightarrow)$] Suppose the running time of an algorithm is 
-            $\Theta(g(n))$, i.e., $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all 
-            $n \geq n_0$, where $c_1, c_2 \in \mathbb{R}^+, n, n_0 \in \mathbb{N}$ and 
-            $f(n)$ is a function that describes the running time of the algorithm 
-            in question. 
+  \begin{itemize}
+    \item[$(\Rightarrow)$] Suppose the running time of an algorithm is
+      $\Theta(g(n))$, i.e., $0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$ for all
+      $n \geq n_0$, where $c_1, c_2 \in \mathbb{R}^+, n, n_0 \in \mathbb{N}$ and
+      $f(n)$ is a function that describes the running time of the algorithm
+      in question.
 
-            Now, clearly the worst-case running time of the algorithm is some value 
-            $M \leq c_2 g(n)$, since $x = f(n)$ for the greatest possible value of $M$. 
-            But then we have $0 \leq x \leq c_2 g(n)$ and the running time $M = O(g(n))$. 
+      Now, clearly the worst-case running time of the algorithm is some value
+      $M \leq c_2 g(n)$, since $x = f(n)$ for the greatest possible
+      value of $M$.
+      But then we have $0 \leq x \leq c_2 g(n)$ and the running time
+      $M = O(g(n))$.
 
-            Likewise, if $x'$ is the best-case running time and $m$ is the minimum value 
-            of $f(n)$ for all $n \in \mathbb{N}$ and $0 \leq c_1 g(n) \leq m$, so 
-            $m = \Omega(g(n))$.
-        \item[$(\Leftarrow)$] Now, suppose the worst-case running time $M = O(g(n))$ and
-            the best-case running time $m = \Omega(g(n))$. Then we have
-            $0 \leq c_1 g(n) \leq m$ and $0 \leq M \leq c_2 g(n)$ for all $n \geq n_0$,
-            where $c_1, c_2 \in \mathbb{R}^+, n, n_0 \in \mathbb{N}$. But clearly
-            $m \leq f(n) \leq M$ for all $n$, so that it follows that
-            \[
-                0 \leq c_1 g(n) \leq m \leq g(n) \leq M \leq c_2 g(n)
-            \]
-            for all $n > n_0$, i.e., $f(n) = \Theta(g(n))$. 
-    \end{itemize} 
+      Likewise, if $x'$ is the best-case running time and $m$ is the
+      minimum value
+      of $f(n)$ for all $n \in \mathbb{N}$ and $0 \leq c_1 g(n) \leq m$, so
+      $m = \Omega(g(n))$.
+    \item[$(\Leftarrow)$] Now, suppose the worst-case running time $M
+      = O(g(n))$ and
+      the best-case running time $m = \Omega(g(n))$. Then we have
+      $0 \leq c_1 g(n) \leq m$ and $0 \leq M \leq c_2 g(n)$ for all
+      $n \geq n_0$,
+      where $c_1, c_2 \in \mathbb{R}^+, n, n_0 \in \mathbb{N}$. But clearly
+      $m \leq f(n) \leq M$ for all $n$, so that it follows that
+      \[
+        0 \leq c_1 g(n) \leq m \leq g(n) \leq M \leq c_2 g(n)
+      \]
+      for all $n > n_0$, i.e., $f(n) = \Theta(g(n))$.
+  \end{itemize}
 \end{proof}

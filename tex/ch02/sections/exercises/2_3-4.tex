@@ -1,17 +1,24 @@
 % Exercise 2.3-4
- 
- We let $T(n)$ be the running time of a problem of size $n$. For $n \leq 2$, we have
- $T(n) = \Theta(2) = \Theta(1)$, since this is just the process of inserting an item 
- in either position 1 or 2, so a worst-case time is $\Theta(1)$.
 
- If $n > 2$, our division of the problem yields $n - 1$ subproblems, each of which is
- $\frac{n - 1}{n}$ times the size of the original. It takes $T(\frac{n(n-1)}{n}) = T(n-1)$
- to solve one subproblem, so it takes $(n-1)T(n-1)$ to solve $n - 1$ of them. It then
- takes $\Theta(n)$ time to divide the problem into subproblems and insert the last item
- in the array into $A[1\ltwodots n-1]$, so we have
- \[
-     T(n) = \begin{cases}
-         \Theta(1) \quad &\text{if } n \leq 2 \\
-         (n-1)T(n-1) + \Theta(1) \quad &\text{otherwise} \\
-    \end{cases}.
- \]
+We let $T(n)$ be the running time of a problem of size $n$. For $n
+\leq 2$, we have
+$T(n) = \Theta(2) = \Theta(1)$, since this is just the process of
+inserting an item
+in either position 1 or 2, so a worst-case time is $\Theta(1)$.
+
+If $n > 2$, our division of the problem yields $n - 1$ subproblems,
+each of which is
+$\frac{n - 1}{n}$ times the size of the original. It takes
+$T(\frac{n(n-1)}{n}) = T(n-1)$
+to solve one subproblem, so it takes $(n-1)T(n-1)$ to solve $n - 1$
+of them. It then
+takes $\Theta(n)$ time to divide the problem into subproblems and
+insert the last item
+in the array into $A[1\ltwodots n-1]$, so we have
+\[
+  T(n) =
+  \begin{cases}
+    \Theta(1) \quad &\text{if } n \leq 2 \\
+    (n-1)T(n-1) + \Theta(1) \quad &\text{otherwise} \\
+  \end{cases}.
+\]

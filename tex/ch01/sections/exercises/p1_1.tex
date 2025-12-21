@@ -1,19 +1,20 @@
 % Problem 1-1
 
-From the program in \path{rs/clrs_compruntime/src/main.rs}, we have the following
+From the program in \path{rs/clrs_compruntime/src/main.rs}, we have
+the following
 output:
 \small\begin{verbatim}
 ----------------------------------------------------------
-f(n)            1 s             1m              1h        
+f(n)            1 s             1m              1h
 ----------------------------------------------------------
-lg(n)                inf             inf             inf  
-sqrt(n)   1.00000000e+12  3.60000000e+15  1.29600000e+19  
-n                1000000        60000000  3.60000000e+09  
-nlg(n)             62746         2801417       133378058  
-n^2                 1000            7745           60000  
-n^3                   99             391            1532  
-2^n                   19              25              31  
-n!                    10              12              13  
+lg(n)                inf             inf             inf
+sqrt(n)   1.00000000e+12  3.60000000e+15  1.29600000e+19
+n                1000000        60000000  3.60000000e+09
+nlg(n)             62746         2801417       133378058
+n^2                 1000            7745           60000
+n^3                   99             391            1532
+2^n                   19              25              31
+n!                    10              12              13
 ----------------------------------------------------------
 --------------------------------------------------------------
       1d              1m              1y              1c
@@ -28,7 +29,8 @@ n!                    10              12              13
             14              16              17              18
 --------------------------------------------------------------
 \end{verbatim}\normalsize
-\qquad In generating the above results, we have made use of the following two Rust 
+\qquad In generating the above results, we have made use of the
+following two Rust
 functions in \path{rs/clrs_algorithms/src/big_o.rs}:
 \small\begin{verbatim}
 pub fn inverse_nlogn(x: f64) -> f64 {
@@ -64,12 +66,12 @@ pub fn inverse_factorial(x: f64) -> f64 {
     i - 1.0
 }
 \end{verbatim}\normalsize
-\texttt{inverse\_nlogn} makes use of Newton's method to calculate an approximate 
-value $m(x)$ s.t. 
+\texttt{inverse\_nlogn} makes use of Newton's method to calculate an approximate
+value $m(x)$ s.t.
 \[
-    n\lg{n} = x \Rightarrow m(x) \approx n, 
+  n\lg{n} = x \Rightarrow m(x) \approx n,
 \]
-while \texttt{inverse\_factorial} generates an approximate value $m(x)$ s.t. 
+while \texttt{inverse\_factorial} generates an approximate value $m(x)$ s.t.
 \[
-    x = n! \Rightarrow m(x) = \lfloor n \rfloor. 
+  x = n! \Rightarrow m(x) = \lfloor n \rfloor.
 \]

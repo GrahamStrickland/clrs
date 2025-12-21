@@ -1,39 +1,40 @@
 % Exercise 2.1-3
 
 \begin{algorithmic}[1]
-    \TITLE{\textsc{Linear-Search}$(A, \nu)$}
-    \STATE $j = 1$
-    \WHILE{$j \neq A.\mathit{length}$}
-        \IF{$A[j] == \nu$}
-            \RETURN $j$
-        \ELSE
-            \STATE $j = j + 1$
-        \ENDIF
-    \ENDWHILE
-    \RETURN \textrm{NIL}
+  \TITLE{\textsc{Linear-Search}$(A, \nu)$}
+  \STATE $j = 1$
+  \WHILE{$j \neq A.\mathit{length}$}
+  \IF{$A[j] == \nu$}
+  \RETURN $j$
+  \ELSE
+  \STATE $j = j + 1$
+  \ENDIF
+  \ENDWHILE
+  \RETURN \textrm{NIL}
 \end{algorithmic}
 
 \begin{description}
-    \item[Initialisation:] With the loop invariant being that $A[j]$ refers to an 
-        element of the sequence $A = \langle a_1, a_2, \ldots, a_n \rangle$ and 
-        each element in $A[1\ltwodots j - 1]$ has been checked for equality, we 
-        have the loop invariant valid, since $j = 1$ and $A[1]$ is in $A$ for 
-        $n \ge 1$, at the start of the \textbf{while} loop 1 -- 6.
-    \item[Maintenance:] Either the \textbf{if} statement in line 3 returns $A[j]$
-        or the \textbf{else} statement in line 5 increments $j$ by 1, so that after
-        each pass of the \textbf{while} loop, we have checked whether or not 
-        $A[j] = \nu$, and the condition of the \textbf{while} loop ensures that 
-        $A[j]$ is in $A$.
-    \item[Termination:] If the \textbf{while} loop terminates, then either the 
-        \textbf{if} condition in line 3 is true, so that $A[j] = \nu$ or 
-        $j = A.\mathit{length}$, at which point we return the special value
-        \textrm{NIL}.
+  \item[Initialisation:] With the loop invariant being that $A[j]$ refers to an
+    element of the sequence $A = \langle a_1, a_2, \ldots, a_n \rangle$ and
+    each element in $A[1\ltwodots j - 1]$ has been checked for equality, we
+    have the loop invariant valid, since $j = 1$ and $A[1]$ is in $A$ for
+    $n \ge 1$, at the start of the \textbf{while} loop 1 -- 6.
+  \item[Maintenance:] Either the \textbf{if} statement in line 3 returns $A[j]$
+    or the \textbf{else} statement in line 5 increments $j$ by 1, so that after
+    each pass of the \textbf{while} loop, we have checked whether or not
+    $A[j] = \nu$, and the condition of the \textbf{while} loop ensures that
+    $A[j]$ is in $A$.
+  \item[Termination:] If the \textbf{while} loop terminates, then either the
+    \textbf{if} condition in line 3 is true, so that $A[j] = \nu$ or
+    $j = A.\mathit{length}$, at which point we return the special value
+    \textrm{NIL}.
 \end{description}
 
-Thus the algorithm is correct, since the loop invariant is initialised and 
+Thus the algorithm is correct, since the loop invariant is initialised and
 maintained throughout, and the algorithm terminates with the correct output;
 if a value is returned, $\nu$ is in $A$, and occurs at $A[j]$ for return value
-$j$, otherwise the special value \textrm{NIL} was returned, and $\nu$ is not in $A$.
+$j$, otherwise the special value \textrm{NIL} was returned, and $\nu$
+is not in $A$.
 
 The implementation can be seen in the following file:
 

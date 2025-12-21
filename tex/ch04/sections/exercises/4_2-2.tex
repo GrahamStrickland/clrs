@@ -1,35 +1,35 @@
 % Exercise 4.2-2
 
 \begin{algorithmic}[1]
-    \TITLE{\textsc{Strassen-Multiply}$(A, B)$}
-    \STATE $n = A.\mathit{rows}$
-    \STATE let $C$ be a new $n \times n$ matrix
-    \IF{$n == 1$}
-        \STATE $C_{11} = A_{11} \cdot B_{11}$
-        \RETURN $C$
-    \ELSE
-        \STATE partition $A$, $B$, and $C$ as in equations (4.9)
-        \STATE $S_1 = B_{11} - B_{12}$
-        \STATE $S_2 = A_{11} + A_{12}$
-        \STATE $S_3 = A_{21} + A_{22}$
-        \STATE $S_4 = B_{21} - B_{11}$
-        \STATE $S_5 = A_{11} + A_{22}$
-        \STATE $S_6 = B_{11} + B_{22}$
-        \STATE $S_7 = A_{12} - A_{22}$
-        \STATE $S_8 = B_{21} + B_{22}$
-        \STATE $S_9 = A_{11} - A_{21}$
-        \STATE $S_{10} = B_{11} + B_{12}$
-        \STATE $P_1 = \textsc{Strassen-Multiply}(A_{11}, S_1)$
-        \STATE $P_2 = \textsc{Strassen-Multiply}(S_2, B_{22})$
-        \STATE $P_3 = \textsc{Strassen-Multiply}(S_3, B_{11})$
-        \STATE $P_4 = \textsc{Strassen-Multiply}(A_{22}, S_4)$
-        \STATE $P_5 = \textsc{Strassen-Multiply}(S_5, S_6)$
-        \STATE $P_6 = \textsc{Strassen-Multiply}(S_7, S_6)$
-        \STATE $P_7 = \textsc{Strassen-Multiply}(S_9, S_{10})$
-        \STATE $C_{11} = P_5 + P_4 - P_2 + P_6$
-        \STATE $C_{12} = P_1 + P_2$
-        \STATE $C_{21} = P_3 + P_4$
-        \STATE $C_{22} = P_5 + P_1 - P_3 - P_7$
-        \RETURN $C$
-    \ENDIF
+  \TITLE{\textsc{Strassen-Multiply}$(A, B)$}
+  \STATE $n = A.\mathit{rows}$
+  \STATE let $C$ be a new $n \times n$ matrix
+  \IF{$n == 1$}
+  \STATE $C_{11} = A_{11} \cdot B_{11}$
+  \RETURN $C$
+  \ELSE
+  \STATE partition $A$, $B$, and $C$ as in equations (4.9)
+  \STATE $S_1 = B_{11} - B_{12}$
+  \STATE $S_2 = A_{11} + A_{12}$
+  \STATE $S_3 = A_{21} + A_{22}$
+  \STATE $S_4 = B_{21} - B_{11}$
+  \STATE $S_5 = A_{11} + A_{22}$
+  \STATE $S_6 = B_{11} + B_{22}$
+  \STATE $S_7 = A_{12} - A_{22}$
+  \STATE $S_8 = B_{21} + B_{22}$
+  \STATE $S_9 = A_{11} - A_{21}$
+  \STATE $S_{10} = B_{11} + B_{12}$
+  \STATE $P_1 = \textsc{Strassen-Multiply}(A_{11}, S_1)$
+  \STATE $P_2 = \textsc{Strassen-Multiply}(S_2, B_{22})$
+  \STATE $P_3 = \textsc{Strassen-Multiply}(S_3, B_{11})$
+  \STATE $P_4 = \textsc{Strassen-Multiply}(A_{22}, S_4)$
+  \STATE $P_5 = \textsc{Strassen-Multiply}(S_5, S_6)$
+  \STATE $P_6 = \textsc{Strassen-Multiply}(S_7, S_6)$
+  \STATE $P_7 = \textsc{Strassen-Multiply}(S_9, S_{10})$
+  \STATE $C_{11} = P_5 + P_4 - P_2 + P_6$
+  \STATE $C_{12} = P_1 + P_2$
+  \STATE $C_{21} = P_3 + P_4$
+  \STATE $C_{22} = P_5 + P_1 - P_3 - P_7$
+  \RETURN $C$
+  \ENDIF
 \end{algorithmic}

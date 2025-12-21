@@ -1,29 +1,33 @@
-% Exercise A.1-6 
+% Exercise A.1-6
 
 \begin{proof}
-    We have
-    \begin{equation*}
-        \begin{split}
-            \sum_{k = 1}^n O(f_k(i)) = \, &O(f_1(i)) + O(f_2(i)) + \cdots + O(f_n(i)) \\
-                                     = \, &\lbrace f(i) : \text{ there exist positive constants }
-                                     c \text{ and } i_0 \\
-                                        &\qquad \text{ such that } 0 \leq f(i) \leq cf_1(i)
-                                         \text{ for all } i \geq i_0 \rbrace \\
-                                        &+ \lbrace f(j) : \text{ there exist positive constants }
-                                     d \text{ and } j_0 \\
-                                        &\qquad \text{ such that } 0 \leq f(j) \leq df_2(j)
-                                         \text{ for all } j \geq j_0 \rbrace \\
-                                        &+ \cdots + \lbrace f(w) : \text{ there exist positive constants }
-                                     z \text{ and } w_0 \\
-                                        &\qquad \text{ such that } 0 \leq f(w) \leq zf_n(w)
-                                         \text{ for all } w \geq w_0 \rbrace.
-        \end{split}
-    \end{equation*}
+  We have
+  \begin{equation*}
+    \begin{split}
+      \sum_{k = 1}^n O(f_k(i)) = \, &O(f_1(i)) + O(f_2(i)) + \cdots +
+      O(f_n(i)) \\
+      = \, &\lbrace f(i) : \text{ there exist positive constants }
+      c \text{ and } i_0 \\
+      &\qquad \text{ such that } 0 \leq f(i) \leq cf_1(i)
+      \text{ for all } i \geq i_0 \rbrace \\
+      &+ \lbrace f(j) : \text{ there exist positive constants }
+      d \text{ and } j_0 \\
+      &\qquad \text{ such that } 0 \leq f(j) \leq df_2(j)
+      \text{ for all } j \geq j_0 \rbrace \\
+      &+ \cdots + \lbrace f(w) : \text{ there exist positive constants }
+      z \text{ and } w_0 \\
+      &\qquad \text{ such that } 0 \leq f(w) \leq zf_n(w)
+      \text{ for all } w \geq w_0 \rbrace.
+    \end{split}
+  \end{equation*}
 
-    Interpreting summation in the above as set union, we have a superset $\psi$ where 
-    $O(f_1(i)) \subseteq \psi, O(f_2(i)) \subseteq \psi, \ldots O(f_n(i)) \subseteq \psi$,
-    since $\psi = \sum_{k = 1}^n O(f_k(i))$.
+  Interpreting summation in the above as set union, we have a
+  superset $\psi$ where
+  $O(f_1(i)) \subseteq \psi, O(f_2(i)) \subseteq \psi, \ldots
+  O(f_n(i)) \subseteq \psi$,
+  since $\psi = \sum_{k = 1}^n O(f_k(i))$.
 
-    Now, by the linearity property, $f_1(i) + f_2(i) + \cdots f_n(i) = \sum_{k = 1}^n f_k(i)$
-    is in $\psi$, so it follows that $\psi = O\bigl(\sum_{k = 1}^n f_k(i)\bigr)$.
+  Now, by the linearity property, $f_1(i) + f_2(i) + \cdots f_n(i) =
+  \sum_{k = 1}^n f_k(i)$
+  is in $\psi$, so it follows that $\psi = O\bigl(\sum_{k = 1}^n f_k(i)\bigr)$.
 \end{proof}

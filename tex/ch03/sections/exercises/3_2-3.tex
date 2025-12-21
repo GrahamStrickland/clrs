@@ -1,50 +1,55 @@
 % Exercise 3.2-3
 
 \begin{proof}
-    Since $n! \leq n^n$ for all $n \geq 1$, we have $\lg{(n!)} \leq \lg{n^n} = n\lg{n}$
-    for all $n \geq 1$, so that we have $\lg{(n!)} \leq c_2 \cdot (n\lg{n})$ for 
-    $n \geq n_0$ with the identifications $c_2 = 1$ and $n_0 = 1$.
-    Now, from Stirling's approximation, we have
-    \[
-        n! = \sqrt{2\pi n} {\biggl(\frac{n}{e}\biggr)}^n 
-        \biggl(1 + \Theta \biggl(\frac{1}{n}\biggr)\biggr)
-        = n^{n + 1/2} \frac{\sqrt{2\pi}}{e^n}
-        \biggl(1 + \Theta\biggl(\frac{1}{n}\biggr)\biggr),
-    \]
-    so that
-    \begin{equation*}
-        \begin{split}
-            \lg{(n!)} &\geq \lg{n^{n + 1/2}} + \lg{\biggl(\frac{\sqrt{2\pi}}{e^n}\biggr)} \\
-                      &= \biggl(n + \frac{1}{2}\biggr)\lg{n} + \lg{\sqrt{2\pi}} - n\lg{e} \\
-                      &= n\lg{n} + \frac{1}{2} \lg{n} + \lg{\sqrt{2\pi}} - n\lg{e}.
-        \end{split}
-    \end{equation*}
-    Then, $\lg{(n!)} \geq n\lg{n}$ for
-    \begin{equation*}
-        \begin{split}
-            \frac{1}{2}\lg{n} + \lg{\sqrt{2\pi}} - n\lg{e} &\geq 0 \\
-            \Rightarrow n &\geq \frac{\lg{\sqrt{2\pi n}}}{\lg{e}} \\
-            \Rightarrow n - \frac{\lg{n}}{2\lg{e}} &\geq \frac{\lg{\sqrt{2\pi}}}{\lg{e}} \\
-            \Rightarrow n - \frac{1}{2}\ln{n} &\geq \ln{\sqrt{2\pi}} \\
-            \Rightarrow n \geq \ln{\sqrt{2\pi n}}.
-        \end{split}
-    \end{equation*}
-    Thus $\lg{(n!)} = \Theta(n\lg{n})$. 
+  Since $n! \leq n^n$ for all $n \geq 1$, we have $\lg{(n!)} \leq
+  \lg{n^n} = n\lg{n}$
+  for all $n \geq 1$, so that we have $\lg{(n!)} \leq c_2 \cdot (n\lg{n})$ for
+  $n \geq n_0$ with the identifications $c_2 = 1$ and $n_0 = 1$.
+  Now, from Stirling's approximation, we have
+  \[
+    n! = \sqrt{2\pi n} {\biggl(\frac{n}{e}\biggr)}^n
+    \biggl(1 + \Theta \biggl(\frac{1}{n}\biggr)\biggr)
+    = n^{n + 1/2} \frac{\sqrt{2\pi}}{e^n}
+    \biggl(1 + \Theta\biggl(\frac{1}{n}\biggr)\biggr),
+  \]
+  so that
+  \begin{equation*}
+    \begin{split}
+      \lg{(n!)} &\geq \lg{n^{n + 1/2}} +
+      \lg{\biggl(\frac{\sqrt{2\pi}}{e^n}\biggr)} \\
+      &= \biggl(n + \frac{1}{2}\biggr)\lg{n} + \lg{\sqrt{2\pi}} - n\lg{e} \\
+      &= n\lg{n} + \frac{1}{2} \lg{n} + \lg{\sqrt{2\pi}} - n\lg{e}.
+    \end{split}
+  \end{equation*}
+  Then, $\lg{(n!)} \geq n\lg{n}$ for
+  \begin{equation*}
+    \begin{split}
+      \frac{1}{2}\lg{n} + \lg{\sqrt{2\pi}} - n\lg{e} &\geq 0 \\
+      \Rightarrow n &\geq \frac{\lg{\sqrt{2\pi n}}}{\lg{e}} \\
+      \Rightarrow n - \frac{\lg{n}}{2\lg{e}} &\geq
+      \frac{\lg{\sqrt{2\pi}}}{\lg{e}} \\
+      \Rightarrow n - \frac{1}{2}\ln{n} &\geq \ln{\sqrt{2\pi}} \\
+      \Rightarrow n \geq \ln{\sqrt{2\pi n}}.
+    \end{split}
+  \end{equation*}
+  Thus $\lg{(n!)} = \Theta(n\lg{n})$.
 
-    Now,
-    \[
-        n! = n \cdot (n-1) \cdots 3 \cdot 2 \cdot 1 < n \cdot n \cdots n \quad (n \text{ factors}),
-    \]
-    for all $n > 1$, so that we have
-    \[
-        n! = o(n \cdot n \cdots n) = o(n^n).
-    \]
-    Then, 
-    \[
-        n! = n \cdot (n-1) \cdots 3 \cdot 2 \cdot 1 > 2 \cdot 2 \cdots 2 \quad (n \text{ factors}),
-    \]
-    for all $n > 2$, so that we have
-    \[
-        n! = \omega(2 \cdot 2 \cdots 2) = \omega(2^n).
-    \]
+  Now,
+  \[
+    n! = n \cdot (n-1) \cdots 3 \cdot 2 \cdot 1 < n \cdot n \cdots n
+    \quad (n \text{ factors}),
+  \]
+  for all $n > 1$, so that we have
+  \[
+    n! = o(n \cdot n \cdots n) = o(n^n).
+  \]
+  Then,
+  \[
+    n! = n \cdot (n-1) \cdots 3 \cdot 2 \cdot 1 > 2 \cdot 2 \cdots 2
+    \quad (n \text{ factors}),
+  \]
+  for all $n > 2$, so that we have
+  \[
+    n! = \omega(2 \cdot 2 \cdots 2) = \omega(2^n).
+  \]
 \end{proof}

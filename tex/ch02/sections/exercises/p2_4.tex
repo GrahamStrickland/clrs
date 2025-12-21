@@ -1,87 +1,96 @@
 % Problem 4-4
 
 \begin{itemize}
-    \item[\textbf{a.}]$(1, 5), (2, 5), (3, 5), (4, 5), \text{ and } (3, 4)$.
-    \item[\textbf{b.}] The array containing all elements of the set 
-        $\lbrace 1, 2, \ldots, n \rbrace$ in reverse order has the most 
-        possible inversions. Since there are $n - 1$ inversions, starting with 
-        1, $n - 2$ starting with 2, \ldots, there are
-        \[
-            \sum_{k=1}^{n-1} k
-        \]
-        inversions, or
-        \[
-            \frac{n(n - 1)}{2}
-        \]
-        inversions.
-    \item[\textbf{c.}] Since the worst-case running time of \textsc{Insertion-Sort}
-        occurs for exactly the array discussed in \textbf{b.} above, and we know that
-        \textsc{Insertion-Sort} has a worst-case running time which is $\Theta(n^2)$,
-        we see that there is a direct correspondence between the number of inversions
-        in the input array of \textsc{Insertion-Sort} and its running time. This
-        follows logically from the fact that each element from $j = 2$ to 
-        $A.\mathit{length}$ (where $A$ is the input array) must be sorted if there
-        exists an inversion with $j$ as its second coordinate.
-    \item[\textbf{d.}] As with \textsc{Merge-Sort}, we have two subalgorithms, one 
-        which finds the number of inversions in a given subarray as follows:
-        \begin{algorithmic}[1]
-            \TITLE{\textsc{Merge-Inversions}$(A, p, q, r)$}
-            \STATE $n_1 = q - p + 1$
-            \STATE $n_2 = r - q$
-            \STATE let $L[1\ltwodots n_1 + 1]$ and $R[1\ltwodots n_2 + 1]$ be new arrays
-            \FOR{$i = 1$ \TO $n_1$}
-                \STATE $L[i] = A[p + i - 1]$
-            \ENDFOR
-            \FOR{$j = 1$ \TO $n_2$}
-                \STATE $R[j] = A[q + j]$
-            \ENDFOR
-            \STATE $L[n_1 + 1] = \infty$
-            \STATE $R[n_2 + 1] = \infty$
-            \STATE $i = 1$
-            \STATE $j = 1$
-            \STATE $\mathit{inversions} = 0$
-            \STATE $\mathit{counted} = \textrm{FALSE}$
-            \FOR{$k = p$ \TO $r$}
-                \IF{$\mathit{counted} == \textrm{FALSE}$ \AND $R[j] < L[i]$}
-                    \STATE $\mathit{inversions} = \mathit{inversions} + n_1 - i + 1$
-                    \STATE $\mathit{counted} = \textrm{TRUE}$
-                \ENDIF
+  \item[\textbf{a.}]$(1, 5), (2, 5), (3, 5), (4, 5), \text{ and } (3, 4)$.
+  \item[\textbf{b.}] The array containing all elements of the set
+    $\lbrace 1, 2, \ldots, n \rbrace$ in reverse order has the most
+    possible inversions. Since there are $n - 1$ inversions, starting with
+    1, $n - 2$ starting with 2, \ldots, there are
+    \[
+      \sum_{k=1}^{n-1} k
+    \]
+    inversions, or
+    \[
+      \frac{n(n - 1)}{2}
+    \]
+    inversions.
+  \item[\textbf{c.}] Since the worst-case running time of
+    \textsc{Insertion-Sort}
+    occurs for exactly the array discussed in \textbf{b.} above, and
+    we know that
+    \textsc{Insertion-Sort} has a worst-case running time which is
+    $\Theta(n^2)$,
+    we see that there is a direct correspondence between the number
+    of inversions
+    in the input array of \textsc{Insertion-Sort} and its running time. This
+    follows logically from the fact that each element from $j = 2$ to
+    $A.\mathit{length}$ (where $A$ is the input array) must be sorted if there
+    exists an inversion with $j$ as its second coordinate.
+  \item[\textbf{d.}] As with \textsc{Merge-Sort}, we have two subalgorithms, one
+    which finds the number of inversions in a given subarray as follows:
+    \begin{algorithmic}[1]
+      \TITLE{\textsc{Merge-Inversions}$(A, p, q, r)$}
+      \STATE $n_1 = q - p + 1$
+      \STATE $n_2 = r - q$
+      \STATE let $L[1\ltwodots n_1 + 1]$ and $R[1\ltwodots n_2 + 1]$
+      be new arrays
+      \FOR{$i = 1$ \TO $n_1$}
+      \STATE $L[i] = A[p + i - 1]$
+      \ENDFOR
+      \FOR{$j = 1$ \TO $n_2$}
+      \STATE $R[j] = A[q + j]$
+      \ENDFOR
+      \STATE $L[n_1 + 1] = \infty$
+      \STATE $R[n_2 + 1] = \infty$
+      \STATE $i = 1$
+      \STATE $j = 1$
+      \STATE $\mathit{inversions} = 0$
+      \STATE $\mathit{counted} = \textrm{FALSE}$
+      \FOR{$k = p$ \TO $r$}
+      \IF{$\mathit{counted} == \textrm{FALSE}$ \AND $R[j] < L[i]$}
+      \STATE $\mathit{inversions} = \mathit{inversions} + n_1 - i + 1$
+      \STATE $\mathit{counted} = \textrm{TRUE}$
+      \ENDIF
 
-                \IF{$L[i] \leq R[j]$}
-                    \STATE $A[k] = L[i]$
-                    \STATE $i = i + 1$
-                \ELSE
-                    \STATE $A[k] = R[j]$
-                    \STATE $j = j + 1$
-                    \STATE $\mathit{counted} = \textrm{FALSE}$
-                \ENDIF
-            \ENDFOR
-            \RETURN $\mathit{inversions}$
-        \end{algorithmic}
+      \IF{$L[i] \leq R[j]$}
+      \STATE $A[k] = L[i]$
+      \STATE $i = i + 1$
+      \ELSE
+      \STATE $A[k] = R[j]$
+      \STATE $j = j + 1$
+      \STATE $\mathit{counted} = \textrm{FALSE}$
+      \ENDIF
+      \ENDFOR
+      \RETURN $\mathit{inversions}$
+    \end{algorithmic}
 
-        Now that we have the recursive procedure that separates the array into subarrays
-        and finds the number of inversions in each, we find the total number of inversions
-        using the following algorithms:
-        \begin{algorithmic}[1]
-            \TITLE{\textsc{Count-Inversions}$(A, p, r, \mathit{inversions})$}
-                \IF{$p < r$}
-                    \STATE $q = \floor{(p + r)/2}$
-                    \STATE $\mathit{inversions} 
-                        = \textsc{Count-Inversions}(A, p, q, \mathit{inversions}) +
-                        \mathit{inversions}$
-                    \STATE $\mathit{inversions} 
-                        = \textsc{Count-Inversions}(A, q + 1, r, \mathit{inversions}) +
-                        \mathit{inversions}$
-                    \STATE $\mathit{inversions} 
-                        = \textsc{Merge-Inversions}(A, p, q, r) + \mathit{inverions}$
-                \ENDIF
-                \RETURN $\mathit{inversions}$
-        \end{algorithmic}
+    Now that we have the recursive procedure that separates the array
+    into subarrays
+    and finds the number of inversions in each, we find the total
+    number of inversions
+    using the following algorithms:
+    \begin{algorithmic}[1]
+      \TITLE{\textsc{Count-Inversions}$(A, p, r, \mathit{inversions})$}
+      \IF{$p < r$}
+      \STATE $q = \floor{(p + r)/2}$
+      \STATE $\mathit{inversions}
+      = \textsc{Count-Inversions}(A, p, q, \mathit{inversions}) +
+      \mathit{inversions}$
+      \STATE $\mathit{inversions}
+      = \textsc{Count-Inversions}(A, q + 1, r, \mathit{inversions}) +
+      \mathit{inversions}$
+      \STATE $\mathit{inversions}
+      = \textsc{Merge-Inversions}(A, p, q, r) + \mathit{inverions}$
+      \ENDIF
+      \RETURN $\mathit{inversions}$
+    \end{algorithmic}
 
-        Since the algorithm is based entirely upon \textsc{Merge-Sort}, with almost the
-        same number of steps, it also has $\Theta(n\lg{n})$ running time.
+    Since the algorithm is based entirely upon \textsc{Merge-Sort},
+    with almost the
+    same number of steps, it also has $\Theta(n\lg{n})$ running time.
 \end{itemize}
 
-The implementation of \textsc{Count-Inversions} can be seen in the following file:
+The implementation of \textsc{Count-Inversions} can be seen in the
+following file:
 
 \path{rs/clrs_algorithms/src/arrays.rs}.

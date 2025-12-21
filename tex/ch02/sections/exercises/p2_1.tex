@@ -1,44 +1,49 @@
 % Problem 2-1
 
 \begin{itemize}
-    \item[\textbf{a.}]
-        \begin{proof}
-            Since \textsc{Insertion-Sort} has a running time of $\Theta(n^2)$,
-            due to the nested \textbf{while} loop of lines 5-7 (p. 26), and the
-            loop of lines 1-7, if we are instead sorting $n$ items divided into
-            $n/k$ sublists, the outer \textbf{for} loop will run $k$ times for
-            each sublist. Since each sublist will contain $k$ items, the \textbf{while} 
-            loop will run $k - 1$ times for each sublist, so we have a running time
-            of $\Theta(k^2)$ for each sublist, and since there are $n/k$ sublists, 
-            the total running time will be
-            \[
-                \Theta\biggl(\frac{n}{k}\cdot k^2\biggr) = \Theta(nk).
-            \]
-        \end{proof}
-    \item[\textbf{b.}] If we merge the sublists when their length reaches $k$, we are
-        removing $\lg{k}$ levels from the recursion tree on p. 38, so we have
-        \[
-            \lg{n} - \lg{k} = \lg{n/k}
-        \]
-        levels on the tree. Now, from \textbf{a.}, we have the \textsc{Insertion-Sort}
-        algorithm on the $n/k$ sublists with a running time of $\Theta(nk)$, so the
-        new algorithm will have a running time of
-        \[
-            \Theta(n\lg{(n/k)} + nk) = \Theta(n[\lg{(n/k)} + k]) = \Theta(n\lg{(n/k)}).
-        \]
-    \item[\textbf{c.}] We are looking for the point at which 
-        \begin{equation*}
-            \begin{split}
-                \Theta(nk + n\lg{(n/k)}) &= \Theta(n\lg{n}) \\ 
-                \Leftrightarrow c_1[nk + n\lg{(n/k)}] &= c_2n\lg{n} \\
-                \Leftrightarrow c_2\lg{n} &= c_1[k - \lg{n/k}] \\
-                \Leftrightarrow k + \lg{k} &= \frac{(c_1 + c_2)\lg{n}}{c_2}.
-            \end{split}
-        \end{equation*}
-    \item[\textbf{d.}] In practice, we should choose $k$ to be $\ceil{\lg{n}}$, since 
-        this will be the closest point to which 
-        \[
-            k + \lg{k} = \frac{(c_1 + c_2)\lg{n}}{c_2},
-        \]
-        where $k \in \mathbb{Z}$.
+  \item[\textbf{a.}]
+    \begin{proof}
+      Since \textsc{Insertion-Sort} has a running time of $\Theta(n^2)$,
+      due to the nested \textbf{while} loop of lines 5-7 (p. 26), and the
+      loop of lines 1-7, if we are instead sorting $n$ items divided into
+      $n/k$ sublists, the outer \textbf{for} loop will run $k$ times for
+      each sublist. Since each sublist will contain $k$ items, the
+      \textbf{while}
+      loop will run $k - 1$ times for each sublist, so we have a running time
+      of $\Theta(k^2)$ for each sublist, and since there are $n/k$ sublists,
+      the total running time will be
+      \[
+        \Theta\biggl(\frac{n}{k}\cdot k^2\biggr) = \Theta(nk).
+      \]
+    \end{proof}
+  \item[\textbf{b.}] If we merge the sublists when their length
+    reaches $k$, we are
+    removing $\lg{k}$ levels from the recursion tree on p. 38, so we have
+    \[
+      \lg{n} - \lg{k} = \lg{n/k}
+    \]
+    levels on the tree. Now, from \textbf{a.}, we have the
+    \textsc{Insertion-Sort}
+    algorithm on the $n/k$ sublists with a running time of $\Theta(nk)$, so the
+    new algorithm will have a running time of
+    \[
+      \Theta(n\lg{(n/k)} + nk) = \Theta(n[\lg{(n/k)} + k]) =
+      \Theta(n\lg{(n/k)}).
+    \]
+  \item[\textbf{c.}] We are looking for the point at which
+    \begin{equation*}
+      \begin{split}
+        \Theta(nk + n\lg{(n/k)}) &= \Theta(n\lg{n}) \\
+        \Leftrightarrow c_1[nk + n\lg{(n/k)}] &= c_2n\lg{n} \\
+        \Leftrightarrow c_2\lg{n} &= c_1[k - \lg{n/k}] \\
+        \Leftrightarrow k + \lg{k} &= \frac{(c_1 + c_2)\lg{n}}{c_2}.
+      \end{split}
+    \end{equation*}
+  \item[\textbf{d.}] In practice, we should choose $k$ to be
+    $\ceil{\lg{n}}$, since
+    this will be the closest point to which
+    \[
+      k + \lg{k} = \frac{(c_1 + c_2)\lg{n}}{c_2},
+    \]
+    where $k \in \mathbb{Z}$.
 \end{itemize}

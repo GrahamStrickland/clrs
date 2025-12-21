@@ -16,38 +16,40 @@
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
-\newcommand{\TITLE}[1]{\item[#1]}
+\newcommand{\TITLE}[1]{
+\item[#1]
+}
 \renewcommand{\algorithmiccomment}[1]{$/\!/$ \parbox[t]{4.5cm}{\raggedright #1}}
 
-\newcommand{\ltwodots}{%
-    \mathinner{{\ldotp}\,{\ldotp}}%
+\newcommand{\ltwodots}{
+  \mathinner{{\ldotp}\,{\ldotp}}
 }
 
 \usetikzlibrary{calc,matrix,positioning,arrows.meta,arrows}
 
 \tikzset{
-mymat/.style={
-  matrix of math nodes,
-  text height=2.5ex,
-  text depth=0.75ex,
-  text width=3.25ex,
-  align=center,
-  column sep=-\pgflinewidth
+  mymat/.style={
+    matrix of math nodes,
+    text height=2.5ex,
+    text depth=0.75ex,
+    text width=3.25ex,
+    align=center,
+    column sep=-\pgflinewidth
   },
-mymats/.style={
-  mymat,
-  nodes={draw,fill=#1},
-  }  
+  mymats/.style={
+    mymat,
+    nodes={draw,fill=#1},
+  }
 }
 
 \title{
-    Introduction to Algorithms\\3rd Edition\\---\\
-    Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, \& Clifford Stein
+  Introduction to Algorithms\\3rd Edition\\---\\
+  Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, \& Clifford Stein
 }
 \author{Graham Strickland}
 
 \begin{document}
-\maketitle  
+\maketitle
 
 \tableofcontents
 

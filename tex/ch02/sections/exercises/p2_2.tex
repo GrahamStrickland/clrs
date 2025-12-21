@@ -1,42 +1,50 @@
 % Problem 2-2
 
 \begin{itemize}
-    \item[\textbf{a.}] We need to prove a loop invariant for each loop in the algorithm.
-    \item[\textbf{b.}]
-        \begin{proof}
-            At the start of each iteration of the \textbf{for} loop of lines 2-4, 
-            $A'[1\ltwodots i]$ consists of elements sorted in ascending order.
-            \begin{description}
-                \item[Initialisation:] For the first loop of lines 2-4, $A'[1 \ltwodots i]$
-                    is a one-element array, $A'[1]$, which is (trivially) sorted.
-                \item[Maintenance:] After each \textbf{for} loop, the first out-of-order
-                    element from $A.\mathit{length}$ down to $i + 1$ has been swapped with
-                    each element before it until it is in the correct position in 
-                    $A'[1 \ltwodots i]$.
-                \item[Termination:] The \textbf{for} loop terminates when $j == i + 1$,          
-                    so that, at that point, $A'[i] < A'[i + 1]$ and the loop invariant 
-                    holds for $A'[1 \ltwodots i + 1]$.
-            \end{description}
-        \end{proof}
-    \item[\textbf{c.}]
-        \begin{proof}
-            For each iteration of the \textbf{for} loop of lines 1-4, $A'[1 \ltwodots i + 1]$
-            is sorted in ascending order.
-            \begin{description}
-                \item[Initialisation:] At initialisation, $i = 1$, so $A'[1 \ltwodots i + 1]$
-                    is $A'[1 \ltwodots 2]$ and the termination of \textbf{b.} guarantees
-                    that this will be sorted.
-                \item[Maintenance:] Each execution of the \textbf{for} loop of lines 2-4
-                    sorts $A'[1 \ltwodots i + 1]$, so the loop invariant is maintained.
-                \item[Termination:] The loop terminates when $i == A.\mathit{length} - 1$,
-                    so $A'[1 \ltwodots i + 1] = A'[1 \ltwodots n]$ has been sorted.
-            \end{description}
-        \end{proof}
-    \item[\textbf{d.}] The worst-case running time occurs when $A$ is sorted in descending
-        order, so the \textbf{for} loop of lines 1-4 executes $n - 1$ times and the \textbf{for}
-        loop of lines 2-4 executes $n - i + 1$ times. Thus we have 
-        $(n - 1)(n - i + 1) = \Theta(n^2)$ worst-case running time, equivalent to that of 
-        \textsc{Insertion-Sort}.
+  \item[\textbf{a.}] We need to prove a loop invariant for each loop
+    in the algorithm.
+  \item[\textbf{b.}]
+    \begin{proof}
+      At the start of each iteration of the \textbf{for} loop of lines 2-4,
+      $A'[1\ltwodots i]$ consists of elements sorted in ascending order.
+      \begin{description}
+        \item[Initialisation:] For the first loop of lines 2-4, $A'[1
+          \ltwodots i]$
+          is a one-element array, $A'[1]$, which is (trivially) sorted.
+        \item[Maintenance:] After each \textbf{for} loop, the first out-of-order
+          element from $A.\mathit{length}$ down to $i + 1$ has been swapped with
+          each element before it until it is in the correct position in
+          $A'[1 \ltwodots i]$.
+        \item[Termination:] The \textbf{for} loop terminates when $j == i + 1$,
+          so that, at that point, $A'[i] < A'[i + 1]$ and the loop invariant
+          holds for $A'[1 \ltwodots i + 1]$.
+      \end{description}
+    \end{proof}
+  \item[\textbf{c.}]
+    \begin{proof}
+      For each iteration of the \textbf{for} loop of lines 1-4, $A'[1
+      \ltwodots i + 1]$
+      is sorted in ascending order.
+      \begin{description}
+        \item[Initialisation:] At initialisation, $i = 1$, so $A'[1
+          \ltwodots i + 1]$
+          is $A'[1 \ltwodots 2]$ and the termination of \textbf{b.} guarantees
+          that this will be sorted.
+        \item[Maintenance:] Each execution of the \textbf{for} loop of lines 2-4
+          sorts $A'[1 \ltwodots i + 1]$, so the loop invariant is maintained.
+        \item[Termination:] The loop terminates when $i ==
+          A.\mathit{length} - 1$,
+          so $A'[1 \ltwodots i + 1] = A'[1 \ltwodots n]$ has been sorted.
+      \end{description}
+    \end{proof}
+  \item[\textbf{d.}] The worst-case running time occurs when $A$ is
+    sorted in descending
+    order, so the \textbf{for} loop of lines 1-4 executes $n - 1$
+    times and the \textbf{for}
+    loop of lines 2-4 executes $n - i + 1$ times. Thus we have
+    $(n - 1)(n - i + 1) = \Theta(n^2)$ worst-case running time,
+    equivalent to that of
+    \textsc{Insertion-Sort}.
 \end{itemize}
 
 The implementation can be seen in the following file:

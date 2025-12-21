@@ -1,16 +1,16 @@
 % Exercise A.1-2
 
 \begin{proof}
-    We have
-    \begin{equation*}
-        \begin{split}
-            \sum_{k = 1}^n \frac{1}{2k - 1} 
-            &= \sum_{k = 1}^n \frac{1}{2} \cdot \frac{1}{k - \frac{1}{2}} \\
-            &= \frac{1}{2} \sum_{k = 1}^n \frac{1}{k - \frac{1}{2}} \\
-            &= \frac{1}{2} \biggl[\ln{\biggl(n - \frac{1}{2}\biggr)} + O(1)\biggr] \\
-            &= \frac{1}{2} \ln{\biggl(n - \frac{1}{2}\biggr)} + O(1) \\
-            &= \frac{1}{2} \ln(n) + O(1) \\
-            &= \ln{\sqrt{n}} + O(1).
-        \end{split}
-    \end{equation*}
+  We have
+  \begin{equation*}
+    \begin{split}
+      \sum_{k = 1}^n \frac{1}{2k - 1}
+      &= \sum_{k = 1}^n \frac{1}{2} \cdot \frac{1}{k - \frac{1}{2}} \\
+      &= \frac{1}{2} \sum_{k = 1}^n \frac{1}{k - \frac{1}{2}} \\
+      &= \frac{1}{2} \biggl[\ln{\biggl(n - \frac{1}{2}\biggr)} + O(1)\biggr] \\
+      &= \frac{1}{2} \ln{\biggl(n - \frac{1}{2}\biggr)} + O(1) \\
+      &= \frac{1}{2} \ln(n) + O(1) \\
+      &= \ln{\sqrt{n}} + O(1).
+    \end{split}
+  \end{equation*}
 \end{proof}

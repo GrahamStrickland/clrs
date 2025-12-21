@@ -1,24 +1,24 @@
 % Exercise 4.1-5
 
 \begin{algorithmic}[1]
-    \TITLE{\textsc{Find-Maximum-Subarray}$(A, \mathit{low}, \mathit{high})$}
-    \STATE $j = \mathit{low} + 1$
-    \STATE $\mathit{maxLow} = 1$
-    \STATE $\mathit{maxHigh} = 2$
-    \STATE $\mathit{maxValue} = A[\mathit{low}] + A[j]$
-    \STATE $\mathit{currentValue} = \mathit{maxValue}$
-    \WHILE{$j < \mathit{high}$}
-        \STATE $\mathit{currentValue} = A[j + 1]$
-        \FOR{$i = j \: \mathbf{downto} \: \mathit{low}$}
-            \STATE $\mathit{currentValue} = \mathit{currentValue} + A[i]$
-            \IF{$\mathit{maxValue} < \mathit{currentValue}$}
-                \STATE $\mathit{maxLow} = i$
-                \STATE $\mathit{maxHigh} = j + 1$
-                \STATE $\mathit{maxValue} = \mathit{currentValue}$
-            \ENDIF
-        \ENDFOR
-        \STATE $j = j + 1$
-    \ENDWHILE
+  \TITLE{\textsc{Find-Maximum-Subarray}$(A, \mathit{low}, \mathit{high})$}
+  \STATE $j = \mathit{low} + 1$
+  \STATE $\mathit{maxLow} = 1$
+  \STATE $\mathit{maxHigh} = 2$
+  \STATE $\mathit{maxValue} = A[\mathit{low}] + A[j]$
+  \STATE $\mathit{currentValue} = \mathit{maxValue}$
+  \WHILE{$j < \mathit{high}$}
+  \STATE $\mathit{currentValue} = A[j + 1]$
+  \FOR{$i = j \: \mathbf{downto} \: \mathit{low}$}
+  \STATE $\mathit{currentValue} = \mathit{currentValue} + A[i]$
+  \IF{$\mathit{maxValue} < \mathit{currentValue}$}
+  \STATE $\mathit{maxLow} = i$
+  \STATE $\mathit{maxHigh} = j + 1$
+  \STATE $\mathit{maxValue} = \mathit{currentValue}$
+  \ENDIF
+  \ENDFOR
+  \STATE $j = j + 1$
+  \ENDWHILE
 
-    \RETURN $(\mathit{maxLow}, \mathit{maxHigh}, \mathit{maxValue})$
+  \RETURN $(\mathit{maxLow}, \mathit{maxHigh}, \mathit{maxValue})$
 \end{algorithmic}

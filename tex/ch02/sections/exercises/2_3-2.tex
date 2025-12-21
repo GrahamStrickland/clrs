@@ -1,27 +1,27 @@
 % Exercise 2.3-2
 
 \begin{algorithmic}[1]
-    \TITLE{\textsc{Merge}$(A, p, q, r)$}
-    \STATE $n_1 = q - p + 1$
-    \STATE $n_2 = r - q$
-    \STATE let $L[1\ltwodots n_1 + 1]$ and $R[1\ltwodots n_2 + 1]$ be new arrays
-    \FOR{$i = 1$ \TO $n_1$}
-        \STATE $L[i] = A[p + i - 1]$
-    \ENDFOR
-    \FOR{$j = 1$ \TO $n_2$}
-        \STATE $R[j] = A[q + j]$
-    \ENDFOR
-    \STATE $i = 1$
-    \STATE $j = 1$
+  \TITLE{\textsc{Merge}$(A, p, q, r)$}
+  \STATE $n_1 = q - p + 1$
+  \STATE $n_2 = r - q$
+  \STATE let $L[1\ltwodots n_1 + 1]$ and $R[1\ltwodots n_2 + 1]$ be new arrays
+  \FOR{$i = 1$ \TO $n_1$}
+  \STATE $L[i] = A[p + i - 1]$
+  \ENDFOR
+  \FOR{$j = 1$ \TO $n_2$}
+  \STATE $R[j] = A[q + j]$
+  \ENDFOR
+  \STATE $i = 1$
+  \STATE $j = 1$
 
-    \FOR{$k = p$ \TO $r$}
-        \IF{$i \leq n_1 + 1$ and $L[i] \leq R[j]$}
-            \STATE $A[k] = L[i]$
-            \STATE $i = i + 1$
-        \ELSIF{$A[k] == R[j]$}
-            \STATE $j = j + 1$
-        \ENDIF
-    \ENDFOR
+  \FOR{$k = p$ \TO $r$}
+  \IF{$i \leq n_1 + 1$ and $L[i] \leq R[j]$}
+  \STATE $A[k] = L[i]$
+  \STATE $i = i + 1$
+  \ELSIF{$A[k] == R[j]$}
+  \STATE $j = j + 1$
+  \ENDIF
+  \ENDFOR
 \end{algorithmic}
 
 The implementation can be seen in the following file:
