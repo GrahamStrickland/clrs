@@ -12,8 +12,8 @@ pub fn fmt_f64(num: f64, width: usize, precision: usize, exp_pad: usize) -> Stri
 
     let exp = numstr.split_off(idx);
 
-    let (sign, exp) = if exp.starts_with("e-") {
-        ('-', &exp[2..])
+    let (sign, exp) = if let Some(stripped) = exp.strip_prefix("e-") {
+        ('-', stripped)
     } else {
         ('+', &exp[1..])
     };
@@ -28,7 +28,7 @@ mod tests {
 
     #[test]
     fn test_fmt_f64() {
-        let nums = vec![
+        let nums = [
             62746.0,
             2801417.0,
             133378058.0,
@@ -37,7 +37,7 @@ mod tests {
             797633893349.0,
             68654697441062.0,
         ];
-        let exps = vec![
+        let exps = [
             "      62746",
             "    2801417",
             "  133378058",
@@ -52,5 +52,4 @@ mod tests {
             assert_eq!(res, String::from(*exp),);
         }
     }
-
 }

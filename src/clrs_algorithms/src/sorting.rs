@@ -13,7 +13,7 @@ where
         while a[i] > key {
             (a[i], a[i + 1]) = (a[i + 1], a[i]);
             k -= 1;
-            i = i.checked_sub(1).unwrap_or(0);
+            i = i.saturating_sub(1);
         }
         if k == -1 {
             a[0] = key;
@@ -36,7 +36,7 @@ where
         let mut i = j - 1;
         while a[i] < key {
             (a[i], a[i + 1]) = (a[i + 1], a[i]);
-            i = i.checked_sub(1).unwrap_or(0);
+            i = i.saturating_sub(1);
         }
     }
 }
@@ -72,9 +72,9 @@ where
     let mut larr = vec![a[0]; n1 + 1];
     let mut rarr = vec![a[0]; n2 + 1];
 
-    for i in 0..n1 {
+    (0..n1).for_each(|i| {
         larr[i] = a[p + i];
-    }
+    });
     for j in 0..n2 {
         rarr[j] = a[q + j + 1];
     }
@@ -85,7 +85,7 @@ where
     let mut i = 0;
     let mut j = 0;
 
-    for k in p..=r {
+    (p..=r).for_each(|k| {
         if larr[i] <= rarr[j] {
             a[k] = larr[i];
             i += 1;
@@ -93,7 +93,7 @@ where
             a[k] = rarr[j];
             j += 1;
         }
-    }
+    });
 }
 
 pub fn merge_sort<T>(a: &mut [T], p: usize, r: usize, infinity: T)
@@ -121,9 +121,9 @@ where
     let mut larr = vec![a[0]; n1 + 1];
     let mut rarr = vec![a[0]; n2 + 1];
 
-    for i in 0..n1 {
+    (0..n1).for_each(|i| {
         larr[i] = a[p + i];
-    }
+    });
     for j in 0..n2 {
         rarr[j] = a[q + j + 1];
     }
@@ -131,7 +131,7 @@ where
     let mut i = 0;
     let mut j = 0;
 
-    for k in p..=r {
+    (p..=r).for_each(|k| {
         if i < n1 && j < n2 {
             if larr[i] <= rarr[j] {
                 a[k] = larr[i];
@@ -140,16 +140,14 @@ where
                 a[k] = rarr[j];
                 j += 1;
             }
-        } else {
-            if i < n1 {
-                a[k] = larr[i];
-                i += 1;
-            } else if j < n2 {
-                a[k] = rarr[j];
-                j += 1;
-            }
+        } else if i < n1 {
+            a[k] = larr[i];
+            i += 1;
+        } else if j < n2 {
+            a[k] = rarr[j];
+            j += 1;
         }
-    }
+    });
 }
 
 pub fn merge_sort_no_sentinel<T>(a: &mut [T], p: usize, r: usize)
@@ -192,9 +190,9 @@ where
     let mut larr = vec![a[0]; n1 + 1];
     let mut rarr = vec![a[0]; n2 + 1];
 
-    for i in 0..n1 {
+    (0..n1).for_each(|i| {
         larr[i] = a[p + i];
-    }
+    });
     for j in 0..n2 {
         rarr[j] = a[q + j + 1];
     }
@@ -207,8 +205,8 @@ where
     let mut inversions = 0;
     let mut counted = false;
 
-    for k in p..=r {
-        if counted == false && rarr[j] < larr[i] {
+    (p..=r).for_each(|k| {
+        if !counted && rarr[j] < larr[i] {
             inversions += n1 - i;
             counted = true;
         }
@@ -221,7 +219,7 @@ where
             j += 1;
             counted = false;
         }
-    }
+    });
 
     inversions
 }

@@ -76,7 +76,7 @@ fn test_sort_i32_reverse(sorting_algorithm: fn(&mut [i32])) {
 
 #[allow(dead_code)]
 fn test_find_max_subarray(
-    max_subarray_algorithm: fn(&Vec<i32>, usize, usize) -> (usize, usize, i32),
+    max_subarray_algorithm: fn(&[i32], usize, usize) -> (usize, usize, i32),
 ) {
     let mut daily_changes = Vec::new();
     for i in 1..STOCK_PRICES.len() {
@@ -98,7 +98,7 @@ mod tests {
 
     #[test]
     fn test_inverse_nlogn() {
-        let exps = vec![
+        let exps = [
             62746.0,
             2801417.0,
             133378058.0,
@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn test_inverse_factorial() {
-        let exps = vec![10.0, 12.0, 13.0, 14.0, 16.0, 17.0, 18.0];
+        let exps = [10.0, 12.0, 13.0, 14.0, 16.0, 17.0, 18.0];
 
         for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
             let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;
@@ -251,7 +251,7 @@ mod tests {
         let rhs: Vec<u8> = vec![1, 1, 1, 1, 1, 1, 1];
 
         for (inp_bits, exp_bits) in inp_bits_vec.iter().zip(exp_bits_vec.iter()) {
-            let output_bits = binary_addition(&inp_bits, &rhs);
+            let output_bits = binary_addition(inp_bits, &rhs);
             assert_eq!(output_bits, *exp_bits);
         }
     }

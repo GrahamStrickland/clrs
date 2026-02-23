@@ -1,6 +1,6 @@
 // Find-Maximum-Subarray algorithm from p.71-72 of CLRS 3e
 fn find_max_crossing_subarray(
-    a: &Vec<i32>,
+    a: &[i32],
     low: usize,
     mid: usize,
     high: usize,
@@ -20,20 +20,20 @@ fn find_max_crossing_subarray(
     let mut right_sum = i32::MIN;
     sum = 0;
 
-    for j in (mid + 1)..=high {
+    ((mid + 1)..=high).for_each(|j| {
         sum += a[j];
         if sum > right_sum {
             right_sum = sum;
             max_crossing_subarray.1 = j;
         }
-    }
+    });
 
     max_crossing_subarray.2 = left_sum + right_sum;
 
     max_crossing_subarray
 }
 
-pub fn find_maximum_subarray(a: &Vec<i32>, low: usize, high: usize) -> (usize, usize, i32) {
+pub fn find_maximum_subarray(a: &[i32], low: usize, high: usize) -> (usize, usize, i32) {
     if high == low {
         return (low, high, a[low]); // Base case: only one element
     }
@@ -45,17 +45,17 @@ pub fn find_maximum_subarray(a: &Vec<i32>, low: usize, high: usize) -> (usize, u
     let cross_subarray = find_max_crossing_subarray(a, low, mid, high);
 
     if left_subarray.2 >= right_subarray.2 && left_subarray.2 >= cross_subarray.2 {
-        return left_subarray;
+        left_subarray
     } else if right_subarray.2 >= left_subarray.2 && right_subarray.2 >= cross_subarray.2 {
-        return right_subarray;
+        right_subarray
     } else {
-        return cross_subarray;
+        cross_subarray
     }
 }
 
 // Brute-Force-Maximum-Subarray algorithm from ex. 4.1-2 p.74 of CLRS 3e
 pub fn brute_force_find_maximum_subarray(
-    a: &Vec<i32>,
+    a: &[i32],
     _low: usize,
     _high: usize,
 ) -> (usize, usize, i32) {
@@ -65,14 +65,14 @@ pub fn brute_force_find_maximum_subarray(
 
     for i in 0..a.len() {
         let mut current_sum = 0;
-        for j in i..a.len() {
+        (i..a.len()).for_each(|j| {
             current_sum += a[j];
             if current_sum > max_sum {
                 max_sum = current_sum;
                 max_low = i;
                 max_high = j;
             }
-        }
+        });
     }
 
     (max_low, max_high, max_sum)
@@ -80,7 +80,7 @@ pub fn brute_force_find_maximum_subarray(
 
 // Non-recursive Find-Maximum-Subarray algorithm from ex. 4.1-5 on p.75 of CLRS 3e
 pub fn find_maximum_subarray_non_recursive(
-    a: &Vec<i32>,
+    a: &[i32],
     low: usize,
     high: usize,
 ) -> (usize, usize, i32) {
