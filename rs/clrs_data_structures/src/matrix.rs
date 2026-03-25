@@ -290,10 +290,18 @@ where
     }
 
     pub fn submatrix(&self, m: usize, n: usize) -> SquareMatrix<T> {
-        assert!(self.dimension.is_multiple_of(2));
+        if self.dimension == 1 {
+            assert!(m == 0);
+            assert!(n == 0);
+            return SquareMatrix {
+                dimension: 1,
+                data: vec![self.data[0]],
+            };
+        }
+
         let new_dimension = self.dimension / 2;
-        assert!(m < new_dimension || new_dimension == 1);
-        assert!(n < new_dimension || new_dimension == 1);
+        assert!(m <= new_dimension);
+        assert!(n <= new_dimension);
 
         let mut data = vec![T::zero(); new_dimension * new_dimension];
         for (p, row) in (0..new_dimension).zip(m * new_dimension..(m + 1) * new_dimension) {
@@ -306,6 +314,73 @@ where
             dimension: new_dimension,
             data,
         }
+    }
+
+    pub fn assign_submatrix(&mut self, m: usize, n: usize, _rhs: SquareMatrix<T>) {
+        assert!(self.dimension.is_multiple_of(2));
+        let new_dimension = self.dimension / 2;
+        assert!(m < new_dimension || new_dimension == 1);
+        assert!(n < new_dimension || new_dimension == 1);
+
+        for (row, p) in (m * new_dimension..(m + 1) * new_dimension).zip(0.._rhs.dimension) {
+            for (col, q) in (n * new_dimension..(n + 1) * new_dimension).zip(0.._rhs.dimension) {
+                self.data[row * self.dimension + col] = _rhs.data[p * new_dimension + q];
+            }
+        }
+    }
+
+    pub fn square_matrix_multiply_recursive(self, _rhs: SquareMatrix<T>) -> SquareMatrix<T> {
+        let mut result = SquareMatrix {
+            dimension: self.dimension,
+            data: vec![T::zero(); self.dimension * self.dimension],
+        };
+
+        if self.dimension == 1 {
+            result.data[0] = self.data[0] * _rhs.data[0];
+            return result;
+        }
+
+        result.assign_submatrix(
+            0,
+            0,
+            self.submatrix(0, 0)
+                .square_matrix_multiply_recursive(_rhs.submatrix(0, 0))
+                + self
+                    .submatrix(0, 1)
+                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 0)),
+        );
+
+        result.assign_submatrix(
+            0,
+            1,
+            self.submatrix(0, 0)
+                .square_matrix_multiply_recursive(_rhs.submatrix(0, 1))
+                + self
+                    .submatrix(0, 1)
+                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 1)),
+        );
+
+        result.assign_submatrix(
+            1,
+            0,
+            self.submatrix(1, 0)
+                .square_matrix_multiply_recursive(_rhs.submatrix(0, 0))
+                + self
+                    .submatrix(1, 1)
+                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 0)),
+        );
+
+        result.assign_submatrix(
+            1,
+            1,
+            self.submatrix(1, 0)
+                .square_matrix_multiply_recursive(_rhs.submatrix(0, 1))
+                + self
+                    .submatrix(1, 1)
+                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 1)),
+        );
+
+        result
     }
 }
 

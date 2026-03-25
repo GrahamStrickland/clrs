@@ -134,6 +134,88 @@ mod tests {
     }
 
     #[test]
+    fn test_square_matrix_assign_submatrix() {
+        let mut a: SquareMatrix<i32> = SquareMatrix::new(2, vec![vec![0, 0], vec![0, 0]]);
+
+        a.assign_submatrix(0, 0, SquareMatrix::new(1, vec![vec![1]]));
+        a.assign_submatrix(0, 1, SquareMatrix::new(1, vec![vec![2]]));
+        a.assign_submatrix(1, 0, SquareMatrix::new(1, vec![vec![3]]));
+        a.assign_submatrix(1, 1, SquareMatrix::new(1, vec![vec![4]]));
+
+        assert_eq!(a.submatrix(0, 0), SquareMatrix::new(1, vec![vec![1]]));
+        assert_eq!(a.submatrix(0, 1), SquareMatrix::new(1, vec![vec![2]]));
+        assert_eq!(a.submatrix(1, 0), SquareMatrix::new(1, vec![vec![3]]));
+        assert_eq!(a.submatrix(1, 1), SquareMatrix::new(1, vec![vec![4]]));
+
+        let mut b: SquareMatrix<i32> = SquareMatrix::new(
+            4,
+            vec![
+                vec![0, 0, 0, 0],
+                vec![0, 0, 0, 0],
+                vec![0, 0, 0, 0],
+                vec![0, 0, 0, 0],
+            ],
+        );
+
+        b.assign_submatrix(0, 0, SquareMatrix::new(2, vec![vec![1, 2], vec![5, 6]]));
+        b.assign_submatrix(0, 1, SquareMatrix::new(2, vec![vec![3, 4], vec![7, 8]]));
+        b.assign_submatrix(1, 0, SquareMatrix::new(2, vec![vec![9, 10], vec![13, 14]]));
+        b.assign_submatrix(1, 1, SquareMatrix::new(2, vec![vec![11, 12], vec![15, 16]]));
+
+        assert_eq!(
+            b.submatrix(0, 0),
+            SquareMatrix::new(2, vec![vec![1, 2], vec![5, 6]])
+        );
+        assert_eq!(
+            b.submatrix(0, 1),
+            SquareMatrix::new(2, vec![vec![3, 4], vec![7, 8]])
+        );
+        assert_eq!(
+            b.submatrix(1, 0),
+            SquareMatrix::new(2, vec![vec![9, 10], vec![13, 14]])
+        );
+        assert_eq!(
+            b.submatrix(1, 1),
+            SquareMatrix::new(2, vec![vec![11, 12], vec![15, 16]])
+        );
+    }
+
+    #[test]
+    fn test_square_matrix_multiply_recursive() {
+        let a: SquareMatrix<i32> = SquareMatrix::new(
+            4,
+            vec![
+                vec![1, 2, 3, 4],
+                vec![5, 6, 7, 8],
+                vec![9, 10, 11, 12],
+                vec![13, 14, 15, 16],
+            ],
+        );
+        let b: SquareMatrix<i32> = SquareMatrix::new(
+            4,
+            vec![
+                vec![1, -1, 1, -1],
+                vec![-1, 1, -1, 1],
+                vec![1, -1, 1, -1],
+                vec![-1, 1, -1, 1],
+            ],
+        );
+        let c = a.square_matrix_multiply_recursive(b);
+        assert_eq!(
+            c,
+            SquareMatrix::new(
+                4,
+                vec![
+                    vec![-2, 2, -2, 2],
+                    vec![-2, 2, -2, 2],
+                    vec![-2, 2, -2, 2],
+                    vec![-2, 2, -2, 2]
+                ]
+            )
+        );
+    }
+
+    #[test]
     fn test_square_matrix_eq() {
         let a: SquareMatrix<i32> =
             SquareMatrix::new(3, vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]]);
