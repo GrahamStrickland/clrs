@@ -5,7 +5,7 @@
 
 namespace clrs {
 template <typename T>
-square_matrix<T>::square_matrix(uint8_t n) : matrix<T>(n, n) {}
+square_matrix<T>::square_matrix(std::size_t n) : matrix<T>(n, n) {}
 
 template <typename T>
 square_matrix<T>::square_matrix(const matrix<T> &src) : matrix<T>(src) {}
@@ -36,7 +36,7 @@ square_matrix<T> &square_matrix<T>::operator=(const square_matrix<T> &src) {
 template <typename T>
 square_matrix<T>
 square_matrix<T>::operator+(const square_matrix<T> &src) const {
-  uint8_t n = matrix<T>::m_rows;
+  std::size_t n = matrix<T>::m_rows;
   matrix<T> result(n, n);
   result = matrix<T>::operator+(src);
   return square_matrix<T>(result);
@@ -45,7 +45,7 @@ square_matrix<T>::operator+(const square_matrix<T> &src) const {
 template <typename T>
 square_matrix<T>
 square_matrix<T>::operator-(const square_matrix<T> &src) const {
-  uint8_t n = matrix<T>::m_rows;
+  std::size_t n = matrix<T>::m_rows;
   matrix<T> result(n, n);
   result = matrix<T>::operator-(src);
   return square_matrix<T>(result);
@@ -61,16 +61,16 @@ square_matrix<T>::operator*(const square_matrix<T> &src) const {
 }
 
 template <typename T>
-square_matrix<T> square_matrix<T>::operator()(uint8_t m, uint8_t n) const {
+square_matrix<T> square_matrix<T>::operator()(std::size_t m, std::size_t n) const {
   if (std::floor(std::log2(matrix<T>::m_rows)) ==
       std::log2(matrix<T>::m_rows)) {
-    uint8_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2,
+    std::size_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2,
             p = 0;
     square_matrix<T> result(new_rows);
 
-    for (uint8_t i = m * new_cols; i < (m + 1) * new_rows; i++) {
-      uint8_t q = 0;
-      for (uint8_t j = n * new_cols; j < (n + 1) * new_cols; j++) {
+    for (std::size_t i = m * new_cols; i < (m + 1) * new_rows; i++) {
+      std::size_t q = 0;
+      for (std::size_t j = n * new_cols; j < (n + 1) * new_cols; j++) {
         result.m_data[p][q] = matrix<T>::m_data[i][j];
         q++;
       }
@@ -87,14 +87,14 @@ square_matrix<T> square_matrix<T>::operator()(uint8_t m, uint8_t n) const {
 template <typename T>
 square_matrix<T>
 square_matrix<T>::square_matrix_multiply(const square_matrix<T> &src) const {
-  uint8_t n = matrix<T>::m_rows;
+  std::size_t n = matrix<T>::m_rows;
   square_matrix<T> result(n);
 
-  for (uint8_t i = 0; i < n; i++) {
-    for (uint8_t j = 0; j < n; j++) {
+  for (std::size_t i = 0; i < n; i++) {
+    for (std::size_t j = 0; j < n; j++) {
       result.m_data[i][j] = 0;
 
-      for (uint8_t k = 0; k < n; k++)
+      for (std::size_t k = 0; k < n; k++)
         result.m_data[i][j] =
             result.m_data[i][j] + matrix<T>::m_data[i][k] * src.m_data[k][j];
     }
@@ -106,7 +106,7 @@ square_matrix<T>::square_matrix_multiply(const square_matrix<T> &src) const {
 template <typename T>
 square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
     const square_matrix<T> &src) const {
-  uint8_t n = matrix<T>::m_rows;
+  std::size_t n = matrix<T>::m_rows;
   square_matrix<T> result(n);
 
   if (n > 1) {
@@ -140,12 +140,12 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
 }
 
 template <typename T>
-void square_matrix<T>::assign(uint8_t m, uint8_t n,
+void square_matrix<T>::assign(std::size_t m, std::size_t n,
                               const square_matrix<T> &src) {
-  uint8_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2;
+  std::size_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2;
 
-  for (uint8_t i = m * new_rows; i < (m + 1) * new_rows; i++) {
-    for (uint8_t j = n * new_cols; j < (n + 1) * new_cols; j++) {
+  for (std::size_t i = m * new_rows; i < (m + 1) * new_rows; i++) {
+    for (std::size_t j = n * new_cols; j < (n + 1) * new_cols; j++) {
       if (i != 0 && j != 0) {
         matrix<T>::m_data[i][j] =
             src.m_data[(m * new_rows) % i][(n * new_cols) % j];

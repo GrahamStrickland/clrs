@@ -8,11 +8,11 @@
 namespace clrs {
 template <typename T, std::size_t N> void insertion_sort(std::array<T, N> &a) {
   auto len = a.size();
-  for (uint8_t j = 1; j < len; j++) {
+  for (std::size_t j = 1; j < len; j++) {
     T key = a[j];
 
     // Insert A[j] into the sorted sequence A[1..j-1]
-    uint8_t i = j - 1;
+    std::size_t i = j - 1;
     while (i >= 0 && a[i] > key) {
       T tmp = a[i + 1];
       a[i + 1] = a[i];

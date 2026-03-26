@@ -104,10 +104,10 @@ int main(int argc, char *argv[]) {
 }
 
 double inverse_nlogn(double x) {
-  uint8_t max_iters = 10;
+  std::size_t max_iters = 10;
   double a_0 = x / std::log2(x), a_1 = 0.0;
 
-  for (uint8_t i = 0; i < max_iters; ++i) {
+  for (std::size_t i = 0; i < max_iters; ++i) {
     a_1 = a_0 - ((a_0 * std::log2(a_0) - x) /
                  ((1.0 / std::log(2.0)) + std::log2(a_0)));
     if (abs((a_1 * std::log2(a_1)) - (a_0 * std::log2(a_0))) < 1)

@@ -8,7 +8,7 @@
 namespace clrs {
 template <typename T, std::size_t N, typename V>
 T linear_search(std::span<T, N> a, V const &nu) {
-  uint8_t j = 0;
+  std::size_t j = 0;
 
   while (j != a.size()) {
     if (a[j] == nu)

@@ -9,22 +9,22 @@
 namespace clrs {
 
 template <typename T, std::size_t N>
-void merge_no_sentinel(std::array<T, N> &a, uint8_t p, uint8_t q, uint8_t r) {
-  uint8_t n1 = q - p + 1, n2 = r - q;
+void merge_no_sentinel(std::array<T, N> &a, std::size_t p, std::size_t q, std::size_t r) {
+  std::size_t n1 = q - p + 1, n2 = r - q;
 
   std::vector<T> larr;
   larr.reserve(n1 + 1);
   std::vector<T> rarr;
   rarr.reserve(n2 + 1);
 
-  for (uint8_t i = 0; i < n1; i++)
+  for (std::size_t i = 0; i < n1; i++)
     larr[i] = a[p + i];
-  for (uint8_t j = 0; j < n2; j++)
+  for (std::size_t j = 0; j < n2; j++)
     rarr[j] = a[q + j + 1];
 
-  uint8_t i = 0, j = 0;
+  std::size_t i = 0, j = 0;
 
-  for (uint8_t k = p; k <= r; k++) {
+  for (std::size_t k = p; k <= r; k++) {
     if (i < n1 && j < n2) {
       if (larr[i] <= rarr[j]) {
         a[k] = larr[i];
@@ -46,7 +46,7 @@ void merge_no_sentinel(std::array<T, N> &a, uint8_t p, uint8_t q, uint8_t r) {
 }
 
 template <typename T, std::size_t N>
-void merge_sort_no_sentinel(std::array<T, N> &a, uint8_t p, uint8_t r) {
+void merge_sort_no_sentinel(std::array<T, N> &a, std::size_t p, std::size_t r) {
   if (p < r) {
     uint8_t q = (p + r) / 2;
     merge_sort_no_sentinel<T, N>(a, p, q);

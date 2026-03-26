@@ -7,11 +7,11 @@
 
 namespace clrs {
 template <typename T, std::size_t N, typename V>
-T recursive_binary_search(std::span<T, N> a, V const &nu, uint8_t const &low,
-                          uint8_t const &high) {
+T recursive_binary_search(std::span<T, N> a, V const &nu, std::size_t const &low,
+                          std::size_t const &high) {
   if (low > high)
     return -1;
-  uint8_t mid = low + (high - low) / 2;
+  std::size_t mid = low + (high - low) / 2;
   if (nu == a[mid])
     return mid;
   else if (nu > a[mid])
