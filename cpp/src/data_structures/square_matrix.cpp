@@ -1,3 +1,4 @@
+#include <cassert>
 #include <cmath>
 #include <complex>
 
@@ -61,17 +62,19 @@ square_matrix<T>::operator*(const square_matrix<T> &src) const {
 }
 
 template <typename T>
-square_matrix<T> square_matrix<T>::operator()(std::size_t m, std::size_t n) const {
+square_matrix<T> square_matrix<T>::operator()(std::size_t m,
+                                              std::size_t n) const {
   if (std::floor(std::log2(matrix<T>::m_rows)) ==
       std::log2(matrix<T>::m_rows)) {
-    std::size_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2,
-            p = 0;
+    std::size_t new_rows = matrix<T>::m_rows / 2,
+                new_cols = matrix<T>::m_cols / 2, p = 0;
     square_matrix<T> result(new_rows);
 
     for (std::size_t i = m * new_cols; i < (m + 1) * new_rows; i++) {
       std::size_t q = 0;
       for (std::size_t j = n * new_cols; j < (n + 1) * new_cols; j++) {
-        result.m_data[p][q] = matrix<T>::m_data[i][j];
+        result.m_data[p * result.m_cols + q] =
+            matrix<T>::m_data[i * matrix<T>::m_cols + j];
         q++;
       }
       p++;
@@ -86,17 +89,57 @@ square_matrix<T> square_matrix<T>::operator()(std::size_t m, std::size_t n) cons
 
 template <typename T>
 square_matrix<T>
+square_matrix<T>::strassen_multiply(const square_matrix<T> &src) const {
+  std::size_t n = matrix<T>::m_rows;
+  square_matrix<T> result(n);
+
+  if (n == 1) {
+    result.m_data[0] = matrix<T>::m_data[0] * src.m_data[0];
+    return result;
+  }
+
+  square_matrix<T> s1 = src(0, 1) - src(1, 1);
+  square_matrix<T> s2 = (*this)(0, 0) + (*this)(0, 1);
+  square_matrix<T> s3 = (*this)(1, 0) + (*this)(1, 1);
+  square_matrix<T> s4 = src(1, 0) - src(0, 0);
+  square_matrix<T> s5 = (*this)(0, 0) + (*this)(1, 1);
+  square_matrix<T> s6 = src(0, 0) + src(1, 1);
+  square_matrix<T> s7 = (*this)(0, 1) - (*this)(1, 1);
+  square_matrix<T> s8 = src(1, 0) + src(1, 1);
+  square_matrix<T> s9 = (*this)(0, 0) - (*this)(1, 0);
+  square_matrix<T> s10 = src(0, 0) + src(0, 1);
+
+  square_matrix<T> p1 = (*this)(0, 0).strassen_multiply(s1);
+  square_matrix<T> p2 = s2.strassen_multiply(src(1, 1));
+  square_matrix<T> p3 = s3.strassen_multiply(src(0, 0));
+  square_matrix<T> p4 = (*this)(1, 1).strassen_multiply(s4);
+  square_matrix<T> p5 = s5.strassen_multiply(s6);
+  square_matrix<T> p6 = s7.strassen_multiply(s8);
+  square_matrix<T> p7 = s9.strassen_multiply(s10);
+
+  result.assign_submatrix(0, 0, p5 + p4 - p2 + p6);
+  result.assign_submatrix(0, 1, p1 + p2);
+  result.assign_submatrix(1, 0, p3 + p4);
+  result.assign_submatrix(1, 1, p5 + p1 - p3 - p7);
+
+  return result;
+}
+
+template <typename T>
+square_matrix<T>
 square_matrix<T>::square_matrix_multiply(const square_matrix<T> &src) const {
   std::size_t n = matrix<T>::m_rows;
   square_matrix<T> result(n);
 
   for (std::size_t i = 0; i < n; i++) {
     for (std::size_t j = 0; j < n; j++) {
-      result.m_data[i][j] = 0;
+      result.m_data[i * result.m_cols + j] = 0;
 
       for (std::size_t k = 0; k < n; k++)
-        result.m_data[i][j] =
-            result.m_data[i][j] + matrix<T>::m_data[i][k] * src.m_data[k][j];
+        result.m_data[i * result.m_cols + j] =
+            result.m_data[i * result.m_cols + j] +
+            matrix<T>::m_data[i * matrix<T>::m_cols + k] *
+                src.m_data[k * src.m_cols + j];
     }
   }
 
@@ -120,38 +163,39 @@ square_matrix<T> square_matrix<T>::square_matrix_multiply_recursive(
     square_matrix<T> b21 = src(1, 0);
     square_matrix<T> b22 = src(1, 1);
 
-    result.assign(0, 0,
-                  (a11.square_matrix_multiply_recursive(b11)) +
-                      (a12.square_matrix_multiply_recursive(b21)));
-    result.assign(0, 1,
-                  (a11.square_matrix_multiply_recursive(b12)) +
-                      (a12.square_matrix_multiply_recursive(b22)));
-    result.assign(1, 0,
-                  (a21.square_matrix_multiply_recursive(b11)) +
-                      (a22.square_matrix_multiply_recursive(b21)));
-    result.assign(1, 1,
-                  (a21.square_matrix_multiply_recursive(b12)) +
-                      (a22.square_matrix_multiply_recursive(b22)));
+    result.assign_submatrix(0, 0,
+                            (a11.square_matrix_multiply_recursive(b11)) +
+                                (a12.square_matrix_multiply_recursive(b21)));
+    result.assign_submatrix(0, 1,
+                            (a11.square_matrix_multiply_recursive(b12)) +
+                                (a12.square_matrix_multiply_recursive(b22)));
+    result.assign_submatrix(1, 0,
+                            (a21.square_matrix_multiply_recursive(b11)) +
+                                (a22.square_matrix_multiply_recursive(b21)));
+    result.assign_submatrix(1, 1,
+                            (a21.square_matrix_multiply_recursive(b12)) +
+                                (a22.square_matrix_multiply_recursive(b22)));
   } else if (n == 1) {
-    result.m_data[0][0] = matrix<T>::m_data[0][0] * src.m_data[0][0];
+    result.m_data[0] = matrix<T>::m_data[0] * src.m_data[0];
   }
 
   return result;
 }
 
 template <typename T>
-void square_matrix<T>::assign(std::size_t m, std::size_t n,
-                              const square_matrix<T> &src) {
-  std::size_t new_rows = matrix<T>::m_rows / 2, new_cols = matrix<T>::m_cols / 2;
+void square_matrix<T>::assign_submatrix(std::size_t m, std::size_t n,
+                                        const square_matrix<T> &src) {
+  assert(matrix<T>::m_rows % 2 == 0);
+  std::size_t new_dimension = matrix<T>::m_rows / 2;
+  assert(m < new_dimension || new_dimension == 1);
+  assert(n < new_dimension || new_dimension == 1);
 
-  for (std::size_t i = m * new_rows; i < (m + 1) * new_rows; i++) {
-    for (std::size_t j = n * new_cols; j < (n + 1) * new_cols; j++) {
-      if (i != 0 && j != 0) {
-        matrix<T>::m_data[i][j] =
-            src.m_data[(m * new_rows) % i][(n * new_cols) % j];
-      } else {
-        matrix<T>::m_data[i][j] = src.m_data[0][0];
-      }
+  for (std::size_t i = m * new_dimension, p = 0; i < (m + 1) * new_dimension;
+       i++, p++) {
+    for (std::size_t j = n * new_dimension, q = 0; j < (n + 1) * new_dimension;
+         j++, q++) {
+      matrix<T>::m_data[i * matrix<T>::m_cols + j] =
+          src.m_data[p * new_dimension + q];
     }
   }
 }

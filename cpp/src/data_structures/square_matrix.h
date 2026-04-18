@@ -20,11 +20,13 @@ public:
   square_matrix<T> operator*(const square_matrix<T> &src) const;
   square_matrix<T> operator()(std::size_t m, std::size_t n) const;
 
+  square_matrix<T> strassen_multiply(const square_matrix<T> &src) const;
+
 private:
   square_matrix<T> square_matrix_multiply(const square_matrix<T> &src) const;
   square_matrix<T>
   square_matrix_multiply_recursive(const square_matrix<T> &src) const;
-  void assign(std::size_t m, std::size_t n, const square_matrix<T> &src);
+  void assign_submatrix(std::size_t m, std::size_t n, const square_matrix<T> &src);
 };
 } // namespace clrs
 #endif // SQUARE_MATRIX_H

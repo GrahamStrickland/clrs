@@ -22,14 +22,14 @@ public:
   matrix<T> operator-(const matrix<T> &src) const;
   matrix<T> operator*(const matrix<T> &src) const;
 
-  T *operator[](std::size_t index);
+  T operator[](std::size_t index);
   T tr();
 
   friend std::ostream &operator<<(std::ostream &outs, const matrix<T> &src) {
     outs << "\n[";
     for (std::size_t row = 0; row < src.m_rows; row++) {
       for (std::size_t col = 0; col < src.m_cols; col++) {
-        outs << (col == 0 ? "[" : ", ") << src.m_data[row][col];
+        outs << (col == 0 ? "[" : ", ") << src.m_data[row * src.m_cols + col];
       }
       outs << "]" << (row == src.m_rows - 1 ? "" : ",\n");
     }
@@ -41,7 +41,7 @@ public:
 protected:
   std::size_t m_rows;
   std::size_t m_cols;
-  T **m_data;
+  T *m_data;
 };
 
 struct matrix_exception : public std::runtime_error {

@@ -6,12 +6,11 @@ namespace clrs {
 template <typename T> matrix<T>::matrix(std::size_t rows, std::size_t cols) {
   m_rows = rows;
   m_cols = cols;
-  m_data = new T *[rows];
+  m_data = new T[rows * cols];
 
   for (std::size_t row = 0; row < rows; row++) {
-    m_data[row] = new T[cols];
     for (std::size_t col = 0; col < cols; col++)
-      m_data[row][col] = 0;
+      m_data[row * cols + col] = 0;
   }
 }
 
@@ -19,12 +18,11 @@ template <typename T> matrix<T>::matrix(const matrix<T> &src) {
   if (this != &src) {
     m_rows = src.m_rows;
     m_cols = src.m_cols;
-    m_data = new T *[src.m_rows];
+    m_data = new T[src.m_rows * src.m_cols];
 
     for (std::size_t row = 0; row < src.m_rows; row++) {
-      m_data[row] = new T[src.m_cols];
       for (std::size_t col = 0; col < src.m_cols; col++)
-        m_data[row][col] = src.m_data[row][col];
+        m_data[row * m_cols + col] = src.m_data[row * src.m_cols + col];
     }
   } else {
     m_rows = 0;
@@ -38,7 +36,7 @@ matrix<T>::matrix(const std::initializer_list<std::initializer_list<T>> &src) {
   try {
     m_rows = static_cast<int>(src.size());
     m_cols = 0;
-    m_data = new T *[m_rows];
+    m_data = new T[m_rows * m_cols];
 
     std::size_t i = 0;
 
@@ -51,10 +49,9 @@ matrix<T>::matrix(const std::initializer_list<std::initializer_list<T>> &src) {
           throw new matrix_exception(
               "Invalid dimensions for operands passed to constructor");
 
-        m_data[i] = new T[m_cols];
         for (const auto &element : row) {
           if (j < m_cols - 1) {
-            m_data[i][j] = element;
+            m_data[i * m_cols + j] = element;
             ++j;
           }
         }
@@ -68,11 +65,7 @@ matrix<T>::matrix(const std::initializer_list<std::initializer_list<T>> &src) {
   }
 }
 
-template <typename T> matrix<T>::~matrix() {
-  for (std::size_t row = 0; row < m_rows; row++)
-    delete[] m_data[row];
-  delete[] m_data;
-}
+template <typename T> matrix<T>::~matrix() { delete[] m_data; }
 
 template <typename T> bool matrix<T>::operator==(const matrix<T> &src) const {
   if (m_cols != src.m_cols || m_rows != src.m_rows)
@@ -80,7 +73,7 @@ template <typename T> bool matrix<T>::operator==(const matrix<T> &src) const {
 
   for (std::size_t row = 0; row < m_rows; row++)
     for (std::size_t col = 0; col < m_cols; col++)
-      if (m_data[row][col] != src.m_data[row][col])
+      if (m_data[row * m_cols + col] != src.m_data[row * src.m_cols + col])
         return false;
 
   return true;
@@ -96,7 +89,7 @@ matrix<T> &matrix<T>::operator=(
       std::size_t j = 0;
 
       for (const auto &element : row) {
-        m_data[i][j] = element;
+        m_data[i * m_cols + j] = element;
         ++j;
       }
       ++i;
@@ -116,7 +109,7 @@ template <typename T> matrix<T> &matrix<T>::operator=(const matrix<T> &src) {
   if (this != &src && m_rows == src.m_rows && m_cols == src.m_cols)
     for (std::size_t row = 0; row < src.m_rows; row++)
       for (std::size_t col = 0; col < src.m_cols; col++)
-        m_data[row][col] = src.m_data[row][col];
+        m_data[row * m_cols + col] = src.m_data[row * src.m_cols + col];
 
   return *this;
 }
@@ -128,7 +121,7 @@ matrix<T> matrix<T>::operator+(const matrix<T> &src) const {
 
     for (std::size_t row = 0; row < m_rows; row++)
       for (std::size_t col = 0; col < m_cols; col++)
-        result.m_data[row][col] = m_data[row][col] + src.m_data[row][col];
+        result.m_data[row * result.m_cols + col] = m_data[row * m_cols + col] + src.m_data[row * src.m_cols + col];
 
     return result;
   } else {
@@ -144,7 +137,7 @@ matrix<T> matrix<T>::operator-(const matrix<T> &src) const {
 
     for (std::size_t row = 0; row < m_rows; row++)
       for (std::size_t col = 0; col < m_cols; col++)
-        result.m_data[row][col] = m_data[row][col] - src.m_data[row][col];
+        result.m_data[row * result.m_cols + col] = m_data[row * m_cols + col] - src.m_data[row * src.m_cols + col];
 
     return result;
   } else {
@@ -160,10 +153,10 @@ matrix<T> matrix<T>::operator*(const matrix<T> &src) const {
 
     for (std::size_t row = 0; row < result.m_rows; row++) {
       for (std::size_t col = 0; col < result.m_cols; col++) {
-        result.m_data[row][col] = static_cast<T>(0);
+        result.m_data[row * result.m_cols + col] = static_cast<T>(0);
 
         for (std::size_t i = 0; i < m_cols; i++)
-          result.m_data[row][col] += m_data[row][i] * src.m_data[i][col];
+          result.m_data[row * result.m_cols + col] += m_data[row * m_cols + i] * src.m_data[i * src.m_cols + col];
       }
     }
 
@@ -174,7 +167,7 @@ matrix<T> matrix<T>::operator*(const matrix<T> &src) const {
   }
 }
 
-template <typename T> T *matrix<T>::operator[](std::size_t index) {
+template <typename T> T matrix<T>::operator[](std::size_t index) {
   return m_data[index];
 }
 
@@ -183,7 +176,7 @@ template <typename T> T matrix<T>::tr() {
 
   if (m_rows == m_cols) {
     for (std::size_t i = 0; i < m_rows; i++)
-      tr += m_data[i][i];
+      tr += m_data[i * m_cols + i];
 
     return tr;
   } else {
