@@ -181,8 +181,34 @@ mod tests {
     }
 
     #[test]
-    fn test_square_matrix_multiply_recursive() {
+    fn test_multiply_recursive() {
         let a: SquareMatrix<i32> = SquareMatrix::new(
+            2,
+            vec![
+                vec![1, 3],
+                vec![7, 5],
+            ],
+        );
+        let b: SquareMatrix<i32> = SquareMatrix::new(
+            2,
+            vec![
+                vec![6, 8],
+                vec![4, 2],
+            ],
+        );
+        let c = a.multiply_recursive(b);
+        assert_eq!(
+            c,
+            SquareMatrix::new(
+                2,
+                vec![
+                    vec![18, 14],
+                    vec![62, 66],
+                ]
+            )
+        );
+
+        let d: SquareMatrix<i32> = SquareMatrix::new(
             4,
             vec![
                 vec![1, 2, 3, 4],
@@ -191,7 +217,7 @@ mod tests {
                 vec![13, 14, 15, 16],
             ],
         );
-        let b: SquareMatrix<i32> = SquareMatrix::new(
+        let e: SquareMatrix<i32> = SquareMatrix::new(
             4,
             vec![
                 vec![1, -1, 1, -1],
@@ -200,9 +226,70 @@ mod tests {
                 vec![-1, 1, -1, 1],
             ],
         );
-        let c = a.square_matrix_multiply_recursive(b);
+        let f = d.multiply_recursive(e);
+        assert_eq!(
+            f,
+            SquareMatrix::new(
+                4,
+                vec![
+                    vec![-2, 2, -2, 2],
+                    vec![-2, 2, -2, 2],
+                    vec![-2, 2, -2, 2],
+                    vec![-2, 2, -2, 2]
+                ]
+            )
+        );
+    }
+
+    #[test]
+    fn test_square_matrix_strassen_multiply() {
+        let a: SquareMatrix<i32> = SquareMatrix::new(
+            2,
+            vec![
+                vec![1, 3],
+                vec![7, 5],
+            ],
+        );
+        let b: SquareMatrix<i32> = SquareMatrix::new(
+            2,
+            vec![
+                vec![6, 8],
+                vec![4, 2],
+            ],
+        );
+        let c = a.strassen_multiply(b);
         assert_eq!(
             c,
+            SquareMatrix::new(
+                2,
+                vec![
+                    vec![18, 14],
+                    vec![62, 66],
+                ]
+            )
+        );
+
+        let d: SquareMatrix<i32> = SquareMatrix::new(
+            4,
+            vec![
+                vec![1, 2, 3, 4],
+                vec![5, 6, 7, 8],
+                vec![9, 10, 11, 12],
+                vec![13, 14, 15, 16],
+            ],
+        );
+        let e: SquareMatrix<i32> = SquareMatrix::new(
+            4,
+            vec![
+                vec![1, -1, 1, -1],
+                vec![-1, 1, -1, 1],
+                vec![1, -1, 1, -1],
+                vec![-1, 1, -1, 1],
+            ],
+        );
+        let f = d.strassen_multiply(e);
+        assert_eq!(
+            f,
             SquareMatrix::new(
                 4,
                 vec![

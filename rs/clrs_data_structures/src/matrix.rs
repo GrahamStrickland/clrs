@@ -329,7 +329,7 @@ where
         }
     }
 
-    pub fn square_matrix_multiply_recursive(self, _rhs: SquareMatrix<T>) -> SquareMatrix<T> {
+    pub fn multiply_recursive(self, _rhs: SquareMatrix<T>) -> SquareMatrix<T> {
         let mut result = SquareMatrix {
             dimension: self.dimension,
             data: vec![T::zero(); self.dimension * self.dimension],
@@ -344,41 +344,79 @@ where
             0,
             0,
             self.submatrix(0, 0)
-                .square_matrix_multiply_recursive(_rhs.submatrix(0, 0))
+                .multiply_recursive(_rhs.submatrix(0, 0))
                 + self
                     .submatrix(0, 1)
-                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 0)),
+                    .multiply_recursive(_rhs.submatrix(1, 0)),
         );
 
         result.assign_submatrix(
             0,
             1,
             self.submatrix(0, 0)
-                .square_matrix_multiply_recursive(_rhs.submatrix(0, 1))
+                .multiply_recursive(_rhs.submatrix(0, 1))
                 + self
                     .submatrix(0, 1)
-                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 1)),
+                    .multiply_recursive(_rhs.submatrix(1, 1)),
         );
 
         result.assign_submatrix(
             1,
             0,
             self.submatrix(1, 0)
-                .square_matrix_multiply_recursive(_rhs.submatrix(0, 0))
+                .multiply_recursive(_rhs.submatrix(0, 0))
                 + self
                     .submatrix(1, 1)
-                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 0)),
+                    .multiply_recursive(_rhs.submatrix(1, 0)),
         );
 
         result.assign_submatrix(
             1,
             1,
             self.submatrix(1, 0)
-                .square_matrix_multiply_recursive(_rhs.submatrix(0, 1))
+                .multiply_recursive(_rhs.submatrix(0, 1))
                 + self
                     .submatrix(1, 1)
-                    .square_matrix_multiply_recursive(_rhs.submatrix(1, 1)),
+                    .multiply_recursive(_rhs.submatrix(1, 1)),
         );
+
+        result
+    }
+
+    pub fn strassen_multiply(self, _rhs: SquareMatrix<T>) -> SquareMatrix<T> {
+        let mut result = SquareMatrix {
+            dimension: self.dimension,
+            data: vec![T::zero(); self.dimension * self.dimension],
+        };
+
+        if self.dimension == 1 {
+            result.data[0] = self.data[0] * _rhs.data[0];
+            return result;
+        }
+
+        let s1 = _rhs.submatrix(0, 1) - _rhs.submatrix(1, 1);
+        let s2 = self.submatrix(0, 0) + self.submatrix(0, 1);
+        let s3 = self.submatrix(1, 0) + self.submatrix(1, 1);
+        let s4 = _rhs.submatrix(1, 0) - _rhs.submatrix(0, 0);
+        let s5 = self.submatrix(0, 0) + self.submatrix(1, 1);
+        let s6 = _rhs.submatrix(0, 0) + _rhs.submatrix(1, 1);
+        let s7 = self.submatrix(0, 1) - self.submatrix(1, 1);
+        let s8 = _rhs.submatrix(1, 0) + _rhs.submatrix(1, 1);
+        let s9 = self.submatrix(0, 0) - self.submatrix(1, 0);
+        let s10 = _rhs.submatrix(0, 0) + _rhs.submatrix(0, 1);
+
+        let p1 = self.submatrix(0, 0).strassen_multiply(s1);
+        let p2 = s2.strassen_multiply(_rhs.submatrix(1, 1));
+        let p3 = s3.strassen_multiply(_rhs.submatrix(0, 0));
+        let p4 = self.submatrix(1, 1).strassen_multiply(s4);
+        let p5 = s5.strassen_multiply(s6);
+        let p6 = s7.strassen_multiply(s8);
+        let p7 = s9.strassen_multiply(s10);
+
+        result.assign_submatrix(0, 0, p5.clone() + p4.clone() - p2.clone() + p6);
+        result.assign_submatrix(0, 1, p1.clone() + p2);
+        result.assign_submatrix(1, 0, p3.clone() + p4);
+        result.assign_submatrix(1, 1, p5 + p1 - p3 - p7);
 
         result
     }
