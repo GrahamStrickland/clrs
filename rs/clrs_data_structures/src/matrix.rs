@@ -236,13 +236,15 @@ where
         }
     }
 
-    pub fn submatrix(&self, m: usize, n: usize) -> SquareMatrix<T> {
+    pub fn submatrix(&self, m: usize, n: usize) -> MatrixView<T> {
         if self.dimension == 1 {
             assert!(m == 0);
             assert!(n == 0);
-            return SquareMatrix {
-                dimension: 1,
-                data: vec![self.data[0]],
+            return MatrixView {
+                rows: 1,
+                cols: 1,
+                stride: 1,
+                data: &self.data,
             };
         }
 
@@ -250,16 +252,12 @@ where
         assert!(m <= new_dimension);
         assert!(n <= new_dimension);
 
-        let mut data = vec![T::zero(); new_dimension * new_dimension];
-        for (p, row) in (0..new_dimension).zip(m * new_dimension..(m + 1) * new_dimension) {
-            for (q, col) in (0..new_dimension).zip(n * new_dimension..(n + 1) * new_dimension) {
-                data[p * new_dimension + q] = self.data[row * self.dimension + col];
-            }
-        }
-
-        SquareMatrix {
-            dimension: new_dimension,
-            data,
+        let start = m * new_dimension * self.dimension + n * new_dimension;
+        MatrixView {
+            rows: new_dimension,
+            cols: new_dimension,
+            stride: self.dimension,
+            data: &self.data[start..],
         }
     }
 
@@ -510,5 +508,33 @@ where
             dimension: self.dimension,
             data,
         }
+    }
+}
+
+struct MatrixView<'a, T: 'a>
+where
+    T: MatrixElement,
+{
+    rows: usize,
+    cols: usize,
+    stride: usize,
+    data: &'a [T],
+}
+
+impl<'a, T> MatrixView<'a, T>
+where
+    T: MatrixElement,
+{
+    fn new(&self, rows: usize, cols: usize, stride: usize, data: &'a [T]) -> Self {
+        MatrixView {
+            cols,
+            rows,
+            stride,
+            data,
+        }
+    }
+
+    fn get(&self, row: usize, col: usize) -> &T {
+        &self.data[row * self.stride + col]
     }
 }
