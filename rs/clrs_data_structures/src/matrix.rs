@@ -3,16 +3,33 @@ use std::ops;
 
 use num::traits::Zero;
 
-pub struct Matrix<T>
-where
+pub trait MatrixElement:
+    Zero
+    + ops::Sub<Output = Self>
+    + ops::Mul<Output = Self>
+    + Sized
+    + Clone
+    + Copy
+    + Display
+    + PartialEq
+{
+}
+
+impl<T> MatrixElement for T where
     T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
+        + ops::Sub<Output = Self>
+        + ops::Mul<Output = Self>
         + Sized
         + Clone
         + Copy
         + Display
-        + PartialEq,
+        + PartialEq
+{
+}
+
+pub struct Matrix<T>
+where
+    T: MatrixElement,
 {
     pub rows: usize,
     pub cols: usize,
@@ -21,14 +38,7 @@ where
 
 impl<T> Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     pub fn new(rows: usize, cols: usize, data: Vec<Vec<T>>) -> Matrix<T> {
         assert_eq!(data.len(), rows);
@@ -51,14 +61,7 @@ where
 
 impl<T> Clone for Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     fn clone(&self) -> Matrix<T> {
         Matrix {
@@ -71,14 +74,7 @@ where
 
 impl<T> Debug for Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         if self.rows == 1 && self.cols == 1 {
@@ -109,14 +105,7 @@ where
 
 impl<T> PartialEq for Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     fn eq(&self, _rhs: &Matrix<T>) -> bool {
         if self.rows != _rhs.rows || self.cols != _rhs.cols {
@@ -135,14 +124,7 @@ where
 
 impl<T> ops::Index<usize> for Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = [T];
 
@@ -153,14 +135,7 @@ where
 
 impl<T> ops::Add<Matrix<T>> for Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = Matrix<T>;
 
@@ -183,14 +158,7 @@ where
 
 impl<T> ops::Sub<Matrix<T>> for Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = Matrix<T>;
 
@@ -213,14 +181,7 @@ where
 
 impl<T> ops::Mul<Matrix<T>> for Matrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = Matrix<T>;
 
@@ -248,14 +209,7 @@ where
 
 pub struct SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     pub dimension: usize,
     data: Vec<T>,
@@ -263,14 +217,7 @@ where
 
 impl<T> SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     pub fn new(dimension: usize, data: Vec<Vec<T>>) -> SquareMatrix<T> {
         assert_eq!(data.len(), dimension);
@@ -424,14 +371,7 @@ where
 
 impl<T> Clone for SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     fn clone(&self) -> SquareMatrix<T> {
         SquareMatrix {
@@ -443,14 +383,7 @@ where
 
 impl<T> Debug for SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         if self.dimension == 1 {
@@ -482,14 +415,7 @@ where
 
 impl<T> PartialEq for SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     fn eq(&self, _rhs: &SquareMatrix<T>) -> bool {
         if self.dimension != _rhs.dimension {
@@ -508,14 +434,7 @@ where
 
 impl<T> ops::Index<usize> for SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = [T];
 
@@ -526,14 +445,7 @@ where
 
 impl<T> ops::Add<SquareMatrix<T>> for SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = SquareMatrix<T>;
 
@@ -554,14 +466,7 @@ where
 
 impl<T> ops::Sub<SquareMatrix<T>> for SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = SquareMatrix<T>;
 
@@ -582,14 +487,7 @@ where
 
 impl<T> ops::Mul<SquareMatrix<T>> for SquareMatrix<T>
 where
-    T: Zero
-        + ops::Sub<Output = T>
-        + ops::Mul<Output = T>
-        + Sized
-        + Clone
-        + Copy
-        + Display
-        + PartialEq,
+    T: MatrixElement,
 {
     type Output = SquareMatrix<T>;
 
