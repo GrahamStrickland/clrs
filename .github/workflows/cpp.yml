@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  BUILD_TYPE: Release
+
 jobs:
   build:
     runs-on: macos-latest
@@ -16,7 +19,7 @@ jobs:
       id: strings
       shell: bash
       run: |
-        echo "build-output-dir=${{ github.workspace }}/cpp/test/build" >> "$GITHUB_OUTPUT"
+        echo "build-output-dir=${{ github.workspace }}/cpp/build" >> "$GITHUB_OUTPUT"
 
     - name: Install Boost
       run: brew install boost
@@ -25,13 +28,11 @@ jobs:
       run: >
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
         -DCMAKE_CXX_COMPILER=clang++
-        -S ${{ github.workspace }}/cpp/test/
+        -S ${{ github.workspace }}/cpp/
 
     - name: Build
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }}
 
-    - name: Test
+    - name: Test with CTest
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: |
-        ${{ steps.strings.outputs.build-output-dir }}/test_algorithms
-        ${{ steps.strings.outputs.build-output-dir }}/test_data_structures
+      run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
