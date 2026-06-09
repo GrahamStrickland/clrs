@@ -1,10 +1,7 @@
 set(SOURCES
     big_oh.cpp
-    binary.cpp
     max_subarray.cpp
     polynomials.cpp
-    search.cpp
-    sorting.cpp
 )
 
 add_library(algorithms STATIC ${SOURCES})
