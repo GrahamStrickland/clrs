@@ -4,7 +4,7 @@
 
 namespace clrs {
 namespace algorithms {
-namespace polynomials {
+namespace sorting {
 // Bubble-Sort algorithm from p.2-2 on pg. 40 of CLRS 3e
 template <typename T, std::size_t N> void bubble_sort(std::array<T, N> &a) {
   auto len = a.size();
@@ -227,6 +227,6 @@ template void merge_sort_no_sentinel<int, 8ul>(std::array<int, 8ul> &arr,
 template unsigned long count_inversions<int, 5ul>(std::array<int, 5ul> &arr,
                                                   unsigned long low,
                                                   unsigned long high);
-} // namespace polynomials
+} // namespace sorting
 } // namespace algorithms
 } // namespace clrs
