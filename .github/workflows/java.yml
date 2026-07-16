@@ -22,4 +22,5 @@ jobs:
         cache: 'maven'
 
     - name: Run Tests with Maven
+      working-directory: java
       run: mvn --batch-mode --update-snapshots test
