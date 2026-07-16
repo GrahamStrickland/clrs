@@ -58,3 +58,9 @@ $HOME
 
 # Python files
 *.pyc
+
+# Java/Maven files
+*.project
+*.classpath
+*.mvn
+*.settings/
