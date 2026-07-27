@@ -1,7 +1,7 @@
 [project]
-name = "py"
+name = "clrs"
 version = "0.1.0"
-description = "Add your description here"
+description = "Exercises and implementations in C++/Rust of the algorithms from 'Introduction to Algorithms' (3e) -  Cormen, Leiserson, Rivest, & Stein"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = []
