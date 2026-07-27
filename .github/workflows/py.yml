@@ -14,14 +14,14 @@ jobs:
 
       - name: Format with ruff
         uses: chartboost/ruff-action@v1
-        working-directory: py
         with:
+          working-directory: py
           args: "format"
 
       - name: Fix with ruff
         uses: chartboost/ruff-action@v1
-        working-directory: py
         with:
+          working-directory: py
           args: "check --fix"
 
       - name: Install the latest version of uv
