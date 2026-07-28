@@ -30,22 +30,20 @@ public class BigOh {
     }
 
     /**
-     * Computes the inverse of n!.
+     * Computes the inverse of n!, i.e. the largest n such that n! &lt;= x.
      *
      * @param x The value x such that n! = x.
      */
     public static double inverseFactorial(double x) {
-        double i = 0;
+        double n = 0;
         double fact = 1;
 
-        while (fact < x) {
-            if (i > 0) {
-                fact *= i;
-            }
-            i++;
+        while (fact * (n + 1) <= x) {
+            n++;
+            fact *= n;
         }
 
-        return i - 1;
+        return n;
     }
 
     /**

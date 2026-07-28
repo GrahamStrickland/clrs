@@ -17,16 +17,15 @@ pub fn inverse_nlogn(x: f64) -> f64 {
     a_1.floor()
 }
 
+/// Returns the largest `n` such that `n! <= x`.
 pub fn inverse_factorial(x: f64) -> f64 {
-    let mut i = 0.0;
+    let mut n = 0.0;
     let mut fact = 1.0;
 
-    while fact < x {
-        if i > 0.0 {
-            fact *= i;
-        }
-        i += 1.0;
+    while fact * (n + 1.0) <= x {
+        n += 1.0;
+        fact *= n;
     }
 
-    i - 1.0
+    n
 }

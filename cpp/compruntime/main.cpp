@@ -16,9 +16,9 @@ int main() {
       1min,
       1h,
       std::chrono::days(1),
-      std::chrono::weeks(1),
-      std::chrono::years(1),
-      std::chrono::years(100)};
+      std::chrono::days(30),
+      std::chrono::days(365),
+      std::chrono::days(36500)};
 
   std::cout << "Comparison of running times for the largest problem size n "
             << "of a problem that can be solved in time t, assuming that\n"
@@ -35,7 +35,7 @@ int main() {
   std::cout << "lg(n)";
   for (std::chrono::duration<long long> time : runtimes) {
     double smallest_n = std::floor(
-        std::pow(2.0, std::chrono::duration<double>(time).count()) * 1E6);
+        std::pow(2.0, std::chrono::duration<double>(time).count() * 1E6));
     std::cout << "\t" << std::setw(12) << smallest_n;
   }
   std::cout << "\n";
@@ -67,15 +67,15 @@ int main() {
   std::cout << "n^2";
   for (std::chrono::duration<long long> time : runtimes) {
     double smallest_n = std::floor(
-        std::pow(std::chrono::duration<double>(time).count() * 1E6, 0.5));
+        std::sqrt(std::chrono::duration<double>(time).count() * 1E6));
     std::cout << "\t" << std::setw(12) << smallest_n;
   }
   std::cout << "\n";
 
   std::cout << "n^3";
   for (std::chrono::duration<long long> time : runtimes) {
-    double smallest_n = std::floor(std::pow(
-        std::chrono::duration<double>(time).count() * 1E6, (1.0 / 3.0)));
+    double smallest_n = std::floor(
+        std::cbrt(std::chrono::duration<double>(time).count() * 1E6));
     std::cout << "\t" << std::setw(12) << smallest_n;
   }
   std::cout << "\n";

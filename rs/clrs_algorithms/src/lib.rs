@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn test_inverse_factorial() {
-        let exps = [10.0, 12.0, 13.0, 14.0, 16.0, 17.0, 18.0];
+        let exps = [9.0, 11.0, 12.0, 13.0, 15.0, 16.0, 17.0];
 
         for (t, exp) in RUNTIMES.iter().zip(exps.iter()) {
             let time_in_microseconds = t.num_microseconds().unwrap_or(0) as f64;

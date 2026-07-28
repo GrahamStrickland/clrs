@@ -14,7 +14,7 @@ double inverse_nlogn(double x) {
   for (std::size_t i = 0; i < max_iters; ++i) {
     a_1 = a_0 - ((a_0 * std::log2(a_0) - x) /
                  ((1.0 / std::log(2.0)) + std::log2(a_0)));
-    if (abs((a_1 * std::log2(a_1)) - (a_0 * std::log2(a_0))) < 1)
+    if (std::abs((a_1 * std::log2(a_1)) - (a_0 * std::log2(a_0))) < 1)
       return a_1;
     else
       a_0 = a_1;
@@ -24,15 +24,14 @@ double inverse_nlogn(double x) {
 }
 
 double inverse_factorial(double x) {
-  double i = 0, fact = 1;
+  double n = 0, fact = 1;
 
-  while (fact < x) {
-    if (i > 0)
-      fact *= i;
-    i++;
+  while (fact * (n + 1) <= x) {
+    n++;
+    fact *= n;
   }
 
-  return i - 1;
+  return n;
 }
 } // namespace big_oh
 } // namespace algorithms

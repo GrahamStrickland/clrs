@@ -49,7 +49,7 @@ public class BigOhTest {
      */
     @Test
     public void inverseFactorialIsCorrect() {
-        double[] exps = new double[] { 10.0, 12.0, 13.0, 14.0, 16.0, 17.0, 18.0 };
+        double[] exps = new double[] { 9.0, 11.0, 12.0, 13.0, 15.0, 16.0, 17.0 };
 
         for (int i = 0; i < runTimes.length; i++) {
             long timeInMicroseconds = runTimes[i].toNanos() / 1000;

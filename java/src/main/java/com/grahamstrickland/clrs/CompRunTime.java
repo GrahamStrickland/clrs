@@ -45,7 +45,7 @@ public class CompRunTime {
 
         System.out.printf(LABEL_FMT, "lg(n)");
         for (Duration time : runTimes) {
-            double smallestN = Math.floor(Math.pow(2.0, time.toSeconds()) * 1E6);
+            double smallestN = Math.floor(Math.pow(2.0, time.toSeconds() * 1E6));
             printCell(smallestN);
         }
         System.out.println();
@@ -73,16 +73,14 @@ public class CompRunTime {
 
         System.out.printf(LABEL_FMT, "n^2");
         for (Duration time : runTimes) {
-            double smallestN = Math.floor(
-                    Math.pow(time.toSeconds() * 1E6, 0.5));
+            double smallestN = Math.floor(Math.sqrt(time.toSeconds() * 1E6));
             printCell(smallestN);
         }
         System.out.println();
 
         System.out.printf(LABEL_FMT, "n^3");
         for (Duration time : runTimes) {
-            double smallestN = Math.floor(Math.pow(
-                    time.toSeconds() * 1E6, (1.0 / 3.0)));
+            double smallestN = Math.floor(Math.cbrt(time.toSeconds() * 1E6));
             printCell(smallestN);
         }
         System.out.println();
