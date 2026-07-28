@@ -1,4 +1,4 @@
-name: Format and test Python library with Ruff and Pytest 
+name: Format and Test Python Library with Ruff and Pytest 
 
 on:
   push:
