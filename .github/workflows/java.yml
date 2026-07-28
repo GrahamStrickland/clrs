@@ -1,4 +1,4 @@
-name: Test Java Library with Maven
+name: Build and Test Java Library with Maven
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main", "develop" ]
 
 jobs:
-  test:
+  build&test:
     runs-on: ubuntu-latest
 
     steps:
