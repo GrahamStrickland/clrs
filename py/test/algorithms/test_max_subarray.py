@@ -47,3 +47,37 @@ def test_brute_force_find_max_subarray():
 
 def test_find_maximum_subarray_non_recursive():
     assert_find_max_subarray(find_maximum_subarray_non_recursive)
+
+
+ALGORITHMS = [
+    find_maximum_subarray,
+    brute_force_find_maximum_subarray,
+    find_maximum_subarray_non_recursive,
+]
+
+EDGE_CASES = [
+    ([1, 2, -10, -10], (0, 1, 3)),
+    ([-1, 5, -1], (1, 1, 5)),
+    ([-5, -2, -3], (1, 1, -2)),
+]
+
+
+def test_max_subarray_edge_cases():
+    for a, expected in EDGE_CASES:
+        for algorithm in ALGORITHMS:
+            assert algorithm(a, 0, len(a) - 1) == expected
+
+
+def test_max_subarray_respects_subrange():
+    a = [-1] * 25
+    a[22] = 100
+    a[23] = 100
+
+    for algorithm in ALGORITHMS:
+        assert algorithm(a, 0, 5) == (0, 0, -1)
+
+
+def test_max_subarray_sum_is_int():
+    for algorithm in ALGORITHMS:
+        _, _, total = algorithm([3, -1, 4], 0, 2)
+        assert isinstance(total, int)

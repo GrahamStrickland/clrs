@@ -70,6 +70,62 @@ BOOST_AUTO_TEST_CASE(test_tr) {
   BOOST_CHECK_EQUAL(A.tr(), 15);
 }
 
+BOOST_AUTO_TEST_CASE(test_initializer_list_ctor) {
+  clrs::data_structures::matrix::matrix<int> A = {
+      {1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+  clrs::data_structures::matrix::matrix<int> B(3, 3);
+  B = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+  BOOST_CHECK_EQUAL(A, B);
+  BOOST_CHECK_EQUAL(A.tr(), 15);
+
+  clrs::data_structures::matrix::matrix<int> C = {{1, 2}, {3, 4}, {5, 6}};
+  clrs::data_structures::matrix::matrix<int> D(3, 2);
+  D = {{1, 2}, {3, 4}, {5, 6}};
+
+  BOOST_CHECK_EQUAL(C, D);
+}
+
+BOOST_AUTO_TEST_CASE(test_ragged_initializer_list_throws) {
+  BOOST_CHECK_THROW(
+      (clrs::data_structures::matrix::matrix<int>{{1, 2, 3}, {4, 5}}),
+      clrs::data_structures::matrix::matrix_exception);
+
+  clrs::data_structures::matrix::matrix<int> A(2, 2);
+  BOOST_CHECK_THROW((A = {{1, 2}, {3}}),
+                    clrs::data_structures::matrix::matrix_exception);
+}
+
+BOOST_AUTO_TEST_CASE(test_invalid_operands_throw) {
+  clrs::data_structures::matrix::matrix<int> A(2, 2), B(3, 3), C(2, 3);
+
+  BOOST_CHECK_THROW(A + B, clrs::data_structures::matrix::matrix_exception);
+  BOOST_CHECK_THROW(A - B, clrs::data_structures::matrix::matrix_exception);
+  BOOST_CHECK_THROW(A * B, clrs::data_structures::matrix::matrix_exception);
+  BOOST_CHECK_THROW(C.tr(), clrs::data_structures::matrix::matrix_exception);
+}
+
+BOOST_AUTO_TEST_CASE(test_assignment_resizes_target) {
+  clrs::data_structures::matrix::matrix<int> A(3, 3), B(2, 2);
+  A = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+  B = A;
+
+  BOOST_CHECK_EQUAL(A, B);
+  BOOST_CHECK_EQUAL(B.tr(), 15);
+}
+
+BOOST_AUTO_TEST_CASE(test_self_assignment) {
+  clrs::data_structures::matrix::matrix<int> A(3, 3);
+  A = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+  clrs::data_structures::matrix::matrix<int> const &alias = A;
+  A = alias;
+
+  BOOST_CHECK_EQUAL(A.tr(), 15);
+  BOOST_CHECK_EQUAL(A[0], 1);
+  BOOST_CHECK_EQUAL(A[8], 9);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(test_square_matrix)
@@ -153,6 +209,23 @@ BOOST_AUTO_TEST_CASE(test_square_tr) {
   A = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
   BOOST_CHECK_EQUAL(A.tr(), 15);
+}
+
+BOOST_AUTO_TEST_CASE(test_square_initializer_list_ctor) {
+  clrs::data_structures::matrix::square_matrix<int> A = {{1, 2}, {3, 4}};
+  clrs::data_structures::matrix::square_matrix<int> B(2);
+  B = {{1, 2}, {3, 4}};
+
+  BOOST_CHECK_EQUAL(A, B);
+  BOOST_CHECK_EQUAL(A.tr(), 5);
+}
+
+BOOST_AUTO_TEST_CASE(test_square_submatrix_of_non_power_of_two_throws) {
+  clrs::data_structures::matrix::square_matrix<int> A(3);
+  A = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+
+  BOOST_CHECK_THROW(A(0, 0),
+                    clrs::data_structures::matrix::matrix_exception);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

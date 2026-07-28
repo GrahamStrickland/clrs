@@ -47,10 +47,10 @@ where
     T: Copy,
     T: Ord,
 {
-    for i in 0..a.len() - 1 {
+    for i in 0..a.len().saturating_sub(1) {
         let mut smallest = i;
 
-        for j in i..a.len() {
+        for j in i + 1..a.len() {
             if a[j] < a[smallest] {
                 smallest = j;
             }
@@ -169,8 +169,8 @@ where
     T: Copy,
     T: Ord,
 {
-    for i in 0..a.len() - 1 {
-        for j in (i + 1..=a.len() - 1).rev() {
+    for i in 0..a.len().saturating_sub(1) {
+        for j in (i + 1..a.len()).rev() {
             if a[j] < a[j - 1] {
                 (a[j], a[j - 1]) = (a[j - 1], a[j]);
             }

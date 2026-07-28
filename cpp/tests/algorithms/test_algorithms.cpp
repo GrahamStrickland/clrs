@@ -70,6 +70,39 @@ BOOST_DATA_TEST_CASE(test_recursive_binary_search, test_cases, input_arr, nu,
   BOOST_CHECK_EQUAL(obs, exp);
 }
 
+BOOST_AUTO_TEST_CASE(test_binary_search_outside_bounds) {
+  std::array<int32_t, 8> input_arr{26, 31, 41, 41, 58, 59, 101, 104};
+  auto a = std::span(input_arr);
+
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::binary_search(a, 1), -1);
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::binary_search(a, 200), -1);
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::binary_search(a, 26), 0);
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::binary_search(a, 104), 7);
+
+  BOOST_CHECK_EQUAL(
+      clrs::algorithms::search::recursive_binary_search(a, 1, 0, a.size() - 1),
+      -1);
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::recursive_binary_search(
+                        a, 200, 0, a.size() - 1),
+                    -1);
+  BOOST_CHECK_EQUAL(
+      clrs::algorithms::search::recursive_binary_search(a, 26, 0, a.size() - 1),
+      0);
+  BOOST_CHECK_EQUAL(
+      clrs::algorithms::search::recursive_binary_search(a, 104, 0, a.size() - 1),
+      7);
+}
+
+BOOST_AUTO_TEST_CASE(test_search_empty_span) {
+  std::array<int32_t, 0> input_arr{};
+  auto a = std::span(input_arr);
+
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::binary_search(a, 1), -1);
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::linear_search(a, 1), -1);
+  BOOST_CHECK_EQUAL(
+      clrs::algorithms::search::recursive_binary_search(a, 1, 0, 0), -1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(test_sorting)
@@ -161,6 +194,68 @@ BOOST_DATA_TEST_CASE(test_count_inversions, test_count_inversions_cases,
       input_arr, 0, input_arr.size() - 1);
 
   BOOST_CHECK_EQUAL(exp_inversions, inversions);
+}
+
+BOOST_AUTO_TEST_CASE(test_insertion_sort_smallest_element_last) {
+  std::array<int32_t, 4> input_arr{4, 3, 2, 1};
+  std::array<int32_t, 4> const exp_arr{1, 2, 3, 4};
+  clrs::algorithms::sorting::insertion_sort(input_arr);
+
+  BOOST_CHECK_EQUAL(input_arr, exp_arr);
+}
+
+BOOST_AUTO_TEST_CASE(test_sorts_handle_empty_and_single_element_arrays) {
+  std::array<int32_t, 0> empty_arr{};
+  clrs::algorithms::sorting::insertion_sort(empty_arr);
+  clrs::algorithms::sorting::insertion_sort_reverse(empty_arr);
+  clrs::algorithms::sorting::bubble_sort(empty_arr);
+  clrs::algorithms::sorting::selection_sort(empty_arr);
+
+  BOOST_CHECK(empty_arr.empty());
+
+  std::array<int32_t, 1> single_arr{42};
+  clrs::algorithms::sorting::insertion_sort(single_arr);
+  clrs::algorithms::sorting::insertion_sort_reverse(single_arr);
+  clrs::algorithms::sorting::bubble_sort(single_arr);
+  clrs::algorithms::sorting::selection_sort(single_arr);
+
+  BOOST_CHECK_EQUAL(single_arr[0], 42);
+}
+
+BOOST_AUTO_TEST_CASE(test_merge_sorts_beyond_uint8_range) {
+  std::array<int32_t, 300> input_arr;
+  for (std::size_t i = 0; i < input_arr.size(); i++)
+    input_arr[i] = static_cast<int32_t>(input_arr.size() - i);
+
+  std::array<int32_t, 300> sentinel_arr = input_arr;
+  clrs::algorithms::sorting::merge_sort(sentinel_arr, 0,
+                                        sentinel_arr.size() - 1);
+  BOOST_CHECK(std::is_sorted(sentinel_arr.begin(), sentinel_arr.end()));
+
+  clrs::algorithms::sorting::merge_sort_no_sentinel(input_arr, 0,
+                                                    input_arr.size() - 1);
+  BOOST_CHECK(std::is_sorted(input_arr.begin(), input_arr.end()));
+}
+
+// Element values deliberately exceed INT_MAX so that an int-typed merge
+// sentinel would be smaller than the data it is meant to terminate.
+BOOST_AUTO_TEST_CASE(test_merge_sort_element_type_exceeding_int_max) {
+  std::array<double, 8> input_arr{5e9, 2e9, 7e9, 4e9, 6e9, 1e9, 3e9, 8e9};
+  std::array<double, 8> const exp_arr{1e9, 2e9, 3e9, 4e9, 5e9, 6e9, 7e9, 8e9};
+
+  std::array<double, 8> no_sentinel_arr = input_arr;
+  clrs::algorithms::sorting::merge_sort_no_sentinel(no_sentinel_arr, 0,
+                                                    no_sentinel_arr.size() - 1);
+  BOOST_CHECK(no_sentinel_arr == exp_arr);
+
+  clrs::algorithms::sorting::merge_sort(input_arr, 0, input_arr.size() - 1);
+  BOOST_CHECK(input_arr == exp_arr);
+
+  std::array<double, 5> inversions_arr{2e9, 3e9, 8e9, 6e9, 1e9};
+  auto inversions = clrs::algorithms::sorting::count_inversions(
+      inversions_arr, 0, inversions_arr.size() - 1);
+
+  BOOST_CHECK_EQUAL(inversions, std::size_t{5});
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -279,6 +374,66 @@ BOOST_AUTO_TEST_CASE(test_hybrid_max_subarray) {
   BOOST_CHECK_EQUAL(low, std::size_t{7});
   BOOST_CHECK_EQUAL(high, std::size_t{10});
   BOOST_CHECK_EQUAL(sum, 43);
+}
+
+namespace { // file static visibility
+using range_max_subarray_func_def =
+    std::tuple<std::size_t, std::size_t, int> (*)(std::vector<int>, std::size_t,
+                                                  std::size_t);
+
+range_max_subarray_func_def constexpr range_algorithms[] = {
+    clrs::algorithms::max_subarray::find_maximum_subarray,
+    clrs::algorithms::max_subarray::brute_force_find_max_subarray,
+    clrs::algorithms::max_subarray::find_maximum_subarray_non_recursive,
+    clrs::algorithms::max_subarray::hybrid_maximum_subarray};
+} // namespace
+
+BOOST_AUTO_TEST_CASE(test_max_subarray_single_element_maximum) {
+  std::vector<int> const a{-1, 5, -1};
+  std::tuple<std::size_t, std::size_t, int> const exp{1, 1, 5};
+
+  for (auto const algorithm : range_algorithms)
+    BOOST_CHECK(algorithm(a, 0, a.size() - 1) == exp);
+}
+
+BOOST_AUTO_TEST_CASE(test_max_subarray_all_negative_elements) {
+  std::vector<int> const a{-5, -2, -3};
+  std::tuple<std::size_t, std::size_t, int> const exp{1, 1, -2};
+
+  for (auto const algorithm : range_algorithms)
+    BOOST_CHECK(algorithm(a, 0, a.size() - 1) == exp);
+}
+
+BOOST_AUTO_TEST_CASE(test_max_subarray_leading_maximum) {
+  std::vector<int> const a{1, 2, -10, -10};
+  std::tuple<std::size_t, std::size_t, int> const exp{0, 1, 3};
+
+  for (auto const algorithm : range_algorithms)
+    BOOST_CHECK(algorithm(a, 0, a.size() - 1) == exp);
+}
+
+BOOST_AUTO_TEST_CASE(test_max_subarray_respects_subrange) {
+  std::vector<int> a(25, -1);
+  a[22] = 100;
+  a[23] = 100;
+  std::tuple<std::size_t, std::size_t, int> const exp{0, 0, -1};
+
+  for (auto const algorithm : range_algorithms)
+    BOOST_CHECK(algorithm(a, 0, 5) == exp);
+}
+
+// Exercises the recursive branch of hybrid_maximum_subarray (n_0 >= 20), whose
+// sub-problems must stay inside the requested range rather than restarting from
+// the whole vector.
+BOOST_AUTO_TEST_CASE(test_hybrid_max_subarray_recursive_branch) {
+  std::vector<int> a(60, -1);
+  a[5] = 500;
+  a[30] = 50;
+  a[31] = 50;
+  std::tuple<std::size_t, std::size_t, int> const exp{30, 31, 100};
+
+  for (auto const algorithm : range_algorithms)
+    BOOST_CHECK(algorithm(a, 6, 59) == exp);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

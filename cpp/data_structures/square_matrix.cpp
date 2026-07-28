@@ -84,7 +84,7 @@ square_matrix<T> square_matrix<T>::operator()(std::size_t m,
 
     return result;
   } else {
-    throw new matrix_exception("Invalid dimensions, matrix must have "
+    throw matrix_exception("Invalid dimensions, matrix must have "
                                "dimensions which are a power of 2");
   }
 }

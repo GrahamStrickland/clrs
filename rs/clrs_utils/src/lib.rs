@@ -1,8 +1,8 @@
 pub fn fmt_f64(num: f64, width: usize, precision: usize, exp_pad: usize) -> String {
     let mut numstr = format!("{:.precision$e}", num, precision = precision);
-    if numstr == "inf" {
+    if !num.is_finite() {
         return format!("{:>width$}", numstr, width = width);
-    } else if num.fract() == 0.0 && (num as i32) < i32::MAX {
+    } else if num.fract() == 0.0 && num.abs() < i32::MAX as f64 {
         return format!("{:>width$}", num as i64, width = width);
     }
     let idx = match numstr.find('e') {
@@ -51,5 +51,27 @@ mod tests {
             let res = fmt_f64(*num, 11, 5, 2);
             assert_eq!(res, String::from(*exp),);
         }
+    }
+
+    #[test]
+    fn test_fmt_f64_negatives_match_positives() {
+        let nums = [-62746.0, -133378058.0, -2755147513.0, -68654697441062.0];
+        let exps = [
+            "     -62746",
+            " -133378058",
+            "-2.75515e+09",
+            "-6.86547e+13",
+        ];
+
+        for (num, exp) in nums.iter().zip(exps.iter()) {
+            let res = fmt_f64(*num, 11, 5, 2);
+            assert_eq!(res, String::from(*exp));
+        }
+    }
+
+    #[test]
+    fn test_fmt_f64_non_finite() {
+        assert_eq!(fmt_f64(f64::INFINITY, 11, 5, 2), "        inf");
+        assert_eq!(fmt_f64(f64::NEG_INFINITY, 11, 5, 2), "       -inf");
     }
 }

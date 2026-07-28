@@ -2,6 +2,7 @@
 #define SORTING_H
 
 #include <array>
+#include <limits>
 #include <vector>
 
 namespace clrs {
@@ -13,7 +14,7 @@ template <typename T, std::size_t N> void bubble_sort(std::array<T, N> &a) {
   for (std::size_t i = 0; i < len; i++) {
     for (std::size_t j = len - 1; j >= i + 1; j--) {
       if (a[j] < a[j - 1]) {
-        int32_t temp = a[j];
+        T temp = a[j];
         a[j] = a[j - 1];
         a[j - 1] = temp;
       }
@@ -27,18 +28,16 @@ std::size_t merge_inversions(std::array<T, N> &a, std::size_t p, std::size_t q,
                              std::size_t r) {
   std::size_t n1 = q - p + 1, n2 = r - q;
 
-  std::vector<T> larr;
-  larr.reserve(n1 + 1);
-  std::vector<T> rarr;
-  rarr.reserve(n2 + 1);
+  std::vector<T> larr(n1 + 1);
+  std::vector<T> rarr(n2 + 1);
 
   for (std::size_t i = 0; i < n1; i++)
     larr[i] = a[p + i];
   for (std::size_t j = 0; j < n2; j++)
     rarr[j] = a[q + j + 1];
 
-  larr[n1] = INT_MAX;
-  rarr[n2] = INT_MAX;
+  larr[n1] = std::numeric_limits<T>::max();
+  rarr[n2] = std::numeric_limits<T>::max();
 
   std::size_t i = 0, j = 0, inversions = 0;
   bool counted = false;
@@ -82,14 +81,12 @@ template <typename T, std::size_t N> void insertion_sort(std::array<T, N> &a) {
     T key = a[j];
 
     // Insert A[j] into the sorted sequence A[1..j-1]
-    std::size_t i = j - 1;
-    while (i >= 0 && a[i] > key) {
-      T tmp = a[i + 1];
-      a[i + 1] = a[i];
-      a[i] = tmp;
+    std::size_t i = j;
+    while (i > 0 && a[i - 1] > key) {
+      a[i] = a[i - 1];
       i--;
     }
-    a[i + 1] = key;
+    a[i] = key;
   }
 }
 
@@ -114,18 +111,16 @@ template <typename T, std::size_t N>
 void merge(std::array<T, N> &a, std::size_t p, std::size_t q, std::size_t r) {
   std::size_t n1 = q - p + 1, n2 = r - q;
 
-  std::vector<T> larr;
-  larr.reserve(n1 + 1);
-  std::vector<T> rarr;
-  rarr.reserve(n2 + 1);
+  std::vector<T> larr(n1 + 1);
+  std::vector<T> rarr(n2 + 1);
 
   for (std::size_t i = 0; i < n1; i++)
     larr[i] = a[p + i];
   for (std::size_t j = 0; j < n2; j++)
     rarr[j] = a[q + j + 1];
 
-  larr[n1] = INT_MAX;
-  rarr[n2] = INT_MAX;
+  larr[n1] = std::numeric_limits<T>::max();
+  rarr[n2] = std::numeric_limits<T>::max();
 
   std::size_t i = 0, j = 0;
 
@@ -156,10 +151,8 @@ void merge_no_sentinel(std::array<T, N> &a, std::size_t p, std::size_t q,
                        std::size_t r) {
   std::size_t n1 = q - p + 1, n2 = r - q;
 
-  std::vector<T> larr;
-  larr.reserve(n1 + 1);
-  std::vector<T> rarr;
-  rarr.reserve(n2 + 1);
+  std::vector<T> larr(n1 + 1);
+  std::vector<T> rarr(n2 + 1);
 
   for (std::size_t i = 0; i < n1; i++)
     larr[i] = a[p + i];
@@ -192,7 +185,7 @@ void merge_no_sentinel(std::array<T, N> &a, std::size_t p, std::size_t q,
 template <typename T, std::size_t N>
 void merge_sort_no_sentinel(std::array<T, N> &a, std::size_t p, std::size_t r) {
   if (p < r) {
-    uint8_t q = (p + r) / 2;
+    std::size_t q = (p + r) / 2;
     merge_sort_no_sentinel<T, N>(a, p, q);
     merge_sort_no_sentinel<T, N>(a, q + 1, r);
     merge_no_sentinel<T, N>(a, p, q, r);
@@ -204,7 +197,7 @@ template <typename T, std::size_t N> void selection_sort(std::array<T, N> &a) {
   std::size_t smallest;
   auto len = a.size();
 
-  for (std::size_t i = 0; i < len - 1; i++) {
+  for (std::size_t i = 0; i + 1 < len; i++) {
     smallest = i;
 
     for (std::size_t j = i + 1; j < len; j++)

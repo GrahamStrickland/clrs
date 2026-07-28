@@ -2,23 +2,34 @@
 
 \begin{algorithmic}[1]
   \TITLE{\textsc{Find-Maximum-Subarray}$(A, \mathit{low}, \mathit{high})$}
-  \STATE $j = \mathit{low} + 1$
-  \STATE $\mathit{maxLow} = 1$
-  \STATE $\mathit{maxHigh} = 2$
-  \STATE $\mathit{maxValue} = A[\mathit{low}] + A[j]$
-  \STATE $\mathit{currentValue} = \mathit{maxValue}$
-  \WHILE{$j < \mathit{high}$}
-  \STATE $\mathit{currentValue} = A[j + 1]$
-  \FOR{$i = j \: \mathbf{downto} \: \mathit{low}$}
-  \STATE $\mathit{currentValue} = \mathit{currentValue} + A[i]$
-  \IF{$\mathit{maxValue} < \mathit{currentValue}$}
-  \STATE $\mathit{maxLow} = i$
-  \STATE $\mathit{maxHigh} = j + 1$
-  \STATE $\mathit{maxValue} = \mathit{currentValue}$
+  \STATE $\mathit{maxLow} = \mathit{low}$
+  \STATE $\mathit{maxHigh} = \mathit{low}$
+  \STATE $\mathit{maxSum} = A[\mathit{low}]$
+  \STATE $\mathit{currentLow} = \mathit{low}$
+  \STATE $\mathit{currentSum} = A[\mathit{low}]$
+  \FOR{$j = \mathit{low} + 1$ \TO $\mathit{high}$}
+  \IF{$\mathit{currentSum} > 0$}
+  \STATE $\mathit{currentSum} = \mathit{currentSum} + A[j]$
+  \ELSE
+  \STATE $\mathit{currentLow} = j$
+  \STATE $\mathit{currentSum} = A[j]$
+  \ENDIF
+
+  \IF{$\mathit{currentSum} > \mathit{maxSum}$}
+  \STATE $\mathit{maxSum} = \mathit{currentSum}$
+  \STATE $\mathit{maxLow} = \mathit{currentLow}$
+  \STATE $\mathit{maxHigh} = j$
   \ENDIF
   \ENDFOR
-  \STATE $j = j + 1$
-  \ENDWHILE
 
-  \RETURN $(\mathit{maxLow}, \mathit{maxHigh}, \mathit{maxValue})$
+  \RETURN $(\mathit{maxLow}, \mathit{maxHigh}, \mathit{maxSum})$
 \end{algorithmic}
+
+The \textbf{for} loop of lines 6--16 extends the maximum subarray ending at
+$j - 1$ by $A[j]$ whenever that running sum is still positive, and otherwise
+begins a fresh subarray at $j$. Since each element is examined exactly once,
+the running time is $\Theta(n)$.
+
+Note that $\mathit{maxSum}$ is initialised to $A[\mathit{low}]$ rather than to
+the sum of the first two elements, so that a single element is a valid answer
+and an array of entirely negative values returns its largest element.

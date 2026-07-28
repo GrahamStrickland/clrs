@@ -5,24 +5,32 @@
     \textbf{for} loop that runs $n$ times.
   \item[\textbf{b.}]
     \begin{algorithmic}[1]
-      \TITLE{\textsc{Horners-Rule}$(a_1 \ltwodots a_n, n, x)$}
+      \TITLE{\textsc{Naive-Polynomial-Evaluation}$(a_0 \ltwodots a_n, n, x)$}
       \STATE $y = 0$
-      \FOR{$i = n \: \mathbf{downto} \: 0$}
-      \STATE $\mathit{temp} = x$
-      \FOR{$j = i \: \mathbf{downto} \: 0$}
+      \FOR{$i = 0$ \TO $n$}
+      \STATE $\mathit{temp} = 1$
+      \FOR{$j = 1$ \TO $i$}
       \STATE $\mathit{temp} = \mathit{temp} \cdot x$
       \ENDFOR
-      \STATE $y = a_i \cdot temp + y$
+      \STATE $y = y + a_i \cdot \mathit{temp}$
       \ENDFOR
       \RETURN $y$
     \end{algorithmic}
-    The running time of this algorithm is $\Theta(n^2)$, since the outer
-    \textbf{for} loop of lines 2-6 runs $n$ times and for each execution of
-    this loop, the inner \textbf{for} loop of lines 4-5 runs $n - i$ times,
-    where $i$ is the value of the loop iteration variable declared in line 2
-    of that iteration.
+    The inner \textbf{for} loop of lines 4-5 must run exactly $i$ times starting
+    from $\mathit{temp} = 1$, so that $\mathit{temp} = x^i$ when it terminates
+    and the term added in line 6 is $a_i x^i$.
 
-    Cleary this algorithm has a much greater running time than Horner's rule.
+    The running time of this algorithm is $\Theta(n^2)$, since the outer
+    \textbf{for} loop of lines 2-6 runs $n + 1$ times and for each execution of
+    this loop, the inner \textbf{for} loop of lines 4-5 runs $i$ times, where
+    $i$ is the value of the loop iteration variable declared in line 2 of that
+    iteration, giving
+    \[
+      \sum_{i = 0}^n i = \frac{n(n + 1)}{2}
+    \]
+    multiplications in total.
+
+    Clearly this algorithm has a much greater running time than Horner's rule.
   \item[\textbf{c.}]
     \begin{proof}
       \begin{description}

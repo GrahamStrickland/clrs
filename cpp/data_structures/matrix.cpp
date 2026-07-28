@@ -17,53 +17,38 @@ template <typename T> matrix<T>::matrix(std::size_t rows, std::size_t cols) {
 }
 
 template <typename T> matrix<T>::matrix(const matrix<T> &src) {
-  if (this != &src) {
-    m_rows = src.m_rows;
-    m_cols = src.m_cols;
-    m_data = new T[src.m_rows * src.m_cols];
+  m_rows = src.m_rows;
+  m_cols = src.m_cols;
+  m_data = new T[src.m_rows * src.m_cols];
 
-    for (std::size_t row = 0; row < src.m_rows; row++) {
-      for (std::size_t col = 0; col < src.m_cols; col++)
-        m_data[row * m_cols + col] = src.m_data[row * src.m_cols + col];
-    }
-  } else {
-    m_rows = 0;
-    m_cols = 0;
-    m_data = nullptr;
+  for (std::size_t row = 0; row < src.m_rows; row++) {
+    for (std::size_t col = 0; col < src.m_cols; col++)
+      m_data[row * m_cols + col] = src.m_data[row * src.m_cols + col];
   }
 }
 
 template <typename T>
 matrix<T>::matrix(const std::initializer_list<std::initializer_list<T>> &src) {
-  try {
-    m_rows = static_cast<int>(src.size());
-    m_cols = 0;
-    m_data = new T[m_rows * m_cols];
+  m_rows = src.size();
+  m_cols = m_rows > 0 ? src.begin()->size() : 0;
 
-    std::size_t i = 0;
+  for (const auto &row : src)
+    if (row.size() != m_cols)
+      throw matrix_exception(
+          "Invalid dimensions for operands passed to constructor");
 
-    for (const auto &row : src) {
-      if (i < m_rows - 1) {
-        std::size_t j = 0;
-        if (i == 0)
-          m_cols = static_cast<std::size_t>(row.size());
-        else if (m_cols != static_cast<std::size_t>(row.size()))
-          throw new matrix_exception(
-              "Invalid dimensions for operands passed to constructor");
+  m_data = new T[m_rows * m_cols];
 
-        for (const auto &element : row) {
-          if (j < m_cols - 1) {
-            m_data[i * m_cols + j] = element;
-            ++j;
-          }
-        }
-        ++i;
-      }
+  std::size_t i = 0;
+
+  for (const auto &row : src) {
+    std::size_t j = 0;
+
+    for (const auto &element : row) {
+      m_data[i * m_cols + j] = element;
+      ++j;
     }
-  } catch (std::runtime_error e) {
-    throw new matrix_exception(
-        std::string("Invalid operand passed to constructor: ") +
-        std::string(e.what()));
+    ++i;
   }
 }
 
@@ -84,34 +69,49 @@ template <typename T> bool matrix<T>::operator==(const matrix<T> &src) const {
 template <typename T>
 matrix<T> &matrix<T>::operator=(
     const std::initializer_list<std::initializer_list<T>> &src) {
-  try {
-    std::size_t i = 0;
+  std::size_t rows = src.size();
+  std::size_t cols = rows > 0 ? src.begin()->size() : 0;
 
-    for (const auto &row : src) {
-      std::size_t j = 0;
+  for (const auto &row : src)
+    if (row.size() != cols)
+      throw matrix_exception("Invalid operand passed to = operator");
 
-      for (const auto &element : row) {
-        m_data[i * m_cols + j] = element;
-        ++j;
-      }
-      ++i;
-      m_cols = j;
+  T *data = new T[rows * cols];
+  std::size_t i = 0;
+
+  for (const auto &row : src) {
+    std::size_t j = 0;
+
+    for (const auto &element : row) {
+      data[i * cols + j] = element;
+      ++j;
     }
-    m_rows = i;
-  } catch (std::runtime_error e) {
-    throw new matrix_exception(
-        std::string("Invalid operand passed to = operator: ") +
-        std::string(e.what()));
+    ++i;
   }
+
+  delete[] m_data;
+  m_data = data;
+  m_rows = rows;
+  m_cols = cols;
 
   return *this;
 }
 
 template <typename T> matrix<T> &matrix<T>::operator=(const matrix<T> &src) {
-  if (this != &src && m_rows == src.m_rows && m_cols == src.m_cols)
-    for (std::size_t row = 0; row < src.m_rows; row++)
-      for (std::size_t col = 0; col < src.m_cols; col++)
-        m_data[row * m_cols + col] = src.m_data[row * src.m_cols + col];
+  if (this == &src)
+    return *this;
+
+  if (m_rows != src.m_rows || m_cols != src.m_cols) {
+    T *data = new T[src.m_rows * src.m_cols];
+    delete[] m_data;
+    m_data = data;
+    m_rows = src.m_rows;
+    m_cols = src.m_cols;
+  }
+
+  for (std::size_t row = 0; row < src.m_rows; row++)
+    for (std::size_t col = 0; col < src.m_cols; col++)
+      m_data[row * m_cols + col] = src.m_data[row * src.m_cols + col];
 
   return *this;
 }
@@ -128,7 +128,7 @@ matrix<T> matrix<T>::operator+(const matrix<T> &src) const {
 
     return result;
   } else {
-    throw new matrix_exception(
+    throw matrix_exception(
         "Invalid dimensions for operands passed to + operator");
   }
 }
@@ -145,7 +145,7 @@ matrix<T> matrix<T>::operator-(const matrix<T> &src) const {
 
     return result;
   } else {
-    throw new matrix_exception(
+    throw matrix_exception(
         "Invalid dimensions for operands passed to - operator");
   }
 }
@@ -167,7 +167,7 @@ matrix<T> matrix<T>::operator*(const matrix<T> &src) const {
 
     return result;
   } else {
-    throw new matrix_exception(
+    throw matrix_exception(
         "Invalid dimensions for operands passed to * operator");
   }
 }
@@ -185,7 +185,7 @@ template <typename T> T matrix<T>::tr() {
 
     return tr;
   } else {
-    throw new matrix_exception(
+    throw matrix_exception(
         "Invalid dimensions, only valid for square matrices");
   }
 }

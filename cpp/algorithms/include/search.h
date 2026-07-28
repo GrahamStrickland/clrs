@@ -10,17 +10,17 @@ template <typename T, std::size_t N, typename V>
 // Binary-Search algorithm from ex. 2.3-5 from p.39 of CLRS 3e
 int binary_search(std::span<T, N> a, V const &nu) {
   std::size_t low = 0;
-  std::size_t high = a.size() - 1;
+  std::size_t high = a.size();
 
-  while (low <= high) {
+  while (low < high) {
     std::size_t mid = low + (high - low) / 2;
 
     if (nu == a[mid])
-      return mid;
+      return static_cast<int>(mid);
     else if (nu > a[mid])
       low = mid + 1;
     else
-      high = mid - 1;
+      high = mid;
   }
 
   return -1;
@@ -33,7 +33,7 @@ int linear_search(std::span<T, N> a, V const &nu) {
 
   while (j != a.size()) {
     if (a[j] == nu)
-      return j;
+      return static_cast<int>(j);
     else
       j += 1;
   }
@@ -45,13 +45,15 @@ int linear_search(std::span<T, N> a, V const &nu) {
 template <typename T, std::size_t N, typename V>
 int recursive_binary_search(std::span<T, N> a, V const &nu,
                           std::size_t const &low, std::size_t const &high) {
-  if (low > high)
+  if (a.empty() || low > high || high >= a.size())
     return -1;
   std::size_t mid = low + (high - low) / 2;
   if (nu == a[mid])
-    return mid;
+    return static_cast<int>(mid);
   else if (nu > a[mid])
     return recursive_binary_search(a, nu, mid + 1, high);
+  else if (mid == 0)
+    return -1;
   else
     return recursive_binary_search(a, nu, low, mid - 1);
 }

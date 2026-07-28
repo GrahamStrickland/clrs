@@ -8,6 +8,10 @@ namespace algorithms {
 namespace max_subarray {
 // Brute-Force-Maximum-Subarray algorithm from ex. 4.1-2 p.74 of CLRS 3e
 std::tuple<std::size_t, std::size_t, int>
+brute_force_find_max_subarray(std::vector<int> a, std::size_t low,
+                              std::size_t high);
+
+std::tuple<std::size_t, std::size_t, int>
 brute_force_find_max_subarray(std::vector<int> a);
 
 // Find-Maximum-Subarray algorithm from p.71-72 of CLRS 3e

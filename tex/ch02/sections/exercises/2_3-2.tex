@@ -4,7 +4,7 @@
   \TITLE{\textsc{Merge}$(A, p, q, r)$}
   \STATE $n_1 = q - p + 1$
   \STATE $n_2 = r - q$
-  \STATE let $L[1\ltwodots n_1 + 1]$ and $R[1\ltwodots n_2 + 1]$ be new arrays
+  \STATE let $L[1\ltwodots n_1]$ and $R[1\ltwodots n_2]$ be new arrays
   \FOR{$i = 1$ \TO $n_1$}
   \STATE $L[i] = A[p + i - 1]$
   \ENDFOR
@@ -15,12 +15,24 @@
   \STATE $j = 1$
 
   \FOR{$k = p$ \TO $r$}
-  \IF{$i \leq n_1 + 1$ and $L[i] \leq R[j]$}
+  \IF{$i > n_1$}
+  \STATE $A[k] = R[j]$
+  \STATE $j = j + 1$
+  \ELSIF{$j > n_2$}
   \STATE $A[k] = L[i]$
   \STATE $i = i + 1$
-  \ELSIF{$A[k] == R[j]$}
+  \ELSIF{$L[i] \leq R[j]$}
+  \STATE $A[k] = L[i]$
+  \STATE $i = i + 1$
+  \ELSE
+  \STATE $A[k] = R[j]$
   \STATE $j = j + 1$
   \ENDIF
   \ENDFOR
 \end{algorithmic}
+
+Without the sentinels, $L$ and $R$ hold exactly $n_1$ and $n_2$ elements, and
+the \textbf{for} loop of lines 10-21 must first test whether either array has
+been exhausted before comparing $L[i]$ with $R[j]$. Once one array is spent,
+the remaining elements of the other are copied across unconditionally.
 

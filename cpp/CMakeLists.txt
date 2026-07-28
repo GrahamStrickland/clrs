@@ -11,6 +11,12 @@ set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++26 -pedantic -Wall -Wextra -Werror")
 
+option(ENABLE_SANITIZERS "Build with the address and undefined behaviour sanitizers" OFF)
+if(ENABLE_SANITIZERS)
+    add_compile_options(-fsanitize=address,undefined -fno-omit-frame-pointer)
+    add_link_options(-fsanitize=address,undefined)
+endif()
+
 include(CTest)
 
 add_subdirectory(algorithms)

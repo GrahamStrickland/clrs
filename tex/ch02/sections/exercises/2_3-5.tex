@@ -4,7 +4,7 @@
   \TITLE{\textsc{Binary-Search}$(A, \nu)$}
   \STATE $\mathit{low} = 1$
   \STATE $\mathit{high} = A.\mathit{length}$
-  \WHILE{$\mathit{low} < \mathit{high}$}
+  \WHILE{$\mathit{low} \leq \mathit{high}$}
   \STATE $\mathit{mid} = \floor{\frac{\mathit{high} + \mathit{low}}{2}}$
   \IF{$A[\mathit{mid}] == \nu$}
   \RETURN $\mathit{mid}$
@@ -21,7 +21,10 @@
 Suppose we have an array $A$ of length $n$. Then, in the worst case,
 we loop through
 the \textbf{while} loop of \textsc{Binary-Search} (lines 3-9) until
-$\mathit{low} = \mathit{high}$ and return -1, so that $\nu$ is not in $A$. If we
+$\mathit{low} > \mathit{high}$ and return -1, so that $\nu$ is not in $A$. The
+comparison of line 3 must be $\mathit{low} \leq \mathit{high}$ rather than
+$\mathit{low} < \mathit{high}$, since otherwise a one-element range is never
+examined and the search misses any $\nu$ that lies in it. If we
 continually divide $n$ by 2, and $n$ is a power of 2, then we will execute
 \[
   \floor{\frac{\mathit{high} - \mathit{low}}{2}}

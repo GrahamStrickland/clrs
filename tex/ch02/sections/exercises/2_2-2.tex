@@ -4,18 +4,26 @@
   \TITLE{\textsc{Selection-Sort}$(A)$}
   \FOR{$i = 1$ \TO $A.\mathit{length} - 1$}
   \STATE $\mathit{smallest} = i$
-  \FOR{$j = i$ \TO $A.\mathit{length}$}
+  \FOR{$j = i + 1$ \TO $A.\mathit{length}$}
   \IF{$A[j] < A[\mathit{smallest}]$}
   \STATE $\mathit{smallest} = j$
   \ENDIF
   \ENDFOR
-  \STATE $A[\mathit{smallest}] = A[i]$
+  \STATE exchange $A[i]$ with $A[\mathit{smallest}]$
   \ENDFOR
 \end{algorithmic}
 
-The \textbf{for} loop from lines 2-8 maintains the loop invariant
+The \textbf{for} loop from lines 1-6 maintains the loop invariant
 that $A[1\ltwodots i-1]$
 contains sorted elements in ascending order.
+
+Line 6 must exchange the two elements rather than merely assign $A[i]$ to
+$A[\mathit{smallest}]$, which would overwrite the smallest element and lose the
+value it replaced.
+
+The inner \textbf{for} loop of lines 3-5 may begin at $j = i + 1$, since
+$\mathit{smallest}$ is initialised to $i$ and the comparison of $A[i]$ with
+itself can never succeed.
 
 The algorithm only needs to run for the the first $n - 1$ elements
 since the $n$th
@@ -25,7 +33,7 @@ in $A[1\ltwodots n]$ has been sorted.
 
 Since there is no \textbf{while} loop and each search for the
 smallest item in the subarray
-$A[i + 1\ltwodots n - 1]$ must occur, the best and wors-case running
+$A[i + 1\ltwodots n]$ must occur, the best and worst-case running
 times are the same,
 i.e., $\Theta(n^2)$.
 

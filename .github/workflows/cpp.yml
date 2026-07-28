@@ -36,3 +36,17 @@ jobs:
     - name: Test with CTest
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
+
+    - name: Configure CMake with sanitizers
+      run: >
+        cmake -B ${{ steps.strings.outputs.build-output-dir }}-asan
+        -DCMAKE_CXX_COMPILER=clang++
+        -DENABLE_SANITIZERS=ON
+        -S ${{ github.workspace }}/cpp/
+
+    - name: Build with sanitizers
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }}-asan
+
+    - name: Test with CTest under sanitizers
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}-asan
+      run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure

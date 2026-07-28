@@ -1,26 +1,31 @@
 % Exercise 4.1-2
 
 \begin{algorithmic}[1]
-  \TITLE{\textsc{Brute-Force-Maximum-Subarray}$(A)$}
-  \STATE $\mathit{low} = 0$
-  \STATE $\mathit{high} = 1$
+  \TITLE{\textsc{Brute-Force-Maximum-Subarray}$(A, \mathit{low}, \mathit{high})$}
+  \STATE $\mathit{maxLow} = \mathit{low}$
+  \STATE $\mathit{maxHigh} = \mathit{low}$
+  \STATE $\mathit{maxSum} = A[\mathit{low}]$
+  \FOR{$i = \mathit{low}$ \TO $\mathit{high}$}
   \STATE $\mathit{sum} = 0$
-  \STATE $\mathit{maxSum} = 0$
-  \STATE $\mathit{first} = \mathit{low}$
-  \STATE $\mathit{last} = \mathit{high}$
-  \WHILE{$\mathit{low} < A.\mathit{length} - 1$}
-  \WHILE{$\mathit{high} < A.\mathit{length}$}
-  \STATE $\mathit{sum} = \mathit{sum} + A[\mathit{high}] - A[\mathit{low}]$
+  \FOR{$j = i$ \TO $\mathit{high}$}
+  \STATE $\mathit{sum} = \mathit{sum} + A[j]$
   \IF{$\mathit{sum} > \mathit{maxSum}$}
   \STATE $\mathit{maxSum} = \mathit{sum}$
-  \STATE $\mathit{first} = \mathit{low}$
-  \STATE $\mathit{last} = \mathit{high}$
+  \STATE $\mathit{maxLow} = i$
+  \STATE $\mathit{maxHigh} = j$
   \ENDIF
-  \STATE $\mathit{high} = \mathit{high} + 1$
-  \ENDWHILE
-  \STATE $\mathit{low} = \mathit{low} + 1$
-  \STATE $\mathit{high} = \mathit{low} + 1$
-  \ENDWHILE
+  \ENDFOR
+  \ENDFOR
 
-  \RETURN $(\mathit{first}, \mathit{last}, \mathit{maxSum})$
+  \RETURN $(\mathit{maxLow}, \mathit{maxHigh}, \mathit{maxSum})$
 \end{algorithmic}
+
+The running sum is reset at the start of each iteration of the outer
+\textbf{for} loop of lines 4--11, so that $\mathit{sum}$ always holds the value
+of the subarray $A[i \ltwodots j]$. Since the outer loop runs $n$ times and the
+inner \textbf{for} loop of lines 6--10 runs at most $n$ times, the running time
+is $\Theta(n^2)$.
+
+As in exercise 4.1-5, $\mathit{maxSum}$ is initialised to $A[\mathit{low}]$
+rather than to 0, so that the algorithm returns the largest element of an array
+whose entries are all negative.

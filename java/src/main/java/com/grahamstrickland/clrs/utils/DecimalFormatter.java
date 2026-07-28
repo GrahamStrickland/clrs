@@ -5,7 +5,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class DecimalFormatter {
-    /** Maximum fraction digits kept in either notation, i.e. six significant figures. */
+    /** Maximum fraction digits kept in either notation. */
     private final static int MAX_FRACTION_DIGITS = 5;
 
     private final static String SCIENTIFIC_PATTERN =
@@ -15,11 +15,13 @@ public class DecimalFormatter {
 
     /**
      * Format a double to scientific notation when its exponent falls outside [-4, 6),
-     * and to plain notation otherwise, keeping at most six significant figures either
-     * way. The result is right-aligned in a field of the given width.
+     * and to plain notation otherwise. Scientific notation keeps at most six significant
+     * figures; plain notation keeps at most five fraction digits, so its significant
+     * figures vary with magnitude. The result is right-aligned in a field of the given
+     * width.
      *
-     * @param width field width to pad to; the result is longer than this only if six
-     *              significant figures cannot fit
+     * @param width field width to pad to; the result is longer than this only if the
+     *              formatted value cannot fit
      * @throws IllegalArgumentException if width is not positive
      */
     public static String formatDouble(double value, int width) {

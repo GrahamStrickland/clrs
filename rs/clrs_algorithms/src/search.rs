@@ -24,9 +24,9 @@ where
     T: Ord,
 {
     let mut low = 0;
-    let mut high = a.len() - 1;
+    let mut high = a.len();
 
-    while low <= high {
+    while low < high {
         let mid = low + (high - low) / 2;
 
         if a[mid] == *nu {
@@ -34,7 +34,7 @@ where
         } else if a[mid] < *nu {
             low = mid + 1;
         } else {
-            high = mid - 1;
+            high = mid;
         }
     }
 

@@ -64,3 +64,6 @@ $HOME
 *.classpath
 *.mvn
 *.settings/
+
+# Sanitizer build directory
+**/build-asan

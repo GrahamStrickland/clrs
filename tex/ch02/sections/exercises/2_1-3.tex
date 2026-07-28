@@ -3,7 +3,7 @@
 \begin{algorithmic}[1]
   \TITLE{\textsc{Linear-Search}$(A, \nu)$}
   \STATE $j = 1$
-  \WHILE{$j \neq A.\mathit{length}$}
+  \WHILE{$j \leq A.\mathit{length}$}
   \IF{$A[j] == \nu$}
   \RETURN $j$
   \ELSE
@@ -26,8 +26,10 @@
     $A[j]$ is in $A$.
   \item[Termination:] If the \textbf{while} loop terminates, then either the
     \textbf{if} condition in line 3 is true, so that $A[j] = \nu$ or
-    $j = A.\mathit{length}$, at which point we return the special value
-    \textrm{NIL}.
+    $j > A.\mathit{length}$, at which point we return the special value
+    \textrm{NIL}. The loop condition must be $j \leq A.\mathit{length}$ rather
+    than $j \neq A.\mathit{length}$, since the latter halts before $A[n]$ is
+    ever compared with $\nu$.
 \end{description}
 
 Thus the algorithm is correct, since the loop invariant is initialised and

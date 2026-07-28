@@ -72,18 +72,23 @@
     using the following algorithms:
 
     \begin{algorithmic}[1]
-      \TITLE{\textsc{Count-Inversions}$(A, p, r, \mathit{inversions})$}
+      \TITLE{\textsc{Count-Inversions}$(A, p, r)$}
+      \STATE $\mathit{inversions} = 0$
       \IF{$p < r$}
       \STATE $q = \floor{(p + r)/2}$
       \STATE $\mathit{inversions} = \mathit{inversions} + {}$ \\
-      \hspace*{2em}$\textsc{Count-Inversions}(A, p, q, \mathit{inversions})$
+      \hspace*{2em}$\textsc{Count-Inversions}(A, p, q)$
       \STATE $\mathit{inversions} = \mathit{inversions} + {}$ \\
-      \hspace*{2em}$\textsc{Count-Inversions}(A, q + 1, r, \mathit{inversions})$
-      \STATE $\mathit{inversions}
-      = \textsc{Merge-Inversions}(A, p, q, r) + \mathit{inverions}$
+      \hspace*{2em}$\textsc{Count-Inversions}(A, q + 1, r)$
+      \STATE $\mathit{inversions} = \mathit{inversions} + {}$ \\
+      \hspace*{2em}$\textsc{Merge-Inversions}(A, p, q, r)$
       \ENDIF
       \RETURN $\mathit{inversions}$
     \end{algorithmic}
+
+    The running total must be local to each invocation rather than passed in as
+    a parameter; threading it through the recursive calls and then adding the
+    result to it again would count every inversion of a subarray twice.
 
     Since the algorithm is based entirely upon \textsc{Merge-Sort},
     with almost the

@@ -56,16 +56,16 @@ pub fn find_maximum_subarray(a: &[i32], low: usize, high: usize) -> (usize, usiz
 // Brute-Force-Maximum-Subarray algorithm from ex. 4.1-2 p.74 of CLRS 3e
 pub fn brute_force_find_maximum_subarray(
     a: &[i32],
-    _low: usize,
-    _high: usize,
+    low: usize,
+    high: usize,
 ) -> (usize, usize, i32) {
-    let mut max_low = 0;
-    let mut max_high = 0;
-    let mut max_sum = a[0];
+    let mut max_low = low;
+    let mut max_high = low;
+    let mut max_sum = a[low];
 
-    for i in 0..a.len() {
+    for i in low..=high {
         let mut current_sum = 0;
-        (i..a.len()).for_each(|j| {
+        (i..=high).for_each(|j| {
             current_sum += a[j];
             if current_sum > max_sum {
                 max_sum = current_sum;
@@ -84,20 +84,26 @@ pub fn find_maximum_subarray_non_recursive(
     low: usize,
     high: usize,
 ) -> (usize, usize, i32) {
-    let mut j = low + 1;
-    let mut max_subarray = (low, high, a[low] + a[j]);
-    let mut current_val;
+    let mut max_low = low;
+    let mut max_high = low;
+    let mut max_sum = a[low];
+    let mut current_low = low;
+    let mut current_sum = a[low];
 
-    while j < high {
-        current_val = a[j + 1];
-        for i in (low..=j).rev() {
-            current_val += a[i];
-            if max_subarray.2 < current_val {
-                max_subarray = (i, j + 1, current_val);
-            }
+    for j in (low + 1)..=high {
+        if current_sum > 0 {
+            current_sum += a[j];
+        } else {
+            current_low = j;
+            current_sum = a[j];
         }
-        j += 1;
+
+        if current_sum > max_sum {
+            max_sum = current_sum;
+            max_low = current_low;
+            max_high = j;
+        }
     }
 
-    max_subarray
+    (max_low, max_high, max_sum)
 }

@@ -282,14 +282,84 @@ mod tests {
     use super::polynomials::horners_rule;
     #[test]
     fn test_horners_rule() {
-        assert_eq!(horners_rule(vec![1.0], 0, 0.0), 1.0);
-        assert_eq!(horners_rule(vec![1.0, 2.0], 1, 1.0), 3.0);
-        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 1.0), 6.0);
-        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 0.0), 1.0);
-        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 2.0), 17.0);
-        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2, 0.01), 1.0203);
-        assert_eq!(horners_rule(vec![1.0, 1.0, 1.0], 2, 0.01), 1.0101);
-        assert_eq!(horners_rule(vec![1.0, -1.0, 1.0], 2, 0.01), 0.9901);
-        assert_eq!(horners_rule(vec![-1.0, -1.0, -1.0], 2, 0.01), -1.0101);
+        assert_eq!(horners_rule(vec![1.0], 0.0), 1.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0], 1.0), 3.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 1.0), 6.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 0.0), 1.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 2.0), 17.0);
+        assert_eq!(horners_rule(vec![1.0, 2.0, 3.0], 0.01), 1.0203);
+        assert_eq!(horners_rule(vec![1.0, 1.0, 1.0], 0.01), 1.0101);
+        assert_eq!(horners_rule(vec![1.0, -1.0, 1.0], 0.01), 0.9901);
+        assert_eq!(horners_rule(vec![-1.0, -1.0, -1.0], 0.01), -1.0101);
+    }
+
+    #[test]
+    fn test_binary_search_outside_bounds() {
+        let a = [26i32, 31, 41, 41, 58, 59, 101, 104];
+
+        assert_eq!(binary_search::<i32>(&a, &1), None);
+        assert_eq!(binary_search::<i32>(&a, &200), None);
+        assert_eq!(binary_search::<i32>(&a, &26), Some(0));
+        assert_eq!(binary_search::<i32>(&a, &104), Some(7));
+    }
+
+    #[test]
+    fn test_search_empty_slice() {
+        let a: [i32; 0] = [];
+
+        assert_eq!(binary_search::<i32>(&a, &1), None);
+        assert_eq!(linear_search::<i32>(&a, &1), None);
+    }
+
+    #[test]
+    fn test_sorts_handle_empty_and_single_element_slices() {
+        let sorts: [fn(&mut [i32]); 4] = [
+            insertion_sort,
+            insertion_sort_reverse,
+            selection_sort,
+            bubble_sort,
+        ];
+
+        for sort in sorts {
+            let mut empty: [i32; 0] = [];
+            sort(&mut empty);
+            assert!(empty.is_empty());
+
+            let mut single = [42i32];
+            sort(&mut single);
+            assert_eq!(single, [42]);
+        }
+    }
+
+    const RANGE_MAX_SUBARRAY_ALGORITHMS: [fn(&[i32], usize, usize) -> (usize, usize, i32); 3] = [
+        find_maximum_subarray,
+        brute_force_find_maximum_subarray,
+        find_maximum_subarray_non_recursive,
+    ];
+
+    #[test]
+    fn test_max_subarray_edge_cases() {
+        let cases: [(&[i32], (usize, usize, i32)); 3] = [
+            (&[1, 2, -10, -10], (0, 1, 3)),
+            (&[-1, 5, -1], (1, 1, 5)),
+            (&[-5, -2, -3], (1, 1, -2)),
+        ];
+
+        for (a, exp) in cases {
+            for algorithm in RANGE_MAX_SUBARRAY_ALGORITHMS {
+                assert_eq!(algorithm(a, 0, a.len() - 1), exp);
+            }
+        }
+    }
+
+    #[test]
+    fn test_max_subarray_respects_subrange() {
+        let mut a = vec![-1i32; 25];
+        a[22] = 100;
+        a[23] = 100;
+
+        for algorithm in RANGE_MAX_SUBARRAY_ALGORITHMS {
+            assert_eq!(algorithm(&a, 0, 5), (0, 0, -1));
+        }
     }
 }
