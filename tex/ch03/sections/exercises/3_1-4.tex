@@ -1,9 +1,12 @@
 % Exercise 3.1-4
 
-Since $2^{n + 1} = 2 \cdot 2^n$, i.e., for $g(n) = 2^{n+1}$ and $f(n) = 2^n$, we
-have $g(n) = c \cdot f(n)$ for all $n_0 > 0$, where $c = 2$ and $n_0 = 0$, we do
-have $2^{n + 1} = O(2^n)$.
+Recall that $g(n) = O(f(n))$ requires only $0 \leq g(n) \leq c \cdot f(n)$ for
+all $n \geq n_0$, not equality.
 
-However, $2^{2n} = 2^n \cdot 2^n$, so we do not ahve any $c \in \mathbb{R}^+$
-such that $g(n) = 2^{2n} = c \cdot f(n)$ for $n \geq n_0$, where
-$n, n_0 \in \mathbb{N}$, $f(n) = 2^n$. Thus $2^{2n} \neq O(2^n)$.
+Since $2^{n + 1} = 2 \cdot 2^n$, taking $c = 2$ and $n_0 = 1$ gives
+$0 \leq 2^{n+1} \leq c \cdot 2^n$ for all $n \geq n_0$, so we do have
+$2^{n + 1} = O(2^n)$.
+
+However, $2^{2n} = 2^n \cdot 2^n$, so $2^{2n} \leq c \cdot 2^n$ would require
+$2^n \leq c$ for all $n \geq n_0$. Since $2^n$ is unbounded, no such constant
+$c \in \mathbb{R}^+$ exists, and therefore $2^{2n} \neq O(2^n)$.

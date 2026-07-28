@@ -4,52 +4,50 @@
   Since $n! \leq n^n$ for all $n \geq 1$, we have $\lg{(n!)} \leq
   \lg{n^n} = n\lg{n}$
   for all $n \geq 1$, so that we have $\lg{(n!)} \leq c_2 \cdot (n\lg{n})$ for
-  $n \geq n_0$ with the identifications $c_2 = 1$ and $n_0 = 1$.
-  Now, from Stirling's approximation, we have
+  $n \geq n_0$ with the identifications $c_2 = 1$ and $n_0 = 1$, i.e.
+  $\lg{(n!)} = O(n\lg{n})$.
+
+  For the lower bound we cannot take $c_1 = 1$, since $\lg{(n!)} < n\lg{n}$ for
+  every $n \geq 2$; we must find some constant $c_1 < 1$ instead. From
+  Stirling's approximation,
   \[
     n! = \sqrt{2\pi n} {\biggl(\frac{n}{e}\biggr)}^n
-    \biggl(1 + \Theta \biggl(\frac{1}{n}\biggr)\biggr)
-    = n^{n + 1/2} \frac{\sqrt{2\pi}}{e^n}
-    \biggl(1 + \Theta\biggl(\frac{1}{n}\biggr)\biggr),
+    \biggl(1 + \Theta \biggl(\frac{1}{n}\biggr)\biggr),
   \]
-  so that
+  and taking logarithms,
   \begin{equation*}
     \begin{split}
-      \lg{(n!)} &\geq \lg{n^{n + 1/2}} +
-      \lg{\biggl(\frac{\sqrt{2\pi}}{e^n}\biggr)} \\
-      &= \biggl(n + \frac{1}{2}\biggr)\lg{n} + \lg{\sqrt{2\pi}} - n\lg{e} \\
-      &= n\lg{n} + \frac{1}{2} \lg{n} + \lg{\sqrt{2\pi}} - n\lg{e}.
+      \lg{(n!)} &= \frac{1}{2}\lg{(2\pi n)} + n\lg{n} - n\lg{e}
+      + \lg{\biggl(1 + \Theta\biggl(\frac{1}{n}\biggr)\biggr)} \\
+      &= n\lg{n} - n\lg{e} + \frac{1}{2}\lg{n} + \frac{1}{2}\lg{(2\pi)}
+      + \Theta\biggl(\frac{1}{n}\biggr).
     \end{split}
   \end{equation*}
-  Then, $\lg{(n!)} \geq n\lg{n}$ for
+  The terms $\frac{1}{2}\lg{n}$ and $\frac{1}{2}\lg{(2\pi)}$ are positive for
+  $n \geq 1$, so discarding them can only weaken the bound, and it suffices to
+  show that $n\lg{n} - n\lg{e} \geq \frac{1}{2}n\lg{n}$. This holds exactly when
   \begin{equation*}
     \begin{split}
-      \frac{1}{2}\lg{n} + \lg{\sqrt{2\pi}} - n\lg{e} &\geq 0 \\
-      \Rightarrow n &\geq \frac{\lg{\sqrt{2\pi n}}}{\lg{e}} \\
-      \Rightarrow n - \frac{\lg{n}}{2\lg{e}} &\geq
-      \frac{\lg{\sqrt{2\pi}}}{\lg{e}} \\
-      \Rightarrow n - \frac{1}{2}\ln{n} &\geq \ln{\sqrt{2\pi}} \\
-      \Rightarrow n \geq \ln{\sqrt{2\pi n}}.
+      \frac{1}{2}n\lg{n} &\geq n\lg{e} \\
+      \Leftrightarrow \lg{n} &\geq 2\lg{e} \approx 2.885 \\
+      \Leftrightarrow n &\geq e^2 \approx 7.39,
     \end{split}
   \end{equation*}
-  Thus $\lg{(n!)} = \Theta(n\lg{n})$.
+  so that $\lg{(n!)} \geq \frac{1}{2}(n\lg{n})$ for all $n \geq 8$, and
+  $\lg{(n!)} = \Omega(n\lg{n})$ with $c_1 = \frac{1}{2}$ and $n_0 = 8$.
+
+  Since $\lg{(n!)}$ is both $O(n\lg{n})$ and $\Omega(n\lg{n})$, exercise 3.1-5
+  gives $\lg{(n!)} = \Theta(n\lg{n})$.
 
   Now,
   \[
-    n! = n \cdot (n-1) \cdots 3 \cdot 2 \cdot 1 < n \cdot n \cdots n
-    \quad (n \text{ factors}),
+    \frac{n!}{n^n} = \prod_{k = 1}^n \frac{k}{n}
+    = \frac{1}{n} \cdot \prod_{k = 2}^n \frac{k}{n} \leq \frac{1}{n},
   \]
-  for all $n > 1$, so that we have
-  \[
-    n! = o(n \cdot n \cdots n) = o(n^n).
-  \]
-  Then,
-  \[
-    n! = n \cdot (n-1) \cdots 3 \cdot 2 \cdot 1 > 2 \cdot 2 \cdots 2
-    \quad (n \text{ factors}),
-  \]
-  for all $n > 2$, so that we have
-  \[
-    n! = \omega(2 \cdot 2 \cdots 2) = \omega(2^n).
-  \]
+  since every factor with $k \leq n$ is at most 1. Hence $n!/n^n \to 0$ as
+  $n \to \infty$, and $n! = o(n^n)$.
+
+  Finally, writing $r_n = n!/2^n$, we have $r_n = r_{n - 1} \cdot \frac{n}{2}$,
+  and $\frac{n}{2} \geq 2$ for all $n \geq 4$. Thus $r_n \geq 2r_{n-1}$ from
+  $n = 4$ onwards, so $r_n \to \infty$ and $n! = \omega(2^n)$.
 \end{proof}

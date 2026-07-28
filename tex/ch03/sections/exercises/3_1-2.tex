@@ -1,15 +1,28 @@
 % Exercise 3.1-2
 
 \begin{proof}
-  By the binomial expansion, we have
+  Since $b$ is an arbitrary positive real, the binomial theorem gives no finite
+  expansion of ${(n + a)}^b$, and we instead bound $n + a$ above and below by
+  constant multiples of $n$.
+
+  Take $n_0 = 2\lvert a \rvert$, and let $n \geq n_0$. Then $\lvert a \rvert
+  \leq n/2$, so
   \[
-    {(n + a)}^b = \sum_{k=0}^b \binom{b}{k} n^k a^{b - k},
+    \frac{n}{2} = n - \frac{n}{2} \leq n - \lvert a \rvert \leq n + a
+    \leq n + \lvert a \rvert \leq n + \frac{n}{2} \leq 2n.
   \]
-  and since $b \in \mathbb{R}$ and $b > 0$, it follows that $0 \leq k
-  \leq b$ for
-  all terms in the expansion, so that the highest-order term is
+  Every quantity above is positive, and $t \mapsto t^b$ is monotonically
+  increasing for $b > 0$, so raising the inequality to the power $b$ preserves
+  it:
   \[
-    n^ba^{b - b} = n^b a^0 = n^b.
+    {\biggl(\frac{n}{2}\biggr)}^b \leq {(n + a)}^b \leq {(2n)}^b,
   \]
-  Thus ${(n + a)}^b = \Theta(n^b)$.
+  that is,
+  \[
+    0 \leq \frac{1}{2^b} n^b \leq {(n + a)}^b \leq 2^b n^b
+  \]
+  for all $n \geq n_0$.
+
+  Thus with the identifications $c_1 = 2^{-b}$, $c_2 = 2^b$ and
+  $n_0 = 2\lvert a \rvert$, we have ${(n + a)}^b = \Theta(n^b)$.
 \end{proof}

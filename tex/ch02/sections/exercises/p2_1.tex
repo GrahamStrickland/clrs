@@ -27,23 +27,33 @@
     algorithm on the $n/k$ sublists with a running time of $\Theta(nk)$, so the
     new algorithm will have a running time of
     \[
-      \Theta(n\lg{(n/k)} + nk) = \Theta(n[\lg{(n/k)} + k]) =
-      \Theta(n\lg{(n/k)}).
+      \Theta(nk + n\lg{(n/k)}).
     \]
-  \item[\textbf{c.}] We are looking for the point at which
-    \begin{equation*}
-      \begin{split}
-        \Theta(nk + n\lg{(n/k)}) &= \Theta(n\lg{n}) \\
-        \Leftrightarrow c_1[nk + n\lg{(n/k)}] &= c_2n\lg{n} \\
-        \Leftrightarrow c_2\lg{n} &= c_1[k - \lg{n/k}] \\
-        \Leftrightarrow k + \lg{k} &= \frac{(c_1 + c_2)\lg{n}}{c_2}.
-      \end{split}
-    \end{equation*}
-  \item[\textbf{d.}] In practice, we should choose $k$ to be
-    $\ceil{\lg{n}}$, since
-    this will be the closest point to which
+    Note that the two terms cannot be combined: neither dominates the other for
+    all $k$, since $nk$ is the larger when $k$ is close to $n$ and
+    $n\lg{(n/k)}$ is the larger when $k$ is constant.
+  \item[\textbf{c.}] We want the largest $k$ for which
     \[
-      k + \lg{k} = \frac{(c_1 + c_2)\lg{n}}{c_2},
+      \Theta(nk + n\lg{(n/k)}) = \Theta(n\lg{n}),
     \]
-    where $k \in \mathbb{Z}$.
+    and expanding $\lg{(n/k)} = \lg{n} - \lg{k}$ gives
+    \[
+      nk + n\lg{n} - n\lg{k}.
+    \]
+    The term $n\lg{n} - n\lg{k}$ never exceeds $n\lg{n}$, so the sum is
+    $O(n\lg{n})$ precisely when $nk = O(n\lg{n})$, i.e. when $k = O(\lg{n})$.
+    Conversely, if $k = O(\lg{n})$ then $\lg{k} = O(\lg\lg{n})$ and
+    \[
+      nk + n\lg{n} - n\lg{k} \geq n\lg{n} - n\lg\lg{n} = \Omega(n\lg{n}),
+    \]
+    so the running time is $\Theta(n\lg{n})$ exactly when $k = \Theta(\lg{n})$,
+    and this is the largest such $k$ asymptotically. Any $k = \omega(\lg{n})$
+    makes the $nk$ term $\omega(n\lg{n})$, so the modified algorithm would then
+    be asymptotically slower than standard merge sort.
+  \item[\textbf{d.}] Asymptotically, part \textbf{c.} permits any
+    $k = \Theta(\lg{n})$. In practice the constants hidden by the
+    $\Theta$-notation are what matter, so $k$ should be chosen as the largest
+    sublist length at which \textsc{Insertion-Sort} is still measurably faster
+    than \textsc{Merge-Sort} on the target machine, which is determined
+    empirically rather than analytically.
 \end{itemize}

@@ -1,13 +1,22 @@
 % Exercise 1.2-2
 
-We are looking for the interval where
+Insertion sort beats merge sort exactly when
 \begin{equation*}
   \begin{aligned}
-    8n^2 &< 64n\, \lg{n}\\
-    \Rightarrow n &< 8\, \lg{n}\\
-    \Rightarrow \frac{n}{\lg{n}} &< 8\\
-    \Rightarrow -n \, \lg{n} &< 8\\
-    \Rightarrow n \, \lg{n} &\geq 8.
+    8n^2 &< 64n\, \lg{n} \\
+    \Leftrightarrow n &< 8\, \lg{n},
   \end{aligned}
 \end{equation*}
-For $n < 44$, we have insertion sort faster than merge sort.
+dividing both sides by $8n$, which is positive for all $n \geq 1$.
+
+The function $8\lg{n} - n$ is positive at $n = 2$ and, since $\lg{n}$ grows more
+slowly than $n$, changes sign exactly once. We therefore need the largest
+integer $n$ satisfying $n < 8\lg{n}$:
+\begin{equation*}
+  \begin{aligned}
+    n = 43: \quad 8\lg{43} &\approx 43.42 > 43, \\
+    n = 44: \quad 8\lg{44} &\approx 43.68 < 44.
+  \end{aligned}
+\end{equation*}
+Thus insertion sort beats merge sort for $2 \leq n \leq 43$, and merge sort is
+at least as fast for every $n \geq 44$.

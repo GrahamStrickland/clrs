@@ -1,33 +1,30 @@
 % Exercise A.1-6
 
 \begin{proof}
-  We have
-  \begin{equation*}
-    \begin{split}
-      \sum_{k = 1}^n O(f_k(i)) = \, &O(f_1(i)) + O(f_2(i)) + \cdots +
-      O(f_n(i)) \\
-      = \, &\lbrace f(i) : \text{ there exist positive constants }
-      c \text{ and } i_0 \\
-      &\qquad \text{ such that } 0 \leq f(i) \leq cf_1(i)
-      \text{ for all } i \geq i_0 \rbrace \\
-      &+ \lbrace f(j) : \text{ there exist positive constants }
-      d \text{ and } j_0 \\
-      &\qquad \text{ such that } 0 \leq f(j) \leq df_2(j)
-      \text{ for all } j \geq j_0 \rbrace \\
-      &+ \cdots + \lbrace f(w) : \text{ there exist positive constants }
-      z \text{ and } w_0 \\
-      &\qquad \text{ such that } 0 \leq f(w) \leq zf_n(w)
-      \text{ for all } w \geq w_0 \rbrace.
-    \end{split}
-  \end{equation*}
+  Here $n$ is a constant, independent of $i$, so the sum has a fixed number of
+  terms. For each $k = 1, 2, \ldots, n$, let $g_k(i) \in O(f_k(i))$ be an
+  arbitrary member of that set, so that by definition there are positive
+  constants $c_k$ and $i_k$ with
+  \[
+    0 \leq g_k(i) \leq c_k f_k(i) \quad \text{for all } i \geq i_k.
+  \]
 
-  Interpreting summation in the above as set union, we have a
-  superset $\psi$ where
-  $O(f_1(i)) \subseteq \psi, O(f_2(i)) \subseteq \psi, \ldots
-  O(f_n(i)) \subseteq \psi$,
-  since $\psi = \sum_{k = 1}^n O(f_k(i))$.
+  Put $c = \max\lbrace c_1, c_2, \ldots, c_n \rbrace$ and
+  $i_0 = \max\lbrace i_1, i_2, \ldots, i_n \rbrace$, both of which exist and are
+  finite precisely because there are only $n$ terms. Then for every
+  $i \geq i_0$, all $n$ bounds hold simultaneously and
+  \[
+    0 \leq \sum_{k = 1}^n g_k(i) \leq \sum_{k = 1}^n c_k f_k(i)
+    \leq c \sum_{k = 1}^n f_k(i).
+  \]
 
-  Now, by the linearity property, $f_1(i) + f_2(i) + \cdots f_n(i) =
-  \sum_{k = 1}^n f_k(i)$
-  is in $\psi$, so it follows that $\psi = O\bigl(\sum_{k = 1}^n f_k(i)\bigr)$.
+  Since $\sum_{k=1}^n g_k(i)$ is an arbitrary member of $\sum_{k=1}^n
+  O(f_k(i))$, and we have exhibited constants $c$ and $i_0$ witnessing that it
+  lies in $O\bigl(\sum_{k=1}^n f_k(i)\bigr)$, it follows that
+  \[
+    \sum_{k = 1}^n O(f_k(i)) = O\biggl(\sum_{k = 1}^n f_k(i)\biggr).
+  \]
+
+  Note that the finiteness of $n$ is essential: the argument fails if $n$ is
+  permitted to grow with $i$, since $\max_k c_k$ need not then be bounded.
 \end{proof}

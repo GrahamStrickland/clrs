@@ -1,11 +1,20 @@
 % Exercise 2.3-6
 
 Since the loop invariant of \textsc{Insertion-Sort} guarantees that we have
-$A[1 \ltwodots j - 1]$ sorted, we can use the \textsc{Binary-Search} algorithm
-of 2.3-5 in place of the \textbf{while} loop of lines 5-7.
+$A[1 \ltwodots j - 1]$ sorted, we can indeed use the \textsc{Binary-Search}
+algorithm of 2.3-5 to locate the position at which $A[j]$ belongs, reducing the
+number of \emph{comparisons} for that insertion from $\Theta(j)$ to
+$\Theta(\lg{j})$.
 
-Since every other operation in the algorithm for \textsc{Insertion-Sort} is
-$\Theta(n)$ and the \textbf{while} loop is nested but also $\Theta(n)$, we can
-improve the overall worst-case running time to $\Theta(n\lg{n})$,
-which is better
-than $\Theta(n^2)$ for the original \textsc{Insertion-Sort} algorithm.
+This does not, however, improve the worst-case running time to
+$\Theta(n\lg{n})$. The \textbf{while} loop of lines 5-7 does not only compare
+elements; it also shifts each element of $A[1 \ltwodots j-1]$ that exceeds
+$A[j]$ one position to the right. Binary search locates the insertion point but
+performs none of that movement, and in the worst case, when $A$ is in
+decreasing order, all $j - 1$ elements must still be moved. Summing over every
+iteration of the outer loop gives
+\[
+  \sum_{j = 2}^n \Theta(j) = \Theta(n^2)
+\]
+element movements regardless of how the insertion point is found, so the
+worst-case running time of \textsc{Insertion-Sort} remains $\Theta(n^2)$.

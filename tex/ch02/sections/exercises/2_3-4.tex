@@ -1,24 +1,25 @@
 % Exercise 2.3-4
 
-We let $T(n)$ be the running time of a problem of size $n$. For $n
-\leq 2$, we have
-$T(n) = \Theta(2) = \Theta(1)$, since this is just the process of
-inserting an item
-in either position 1 or 2, so a worst-case time is $\Theta(1)$.
+We let $T(n)$ be the worst-case running time of sorting an array of $n$
+elements. For $n = 1$, we have $T(n) = \Theta(1)$, since a one-element array is
+already sorted and no work is required.
 
-If $n > 2$, our division of the problem yields $n - 1$ subproblems,
-each of which is
-$\frac{n - 1}{n}$ times the size of the original. It takes
-$T(\frac{n(n-1)}{n}) = T(n-1)$
-to solve one subproblem, so it takes $(n-1)T(n-1)$ to solve $n - 1$
-of them. It then
-takes $\Theta(n)$ time to divide the problem into subproblems and
-insert the last item
-in the array into $A[1\ltwodots n-1]$, so we have
+If $n > 1$, the recursion sorts $A[1 \ltwodots n - 1]$ and then inserts $A[n]$
+into that sorted subarray. This yields a \emph{single} subproblem of size
+$n - 1$, not several, so the recursive call costs $T(n - 1)$. The insertion
+itself must shift every element of $A[1 \ltwodots n-1]$ that exceeds $A[n]$ one
+position to the right, which in the worst case is all $n - 1$ of them, and so
+costs $\Theta(n)$. Therefore
 \[
   T(n) =
   \begin{cases}
-    \Theta(1) \quad &\text{if } n \leq 2 \\
-    (n-1)T(n-1) + \Theta(1) \quad &\text{otherwise} \\
+    \Theta(1) \quad &\text{if } n = 1 \\
+    T(n-1) + \Theta(n) \quad &\text{otherwise} \\
   \end{cases}.
 \]
+Unrolling the recurrence gives
+\[
+  T(n) = \sum_{k = 1}^n \Theta(k) = \Theta\biggl(\frac{n(n+1)}{2}\biggr)
+  = \Theta(n^2),
+\]
+the same worst-case running time as the iterative \textsc{Insertion-Sort}.

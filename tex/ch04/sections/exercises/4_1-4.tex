@@ -1,10 +1,13 @@
 % Exercise 4.1-4
 
-In order to account for an empty subarray, we need only specify that
-\textit{left-sum},
-\textit{right-sum}, or \textit{cross-sum} be greater than 0 in the conditional
-\textbf{if} \ldots \textbf{else} statement of our algorithms. We may
-then add a final
-\textbf{else} clause allowing us to return an empty subarray if none
-of the other
-conditionals return a true value.
+The simplest change is to leave the algorithm untouched and inspect its result.
+Run \textsc{Find-Maximum-Subarray} as before; if the sum it returns is negative,
+discard it and return the empty subarray with sum 0 instead, and otherwise
+return the subarray unchanged.
+
+This is correct because a maximum subarray with a negative sum can only arise
+when every element of $A$ is negative, as shown in exercise 4.1-1, and in that
+case the empty subarray, with sum 0, is the better answer under the revised
+definition. Whenever $A$ contains at least one nonnegative element, the maximum
+sum is itself nonnegative and the empty subarray cannot improve on it. The extra
+test costs $\Theta(1)$, so the running time is unchanged.

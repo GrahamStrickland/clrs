@@ -1,51 +1,44 @@
 % Exercise 4.2-3
 
-We have the following algorithm:
+A matrix product does not decompose row by row: each entry $c_{ij} = \sum_k
+a_{ik}b_{kj}$ depends on a whole row of $A$ and a whole column of $B$, so
+stripping off the first row and column and recursing on the remainder does not
+compute $C$. Instead we pad the operands out to a power of two, which the
+partitioning of equations (4.9) does accept, and discard the padding afterwards.
+
+Let $m = 2^{\ceil{\lg{n}}}$ be the smallest power of 2 with $m \geq n$.
 
 \begin{algorithmic}[1]
-  \TITLE{\textsc{Strassen-Multiply}$(A, B)$}
+  \TITLE{\textsc{Strassen-Multiply-Padded}$(A, B)$}
   \STATE $n = A.\mathit{rows}$
-  \STATE let $C$ be a new $n \times n$ matrix
-  \IF{$n == 1$}
-  \STATE $C_{11} = A_{11} \cdot B_{11}$
-  \RETURN $C$
-  \ELSIF{$2 \nmid n$}
+  \STATE $m = 2^{\ceil{\lg{n}}}$
+  \STATE let $A'$ and $B'$ be new $m \times m$ matrices with every entry 0
   \FOR{$i = 1$ \TO $n$}
-  \STATE $c_{i1} = a_{i1} \cdot b_{1i}$
-  \ENDFOR
   \FOR{$j = 1$ \TO $n$}
-  \STATE $c_{1j} = a_{1j} \cdot b_{j1}$
+  \STATE $a'_{ij} = a_{ij}$
+  \STATE $b'_{ij} = b_{ij}$
   \ENDFOR
-  \STATE partition $A$, $B$, and $C$ by excluding top row and left column of each
-         into $A_{\textit{lower}}$, $B_{\textit{lower}}$, and $C_{\textit{lower}}$, respectively
-  \STATE $C_{\textit{lower}} = \textsc{Strassen-Multiply}(A_{\textit{lower}}, B_{\textit{lower}})$
-  \ELSE
-  \STATE partition $A$, $B$, and $C$ as in equations (4.9)
-  \STATE $S_1 = B_{12} - B_{22}$
-  \STATE $S_2 = A_{11} + A_{12}$
-  \STATE $S_3 = A_{21} + A_{22}$
-  \STATE $S_4 = B_{21} - B_{11}$
-  \STATE $S_5 = A_{11} + A_{22}$
-  \STATE $S_6 = B_{11} + B_{22}$
-  \STATE $S_7 = A_{12} - A_{22}$
-  \STATE $S_8 = B_{21} + B_{22}$
-  \STATE $S_9 = A_{11} - A_{21}$
-  \STATE $S_{10} = B_{11} + B_{12}$
-  \STATE $P_1 = \textsc{Strassen-Multiply}(A_{11}, S_1)$
-  \STATE $P_2 = \textsc{Strassen-Multiply}(S_2, B_{22})$
-  \STATE $P_3 = \textsc{Strassen-Multiply}(S_3, B_{11})$
-  \STATE $P_4 = \textsc{Strassen-Multiply}(A_{22}, S_4)$
-  \STATE $P_5 = \textsc{Strassen-Multiply}(S_5, S_6)$
-  \STATE $P_6 = \textsc{Strassen-Multiply}(S_7, S_8)$
-  \STATE $P_7 = \textsc{Strassen-Multiply}(S_9, S_{10})$
-  \STATE $C_{11} = P_5 + P_4 - P_2 + P_6$
-  \STATE $C_{12} = P_1 + P_2$
-  \STATE $C_{21} = P_3 + P_4$
-  \STATE $C_{22} = P_5 + P_1 - P_3 - P_7$
-  \RETURN $C$
-  \ENDIF
+  \ENDFOR
+  \STATE $C' = \textsc{Strassen-Multiply}(A', B')$
+  \RETURN the leading $n \times n$ submatrix of $C'$
 \end{algorithmic}
 
-The second case $2 \nmid n$ adds a single step which takes $2n$ time, so that the 
-algorithm still runs in time $\Theta(n^{\lg{7}} + 2n) = \Theta(n^{\lg{7}})$, 
-since the running time of $\textsc{Strassen-Multiply}$ is $\Theta(n^{\lg{7}})$.
+The padding is correct because the added rows and columns are entirely zero:
+for $i, j \leq n$ we have
+\[
+  c'_{ij} = \sum_{k = 1}^m a'_{ik}b'_{kj}
+  = \sum_{k = 1}^n a_{ik}b_{kj} + \sum_{k = n + 1}^m 0 \cdot 0
+  = c_{ij},
+\]
+so the leading $n \times n$ submatrix of $C'$ is exactly $AB$.
+
+For the running time, note that $m$ is the smallest power of 2 at least $n$, so
+$m < 2n$. Copying the entries costs $\Theta(m^2)$, and
+\textsc{Strassen-Multiply} on an $m \times m$ matrix costs
+$\Theta(m^{\lg{7}})$, which dominates. Hence the total is
+\[
+  \Theta(m^{\lg{7}}) = O\bigl({(2n)}^{\lg{7}}\bigr)
+  = O\bigl(2^{\lg{7}} \cdot n^{\lg{7}}\bigr) = O(n^{\lg{7}}),
+\]
+since $2^{\lg{7}} = 7$ is constant, and the product is trivially
+$\Omega(n^{\lg 7})$, so the algorithm runs in $\Theta(n^{\lg{7}})$ time.

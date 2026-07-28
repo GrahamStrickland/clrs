@@ -1,5 +1,11 @@
 % Exercise 4.1-1
 
-It still returns the maximum subarray, the use of negative values does not
-affect the comparison criteria, as we are still comparing differences between
-successive elements.
+When every element of $A$ is negative, \textsc{Find-Maximum-Subarray} returns a
+single-element subarray $(i, i, A[i])$, where $A[i]$ is the largest, i.e. the
+least negative, element of $A$.
+
+To see this, note that appending any further element to a subarray of a wholly
+negative array strictly decreases its sum. Every subarray of two or more
+elements therefore has a sum smaller than that of its largest element taken
+alone, so the maximum is always attained by one of the one-element base cases of
+the recursion.

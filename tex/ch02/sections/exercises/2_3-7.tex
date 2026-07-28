@@ -1,15 +1,40 @@
 % Exercise 2.3-7
 
-Suppose we take the recursive approach of dividing the set $S$ of $n$
-integers in half
-and checking each half. If the first half has index 1 and index $\floor{n/2}$
-referencing elements such that for $A = S$ enumerated as an array,
-$A[1] = A[\floor{n/2}] = x$, we return $\mathit{true}$. If not, we
-check the other half
-with the same condition and if the condition is $\mathit{false}$ for
-the upper half,
-wle recursively check each lower and upper half of the two subarrays.
-This process of
-repeated recursive subdivisions will have a running time of
-$\Theta(n\lg{n})$, since the
-recurrence is the same as for merge sort.
+We must decide whether \emph{two} elements of $S$ have a sum equal to $x$, not
+whether any single element equals $x$. We first sort $S$ with
+\textsc{Merge-Sort}, and then sweep the sorted array inwards from both ends.
+
+\begin{algorithmic}[1]
+  \TITLE{\textsc{Sum-Exists}$(S, x)$}
+  \STATE let $A[1 \ltwodots n]$ be the elements of $S$
+  \STATE $\textsc{Merge-Sort}(A, 1, n)$
+  \STATE $\mathit{low} = 1$
+  \STATE $\mathit{high} = n$
+  \WHILE{$\mathit{low} < \mathit{high}$}
+  \STATE $\mathit{sum} = A[\mathit{low}] + A[\mathit{high}]$
+  \IF{$\mathit{sum} == x$}
+  \RETURN \textrm{TRUE}
+  \ELSIF{$\mathit{sum} < x$}
+  \STATE $\mathit{low} = \mathit{low} + 1$
+  \ELSE
+  \STATE $\mathit{high} = \mathit{high} - 1$
+  \ENDIF
+  \ENDWHILE
+
+  \RETURN \textrm{FALSE}
+\end{algorithmic}
+
+The condition $\mathit{low} < \mathit{high}$ guarantees that the two elements
+summed are distinct positions of $A$. If $A[\mathit{low}] + A[\mathit{high}] <
+x$ then no element paired with $A[\mathit{low}]$ can reach $x$, since
+$A[\mathit{high}]$ is the largest remaining candidate, and so $\mathit{low}$ may
+safely be advanced; the symmetric argument justifies decrementing
+$\mathit{high}$. Every iteration therefore discards an element that cannot
+participate in any solution, and no pair summing to $x$ is ever lost.
+
+\textsc{Merge-Sort} takes $\Theta(n\lg{n})$ time and the \textbf{while} loop of
+lines 5-13 performs at most $n$ iterations of constant cost, so the total
+running time is
+\[
+  \Theta(n\lg{n}) + \Theta(n) = \Theta(n\lg{n}).
+\]
