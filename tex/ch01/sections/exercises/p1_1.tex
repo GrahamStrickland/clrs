@@ -1,69 +1,71 @@
 % Problem 1-1
 
-From the program in \path{rs/clrs_compruntime/src/main.rs}, we have
-the following
-output:
-\small\begin{verbatim}
-----------------------------------------------------------
-f(n)            1 s             1m              1h
-----------------------------------------------------------
-lg(n)                inf             inf             inf
-sqrt(n)   1.00000000e+12  3.60000000e+15  1.29600000e+19
-n                1000000        60000000  3.60000000e+09
-nlg(n)             62746         2801417       133378058
-n^2                 1000            7745           60000
-n^3                   99             391            1532
-2^n                   19              25              31
-n!                    10              12              13
-----------------------------------------------------------
---------------------------------------------------------------
-      1d              1m              1y              1c
---------------------------------------------------------------
-           inf             inf             inf             inf
-7.46496000e+21  6.71846400e+24  9.94519296e+26  9.94519296e+30
-8.64000000e+10  2.59200000e+12  3.15360000e+13  3.15360000e+15
-2.75514751e+09  7.18708564e+10  7.97633893e+11  6.86109568e+13
-        293938         1609968         5615692        56156922
-          4420           13736           31593          146645
-            36              41              44              51
-            14              16              17              18
---------------------------------------------------------------
-\end{verbatim}\normalsize
-\qquad In generating the above results, we have made use of the
-following two Rust
-functions in \path{rs/clrs_algorithms/src/big_o.rs}:
-\small\begin{verbatim}
-pub fn inverse_nlogn(x: f64) -> f64 {
-    let max_iters = 10;
-    let mut a_0 = x / (x.log2());
-    let mut a_1: f64 = 0.0;
+From the program in \path{cpp/compruntime/main.cpp}, we have Table~\ref{p1_1}. 
+\begin{table}[htbp]
+    \centering
+    \setlength{\tabcolsep}{3pt}
+    \begin{adjustbox}{max width=\textwidth}
+    \begin{tabular}{c | r | r | r | r | r | r | r }
+        \multicolumn{1}{c|}{$f(n)$}
+            & \multicolumn{1}{c|}{\shortstack{1 \\ second}}
+            & \multicolumn{1}{c|}{\shortstack{1 \\ minute}}
+            & \multicolumn{1}{c|}{\shortstack{1 \\ hour}}
+            & \multicolumn{1}{c|}{\shortstack{1 \\ day}}
+            & \multicolumn{1}{c|}{\shortstack{1 \\ month}}
+            & \multicolumn{1}{c|}{\shortstack{1 \\ year}}
+            & \multicolumn{1}{c}{\shortstack{1 \\ century}} \\
+        \hline
+        $\lg{n}$& \verb|inf| & \verb|inf| & \verb|inf| & \verb|inf| & \verb|inf| & \verb|inf| & \verb|inf| \\
+        \hline
+        $\sqrt{n}$ & \verb|1e+12| & \verb|3.6e+15| & \verb|1.296e+19| & \verb|7.46496e+21| & \verb|6.71846e+24| & \verb|9.94519e+26| & \verb|9.94519e+30| \\
+        \hline
+        $n$ & \verb|1e+06| & \verb|6e+07| & \verb|3.6e+09| & \verb|8.64e+10| & \verb|2.592e+12| & \verb|3.1536e+13| & \verb|3.1536e+15| \\
+        \hline
+        $n\lg{n}$ & \verb|62746| & \verb|2.80142e+06| & \verb|1.33378e+08| & \verb|2.75515e+09| & \verb|7.18709e+10| & \verb|7.97634e+11| & \verb|6.8611e+13| \\
+        \hline
+        $n^2$ & \verb|1000| & \verb|7745| & \verb|60000| & \verb|293938| & \verb|1.60997e+06| & \verb|5.61569e+06| & \verb|5.61569e+07| \\
+        \hline
+        $n^3$ & \verb|100| & \verb|391| & \verb|1532| & \verb|4420| & \verb|13736| & \verb|31593| & \verb|146645| \\
+        \hline
+        $2^n$ & \verb|19| & \verb|25| & \verb|31| & \verb|36| & \verb|41| & \verb|44| & \verb|51| \\
+        \hline
+        $n!$ & \verb|9| & \verb|11| & \verb|12| & \verb|13| & \verb|15| & \verb|16| & \verb|17|
+    \end{tabular}
+    \end{adjustbox}
+    \caption{Comparison of running times for the largest problem size $n$ of a problem that can be solved in time $t$, 
+        assuming that the algorithm to solve the problem takes $f(n)$ microseconds\label{p1_1}}
+\end{table}
 
-    for _ in 0..max_iters {
-        a_1 = a_0 - (a_0 * a_0.log2() - x) / ((1.0 / LN_2) + a_0.log2());
-        if ((a_1 * a_1.log2()) - (a_0 * a_0.log2())).abs() < 1.0 {
-            return a_1.floor();
-        } else {
-            a_0 = a_1;
-        }
-    }
+\qquad In generating the above results, we have made use of the following two C++
+functions in \path{cpp/algorithms/big_oh.cpp}:
+\small\begin{verbatim}
+double inverse_nlogn(double x) {
+  std::size_t max_iters = 10;
+  double a_0 = x / std::log2(x), a_1 = 0.0;
 
-    a_1.floor()
+  for (std::size_t i = 0; i < max_iters; ++i) {
+    a_1 = a_0 - ((a_0 * std::log2(a_0) - x) /
+                 ((1.0 / std::log(2.0)) + std::log2(a_0)));
+    if (std::abs((a_1 * std::log2(a_1)) - (a_0 * std::log2(a_0))) < 1)
+      return a_1;
+    else
+      a_0 = a_1;
+  }
+
+  return a_1;
 }
 \end{verbatim}\normalsize
 and:
 \small\begin{verbatim}
-pub fn inverse_factorial(x: f64) -> f64 {
-    let mut i = 0.0;
-    let mut fact = 1.0;
+double inverse_factorial(double x) {
+  double n = 0, fact = 1;
 
-    while fact < x {
-        if i > 0.0 {
-            fact *= i;
-        }
-        i += 1.0;
-    }
+  while (fact * (n + 1) <= x) {
+    n++;
+    fact *= n;
+  }
 
-    i - 1.0
+  return n;
 }
 \end{verbatim}\normalsize
 \texttt{inverse\_nlogn} makes use of Newton's method to calculate an approximate

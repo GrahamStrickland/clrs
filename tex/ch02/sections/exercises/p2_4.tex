@@ -28,6 +28,7 @@
     exists an inversion with $j$ as its second coordinate.
   \item[\textbf{d.}] As with \textsc{Merge-Sort}, we have two subalgorithms, one
     which finds the number of inversions in a given subarray as follows:
+
     \begin{algorithmic}[1]
       \TITLE{\textsc{Merge-Inversions}$(A, p, q, r)$}
       \STATE $n_1 = q - p + 1$
@@ -69,16 +70,15 @@
     and finds the number of inversions in each, we find the total
     number of inversions
     using the following algorithms:
+
     \begin{algorithmic}[1]
       \TITLE{\textsc{Count-Inversions}$(A, p, r, \mathit{inversions})$}
       \IF{$p < r$}
       \STATE $q = \floor{(p + r)/2}$
-      \STATE $\mathit{inversions}
-      = \textsc{Count-Inversions}(A, p, q, \mathit{inversions}) +
-      \mathit{inversions}$
-      \STATE $\mathit{inversions}
-      = \textsc{Count-Inversions}(A, q + 1, r, \mathit{inversions}) +
-      \mathit{inversions}$
+      \STATE $\mathit{inversions} = \mathit{inversions} + {}$ \\
+      \hspace*{2em}$\textsc{Count-Inversions}(A, p, q, \mathit{inversions})$
+      \STATE $\mathit{inversions} = \mathit{inversions} + {}$ \\
+      \hspace*{2em}$\textsc{Count-Inversions}(A, q + 1, r, \mathit{inversions})$
       \STATE $\mathit{inversions}
       = \textsc{Merge-Inversions}(A, p, q, r) + \mathit{inverions}$
       \ENDIF

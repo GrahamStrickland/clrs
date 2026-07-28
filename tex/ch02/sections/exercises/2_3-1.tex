@@ -4,6 +4,8 @@ In Figure~\ref{2_3-1}, we illustrate the operation of \textsc{Merge-Sort} on the
 array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
 
 \begin{figure}[!ht]
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
   \begin{tikzpicture}[>=latex]
     \tikzstyle{row 1} = [nodes={fill=gray!30,draw=black}]
     \matrix[mymat,anchor=west,row
@@ -188,5 +190,6 @@ array $A = \langle 3, 41, 52, 26, 38, 57, 9, 49 \rangle$.
       ($(arr15-1-1.north)+(0,0.2)$) -- ($(arr7-1-2.south)-(0,0.2)$);
     \end{scope}
   \end{tikzpicture}
+  \end{adjustbox}
   \caption{Illustration of \textsc{Merge-Sort}. \label{2_3-1}}
 \end{figure}
