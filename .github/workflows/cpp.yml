@@ -22,7 +22,9 @@ jobs:
         echo "build-output-dir=${{ github.workspace }}/cpp/build" >> "$GITHUB_OUTPUT"
 
     - name: Install Boost
-      run: brew install boost
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libboost-all-dev
 
     - name: Configure CMake
       run: >
