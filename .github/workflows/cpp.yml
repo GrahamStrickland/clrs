@@ -11,7 +11,7 @@ env:
 
 jobs:
   build-test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v7
 
@@ -22,9 +22,7 @@ jobs:
         echo "build-output-dir=${{ github.workspace }}/cpp/build" >> "$GITHUB_OUTPUT"
 
     - name: Install Boost
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libboost-all-dev
+      run: brew install boost
 
     - name: Configure CMake
       run: >

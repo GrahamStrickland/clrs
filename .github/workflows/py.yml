@@ -15,13 +15,13 @@ jobs:
       - name: Format with ruff
         uses: astral-sh/ruff-action@v4.1.0
         with:
-          working-directory: py
+          src: py
           args: "format"
 
       - name: Fix with ruff
         uses: astral-sh/ruff-action@v4.1.0
         with:
-          working-directory: py
+          src: py
           args: "check --fix"
 
       - name: Install the latest version of uv
