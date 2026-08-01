@@ -23,6 +23,7 @@ public:
   square_matrix<T> operator()(std::size_t m, std::size_t n) const;
 
   square_matrix<T> strassen_multiply(const square_matrix<T> &src) const;
+  square_matrix<T> strassen_multiply_padded(const square_matrix<T> &src) const;
 
 private:
   square_matrix<T> square_matrix_multiply(const square_matrix<T> &src) const;

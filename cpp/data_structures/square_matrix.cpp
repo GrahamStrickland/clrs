@@ -85,7 +85,7 @@ square_matrix<T> square_matrix<T>::operator()(std::size_t m,
     return result;
   } else {
     throw matrix_exception("Invalid dimensions, matrix must have "
-                               "dimensions which are a power of 2");
+                           "dimensions which are a power of 2");
   }
 }
 
@@ -123,6 +123,33 @@ square_matrix<T>::strassen_multiply(const square_matrix<T> &src) const {
   result.assign_submatrix(0, 1, p1 + p2);
   result.assign_submatrix(1, 0, p3 + p4);
   result.assign_submatrix(1, 1, p5 + p1 - p3 - p7);
+
+  return result;
+}
+
+template <typename T>
+square_matrix<T>
+square_matrix<T>::strassen_multiply_padded(const square_matrix<T> &src) const {
+  std::size_t n = matrix<T>::m_rows;
+  std::size_t m = std::pow(2, (std::ceil(std::log2(n))));
+
+  square_matrix<T> ap(m), bp(m);
+
+  for (std::size_t i = 0; i < n; i++) {
+    for (std::size_t j = 0; j < n; j++) {
+      ap.m_data[i * m + j] = matrix<T>::m_data[i * n + j];
+      bp.m_data[i * m + j] = src.m_data[i * n + j];
+    }
+  }
+
+  square_matrix<T> cp = ap.strassen_multiply(bp);
+  square_matrix<T> result(n);
+
+  for (std::size_t i = 0; i < n; i++) {
+    for (std::size_t j = 0; j < n; j++) {
+      result.m_data[i * n + j] = cp.m_data[i * m + j];
+    }
+  }
 
   return result;
 }
