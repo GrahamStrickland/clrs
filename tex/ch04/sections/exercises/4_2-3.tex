@@ -1,10 +1,7 @@
 % Exercise 4.2-3
 
-A matrix product does not decompose row by row: each entry $c_{ij} = \sum_k
-a_{ik}b_{kj}$ depends on a whole row of $A$ and a whole column of $B$, so
-stripping off the first row and column and recursing on the remainder does not
-compute $C$. Instead we pad the operands out to a power of two, which the
-partitioning of equations (4.9) does accept, and discard the padding afterwards.
+We pad the operands to a power of two, which the partitioning of 
+equations (4.9) accepts, and discard the padding afterwards.
 
 Let $m = 2^{\ceil{\lg{n}}}$ be the smallest power of 2 with $m \geq n$.
 
@@ -23,22 +20,22 @@ Let $m = 2^{\ceil{\lg{n}}}$ be the smallest power of 2 with $m \geq n$.
   \RETURN the leading $n \times n$ submatrix of $C'$
 \end{algorithmic}
 
-The padding is correct because the added rows and columns are entirely zero:
-for $i, j \leq n$ we have
+The padding is correct because the added rows and columns are entirely zero.
+For $i, j \leq n$ we have
 \[
   c'_{ij} = \sum_{k = 1}^m a'_{ik}b'_{kj}
   = \sum_{k = 1}^n a_{ik}b_{kj} + \sum_{k = n + 1}^m 0 \cdot 0
   = c_{ij},
 \]
-so the leading $n \times n$ submatrix of $C'$ is exactly $AB$.
+so that the leading $n \times n$ submatrix of $C'$ is exactly $AB$.
 
-For the running time, note that $m$ is the smallest power of 2 at least $n$, so
-$m < 2n$. Copying the entries costs $\Theta(m^2)$, and
+For the running time, we note since $m$ is the smallest power of 2 at least $n$,
+we have $m < 2n$. Copying the entries costs $\Theta(m^2)$, and 
 \textsc{Strassen-Multiply} on an $m \times m$ matrix costs
-$\Theta(m^{\lg{7}})$, which dominates. Hence the total is
+$\Theta(m^{\lg{7}})$, which dominates the running time. Thus the total is
 \[
   \Theta(m^{\lg{7}}) = O\bigl({(2n)}^{\lg{7}}\bigr)
   = O\bigl(2^{\lg{7}} \cdot n^{\lg{7}}\bigr) = O(n^{\lg{7}}),
 \]
 since $2^{\lg{7}} = 7$ is constant, and the product is trivially
-$\Omega(n^{\lg 7})$, so the algorithm runs in $\Theta(n^{\lg{7}})$ time.
+$\Omega(n^{\lg 7})$, so that the algorithm runs in $\Theta(n^{\lg{7}})$ time.
