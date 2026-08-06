@@ -1,5 +1,6 @@
 #define BOOST_TEST_MODULE boost_test_algorithms
 
+#include "big_oh.h"
 #include "binary.h"
 #include "max_subarray.h"
 #include "polynomials.h"
@@ -11,6 +12,7 @@
 #include <boost/test/tools/output_test_stream.hpp>
 
 #include <algorithm>
+#include <chrono>
 #include <cstdint>
 
 // make streamable for boost test:
@@ -32,6 +34,55 @@ inline std::ostream &boost_test_print_type(std::ostream &os,
   return os << "}";
 }
 } // namespace std
+
+BOOST_AUTO_TEST_SUITE(test_big_oh)
+
+namespace { // file static visibility
+using namespace std::chrono;
+
+std::vector<std::chrono::duration<long long>> runtimes = {
+    1s,
+    1min,
+    1h,
+    std::chrono::days(1),
+    std::chrono::days(30),
+    std::chrono::days(365),
+    std::chrono::days(36500)};
+
+std::array<double, 7> expected_inverse_nlogns = {
+    62746.0,       2801417.0,      133378058.0,      2755147513.0,
+    71870856404.0, 797633893349.0, 68610956750570.0,
+};
+
+std::array<double, 7> expected_inverse_factorials = {9.0,  11.0, 12.0, 13.0,
+                                                     15.0, 16.0, 17.0};
+
+auto inverse_nlogn_test_cases =
+    boost::unit_test::data::make(runtimes) ^
+    boost::unit_test::data::make(expected_inverse_nlogns);
+auto inverse_factorial_test_cases =
+    boost::unit_test::data::make(runtimes) ^
+    boost::unit_test::data::make(expected_inverse_factorials);
+} // namespace
+
+BOOST_DATA_TEST_CASE(test_inverse_nlogn, inverse_nlogn_test_cases, time, exp) {
+  namespace tt = boost::test_tools;
+
+  auto time_in_microseconds = std::chrono::duration<double>(time).count() * 1E6;
+  auto obs = clrs::algorithms::big_oh::inverse_nlogn(time_in_microseconds);
+
+  BOOST_TEST(obs == exp, tt::tolerance(0.001));
+}
+
+BOOST_DATA_TEST_CASE(test_inverse_factorial, inverse_factorial_test_cases, time,
+                     exp) {
+  auto time_in_microseconds = std::chrono::duration<double>(time).count() * 1E6;
+  auto obs = clrs::algorithms::big_oh::inverse_factorial(time_in_microseconds);
+
+  BOOST_CHECK_EQUAL(obs, exp);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(test_search)
 
@@ -88,9 +139,9 @@ BOOST_AUTO_TEST_CASE(test_binary_search_outside_bounds) {
   BOOST_CHECK_EQUAL(
       clrs::algorithms::search::recursive_binary_search(a, 26, 0, a.size() - 1),
       0);
-  BOOST_CHECK_EQUAL(
-      clrs::algorithms::search::recursive_binary_search(a, 104, 0, a.size() - 1),
-      7);
+  BOOST_CHECK_EQUAL(clrs::algorithms::search::recursive_binary_search(
+                        a, 104, 0, a.size() - 1),
+                    7);
 }
 
 BOOST_AUTO_TEST_CASE(test_search_empty_span) {
