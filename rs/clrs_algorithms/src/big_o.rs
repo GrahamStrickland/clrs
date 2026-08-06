@@ -1,5 +1,6 @@
 use std::f64::consts::LN_2;
 
+/// Computes the inverse of `n log(n)`.
 pub fn inverse_nlogn(x: f64) -> f64 {
     let max_iters = 10;
     let mut a_0 = x / (x.log2());
