@@ -8,11 +8,6 @@ namespace clrs {
 namespace algorithms {
 namespace big_oh {
 
-/**
- * Computes the inverse of `n log(n)`.
- *
- * @param `x` The value `x` such that `n log(n) = x`.
- */
 double inverse_nlogn(double x) {
   std::size_t max_iters = 10;
   double a_0 = x / std::log2(x), a_1 = 0.0;
@@ -29,11 +24,6 @@ double inverse_nlogn(double x) {
   return a_1;
 }
 
-/**
- * Computes the inverse of `n!`, i.e. the largest `n` such that `n! <= x`.
- *
- * @param `x` The value `x` such that `n! = x`.
- */
 double inverse_factorial(double x) {
   double n = 0, fact = 1;
 
