@@ -2,6 +2,15 @@ from math import floor, log, log2
 
 
 def inverse_nlogn(x: float) -> float:
+    """
+    Computes the inverse of `n log(n)`.
+
+    Args:
+        x: The value `x` such that `n log(n) = x`.
+
+    Returns:
+        A floating point approximation to the value `n` such that `n log(n) = x`.
+    """
     max_iters = 10
     a_0 = x / log2(x)
     a_1 = 0.0
@@ -14,3 +23,23 @@ def inverse_nlogn(x: float) -> float:
             a_0 = a_1
 
     return floor(a_1)
+
+
+def inverse_factorial(x: float) -> float:
+    """
+    Computes the inverse of `n!`, i.e. the largest `n` such that `n! <= x`.
+
+    Args:
+        x: The value `x` such that `n! = x`.
+
+    Returns:
+        An floating point approximation to the value `n` such that `n log(n) = x`.
+    """
+    n = 0
+    fact = 1
+
+    while fact * (n + 1) <= x:
+        n += 1
+        fact *= n
+
+    return n

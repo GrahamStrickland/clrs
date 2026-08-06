@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from pytest import approx
 
-from clrs import inverse_nlogn
+from clrs import inverse_factorial, inverse_nlogn
 
 RUNTIMES = [
     timedelta(seconds=1),
@@ -34,3 +34,14 @@ def test_inverse_nlogn():
         res = inverse_nlogn(time_in_microseconds)
 
         assert approx(res, tol) == t[1]
+
+
+def test_inverse_factorial():
+    exps = [9.0, 11.0, 12.0, 13.0, 15.0, 16.0, 17.0]
+
+    for t in zip(RUNTIMES, exps):
+        time_in_microseconds = t[0] / timedelta(microseconds=1)
+
+        res = inverse_factorial(time_in_microseconds)
+
+        assert res == t[1]
