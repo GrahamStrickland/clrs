@@ -22,6 +22,7 @@ include(CTest)
 add_subdirectory(algorithms)
 add_subdirectory(data_structures)
 add_subdirectory(compruntime)
+add_subdirectory(maxsubarraybench)
 
 # Tests
 if(BUILD_TESTING)

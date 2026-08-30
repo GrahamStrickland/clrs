@@ -1,0 +1,18 @@
+% Exercise 3.2-4
+Suppose $f(n) = \ceil{\lg{n}}!$ is not polynomially bounded, so that we have 
+$f(n) \neq O(n^k)$ for any constant $k$, i.e., there do not exist positive constants 
+$c$ and $n_0$ s.t. $0 \leq n^k \leq c\ceil{\lg{n}}!$ for all $n \geq n_0$, for any $k$.
+But we have
+\begin{equation*}
+    \begin{split}
+        \ceil{\lg{n}}! &< (\lg{n} + 1)! \\
+                       &= (\lg{n} + 1)(\lg{n})(\lg{n} - 1) \cdots (2)(1),
+    \end{split}
+\end{equation*}
+and from Striling's approximation, we have
+\begin{equation*}
+    \begin{split}
+        \ceil{\lg{n}}! &= \sqrt{2\pi \ceil{\lg{n}}} {\biggl(\frac{\ceil{\lg{n}}}{e}\biggr)}^{\ceil{\lg{n}}}
+        \Biggl(1 + \Theta\Biggl(\frac{1}{\ceil{\lg{n}}}\Biggr)\Biggr)
+    \end{split}
+\end{equation*}
