@@ -8,6 +8,9 @@
 
 #include "max_subarray.h"
 
+static const int WARMUP_RUNS = 5;
+static const int RUNS_PER_BENCHMARK = 50;
+
 std::vector<int> get_daily_changes(std::vector<int> stock_prices,
                                    std::size_t num_stocks) {
   std::vector<int> daily_changes;
@@ -33,30 +36,34 @@ std::tuple<max_subarray_func_def,
     {find_max_subarray_func, std::string_view("find_max_subarray")}};
 
 template <typename func_type>
-void benchmark_algorithm(std::vector<int> stock_prices, std::size_t num_stocks,
-                         func_type algorithm_func,
-                         std::string_view algorithm_name) {
+std::chrono::duration<double, std::milli>
+benchmark_algorithm(std::vector<int> stock_prices, std::size_t num_stocks,
+                    func_type algorithm_func) {
   std::vector<int> daily_changes = get_daily_changes(stock_prices, num_stocks);
 
-  auto start = std::chrono::high_resolution_clock::now();
-  const std::tuple<std::size_t, std::size_t, int> result =
-      algorithm_func(daily_changes);
-  asm volatile("" : : "g"(&result) : "memory");
+  for (int i = 0; i < WARMUP_RUNS; i++) {
+    const std::tuple<std::size_t, std::size_t, int> _ =
+        algorithm_func(daily_changes);
+  }
 
+  auto start = std::chrono::high_resolution_clock::now();
+  for (int i = 0; i < RUNS_PER_BENCHMARK; i++) {
+    const std::tuple<std::size_t, std::size_t, int> result =
+        algorithm_func(daily_changes);
+    asm volatile("" : : "g"(&result) : "memory");
+  }
   auto end = std::chrono::high_resolution_clock::now();
 
   std::chrono::duration<double, std::milli> duration = end - start;
 
-  std::cout << "Execution time for algorithm \"" << algorithm_name
-            << "\": " << duration.count() << " ms\n";
+  return end - start;
 }
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
-    std::cerr << "Error: Please an integer argument greater than 3 for the "
-                 "maximum size of "
-                 "array used in benchmarking.\n";
-    std::cerr << "Usage: " << argv[0] << " <number>\n";
+    std::cerr << "Error: Please enter an integer argument greater than 3 for "
+                 "the maximum size of array used in benchmarking.\n";
+    std::cerr << "Usage: " << argv[0] << " <number> [-v,--verbose]\n";
     return EXIT_FAILURE;
   }
 
@@ -77,21 +84,32 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
+  bool verbose = argc > 2 && (strcmp(argv[2], "-v") == 0 ||
+                              strcmp(argv[2], "--verbose") == 0);
+
   std::srand(std::time({}));
 
   std::vector<int> stock_prices;
   stock_prices.reserve(max_array_size);
   for (std::size_t num_stocks = 3; num_stocks <= max_array_size; num_stocks++) {
-    std::cout << "============================\n"
-              << "Results for array of size " << num_stocks << ":\n"
-              << "============================\n";
+    if (verbose) {
+      std::cout << "============================\n"
+                << "Results for array of size " << num_stocks << ":\n"
+                << "============================\n";
+    }
     stock_prices.clear();
     for (std::size_t i = 0; i < num_stocks; i++) {
       stock_prices.push_back(std::rand());
     }
 
+    std::chrono::duration<double, std::milli> duration;
     for (auto const &[func, name] : algorithms_and_names) {
-      benchmark_algorithm(stock_prices, num_stocks, func, name);
+      duration = benchmark_algorithm(stock_prices, num_stocks, func);
+      if (verbose) {
+        std::cout << "Execution time for algorithm \"" << name
+                  << "\": " << (duration / RUNS_PER_BENCHMARK).count()
+                  << " ms\n";
+      }
     }
   }
 
