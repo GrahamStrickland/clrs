@@ -60,10 +60,9 @@ fn main() {
         }
     };
 
-    let mut verbose = false;
-    if args.len() > 2 {
-        verbose = args[2] == String::from("-v") || args[2] == String::from("--verbose");
-    }
+    let verbose = args
+        .get(2)
+        .map_or(false, |arg| arg == "-v" || arg == "--verbose");
 
     const ALGORITHMS_AND_NAMES: [(
         fn(&[i32], usize, usize) -> (usize, usize, i32),
