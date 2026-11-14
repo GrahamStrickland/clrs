@@ -1,18 +1,23 @@
 % Exercise 3.2-4
-Suppose $f(n) = \ceil{\lg{n}}!$ is not polynomially bounded, so that we have 
-$f(n) \neq O(n^k)$ for any constant $k$, i.e., there do not exist positive constants 
-$c$ and $n_0$ s.t. $0 \leq n^k \leq c\ceil{\lg{n}}!$ for all $n \geq n_0$, for any $k$.
-But we have
+If $f(n) = \ceil{\lg{n}}!$ is polynomially bounded, we have $f(n) = O(n^k)$ for some 
+constant $k$, i.e., there exist positive constants $c$, $n_0$, $k$ s.t. 
+$0 \leq \ceil{\lg{n}}! \leq cn^k$ for any $n \geq n_0$. Now, if we let $m = \ceil{\lg{n}}$,
+we have
 \begin{equation*}
-    \begin{split}
-        \ceil{\lg{n}}! &< (\lg{n} + 1)! \\
-                       &= (\lg{n} + 1)(\lg{n})(\lg{n} - 1) \cdots (2)(1),
-    \end{split}
+    \begin{aligned}
+        m - 1 &< \lg{n} &&\leq m \\
+        \Leftrightarrow 2^{m - 1} &< 2^{\lg{n}} &&\leq 2^m \\
+        \Leftrightarrow 2^{m - 1} &< n &&\leq 2^m \\
+        \Leftrightarrow c{(2^{m - 1})}^k &< cn^k &&\leq c{(2^m)}^k \\
+        \Leftrightarrow c{(2^k)}^{m - 1} &< cn^k &&\leq c{(2^k)}^m.
+    \end{aligned}
 \end{equation*}
-and from Striling's approximation, we have
-\begin{equation*}
-    \begin{split}
-        \ceil{\lg{n}}! &= \sqrt{2\pi \ceil{\lg{n}}} {\biggl(\frac{\ceil{\lg{n}}}{e}\biggr)}^{\ceil{\lg{n}}}
-        \Biggl(1 + \Theta\Biggl(\frac{1}{\ceil{\lg{n}}}\Biggr)\Biggr)
-    \end{split}
-\end{equation*}
+
+From Striling's approximation, we have
+\[
+    m! = \sqrt{2\pi m} {\biggl(\frac{m}{e}\biggr)}^{m}
+        \Biggl(1 + \Theta\Biggl(\frac{1}{m}\Biggr)\Biggr),
+\]
+which, since it has a factor $m^m$, must grow more quickly than ${(2^k)}^m$ for $m > 2^k$,
+so that we may conclude that $f(n) \neq O(n^k)$ for any such constant $k$, i.e., 
+$\ceil{\lg{n}}!$ is not polynomially bounded.
