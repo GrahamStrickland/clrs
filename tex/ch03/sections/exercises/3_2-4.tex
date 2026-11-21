@@ -3,7 +3,7 @@ If $f(n) = \ceil{\lg{n}}!$ is polynomially bounded, we have $f(n) = O(n^k)$ for 
 constant $k$, i.e., there exist positive constants $c$, $n_0$, $k$ s.t. 
 $0 \leq \ceil{\lg{n}}! \leq cn^k$ for any $n \geq n_0$. Now, if we let $m = \ceil{\lg{n}}$,
 we have
-\begin{equation*}
+\begin{equation} \label{eq3_2-4_i}
     \begin{aligned}
         m - 1 &< \lg{n} &&\leq m \\
         \Leftrightarrow 2^{m - 1} &< 2^{\lg{n}} &&\leq 2^m \\
@@ -11,9 +11,9 @@ we have
         \Leftrightarrow c{(2^{m - 1})}^k &< cn^k &&\leq c{(2^m)}^k \\
         \Leftrightarrow c{(2^k)}^{m - 1} &< cn^k &&\leq c{(2^k)}^m.
     \end{aligned}
-\end{equation*}
+\end{equation}
 
-From Striling's approximation, we have
+From Stirling's approximation, we have
 \[
     m! = \sqrt{2\pi m} {\biggl(\frac{m}{e}\biggr)}^{m}
         \Biggl(1 + \Theta\Biggl(\frac{1}{m}\Biggr)\Biggr),
@@ -21,3 +21,18 @@ From Striling's approximation, we have
 which, since it has a factor $m^m$, must grow more quickly than ${(2^k)}^m$ for $m > 2^k$,
 so that we may conclude that $f(n) \neq O(n^k)$ for any such constant $k$, i.e., 
 $\ceil{\lg{n}}!$ is not polynomially bounded.
+
+Now, if we apply the function $\lg{n}$ to all terms in our equation~\eqref{eq3_2-4_i},
+we have
+\begin{equation*}
+    \begin{aligned}
+        \lg{\biggl(c{(2^k)}^{m - 1}\biggr)} &< \lg{cn^k} 
+            &&\leq \lg{\biggl(c{(2^k)}^m\biggr)} \\
+        \Leftrightarrow \lg{c} + \lg{\biggl({(2^k)}^{m - 1}\biggr)} &< \lg{c} + \lg{n^k} 
+            &&\leq \lg{c} + \lg{\biggl(c{(2^k)}^m\biggr)} \\
+        \Leftrightarrow (m - 1)\lg{2^k} &< \lg{n^k} &&\leq m\lg{2^k} \\
+        \Leftrightarrow k(m - 1)\lg{2} &< k\lg{n} &&\leq km\lg{2} \\
+        \Leftrightarrow (m - 1)\lg{2} &< \lg{n} &&\leq m\lg{2},
+    \end{aligned}
+\end{equation*}
+which is valid for all $n \geq 1$, since that implies $\lg{n} \geq 0$.
